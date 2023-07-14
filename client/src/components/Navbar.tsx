@@ -12,7 +12,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }: { isSidebarOpen: boolean; s
                             viewBox='0 0 24 24'
                             strokeWidth='1.5'
                             stroke='currentColor'
-                            className='h-6 w-6 sm:h-7 sm:w-7'
+                            className='h-6 w-6'
                         >
                             <path strokeLinecap='round' strokeLinejoin='round' d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5' />
                         </svg>
@@ -26,7 +26,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }: { isSidebarOpen: boolean; s
                                 viewBox='0 0 24 24'
                                 strokeWidth='2'
                                 stroke='currentColor'
-                                className='h-5 w-5 sm:h-6 sm:w-6'
+                                className='h-5 w-5'
                             >
                                 <path
                                     strokeLinecap='round'
@@ -35,13 +35,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }: { isSidebarOpen: boolean; s
                                 />
                             </svg>
                         </label>
-                        <input
-                            type='text'
-                            name='search'
-                            id='search'
-                            placeholder='Search...'
-                            className='w-full text-sm sm:text-base focus:outline-none'
-                        />
+                        <input type='text' name='search' id='search' placeholder='Search...' className='w-full text-sm focus:outline-none' />
                     </div>
                 </div>
                 <UserButton />

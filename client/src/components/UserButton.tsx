@@ -15,14 +15,7 @@ const UserButton = () => {
                 className='flex max-w-fit items-center gap-2'
             >
                 <span className=' font-normal text-neutral-500'>
-                    <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                        strokeWidth='1'
-                        stroke='currentColor'
-                        className='h-8 w-8 sm:h-9 sm:w-9'
-                    >
+                    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='currentColor' className='h-8 w-8'>
                         <path
                             strokeLinecap='round'
                             strokeLinejoin='round'
@@ -30,7 +23,7 @@ const UserButton = () => {
                         />
                     </svg>
                 </span>
-                <p className='hidden whitespace-nowrap text-base font-medium lg:block'>John Doe</p>
+                <p className='hidden whitespace-nowrap text-sm font-medium lg:block'>John Doe</p>
                 {isDropdownOpen ? (
                     <svg
                         xmlns='http://www.w3.org/2000/svg'

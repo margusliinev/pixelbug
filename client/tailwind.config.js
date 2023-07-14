@@ -63,7 +63,6 @@ module.exports = {
                     light: 'hsl(var(--primary-light))',
                     'hover-light': 'hsl(var(--primary-hover-light))',
                     DEFAULT: 'hsl(var(--primary))',
-                    hover: 'hsl(var(--primary-hover))',
                     'hover-dark': 'hsl(var(--primary-hover-dark))',
                     dark: 'hsl(var(--primary-dark))',
                     darker: 'hsl(var(--primary-darker))',

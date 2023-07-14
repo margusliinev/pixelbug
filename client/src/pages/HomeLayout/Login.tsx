@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import z from 'zod';
 
+import { MemberCheck } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -61,14 +61,9 @@ const LoginPage = () => {
                             )}
                         ></FormField>
                         <Button type='submit' size={'sm'}>
-                            Submit
+                            Sign In
                         </Button>
-                        <div className='mt-4 flex justify-center gap-2'>
-                            <p>Don&apos;t have an account?</p>
-                            <Link to='/register' className='transition-color hover:text-primary-hover text-base font-semibold text-primary'>
-                                Register
-                            </Link>
-                        </div>
+                        <MemberCheck to={'/register'} question={"Don't have an account?"} text={'Register'} />
                     </form>
                 </Form>
             </div>

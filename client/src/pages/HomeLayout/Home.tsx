@@ -5,10 +5,16 @@ const HomePage = () => {
         <main className='grid min-h-screen place-content-center bg-background text-foreground'>
             <h1 className='justify-self-center text-center text-2xl font-medium md:text-4xl'>Welcome to PixelBug!</h1>
             <div className='mt-4 flex gap-4 justify-self-center'>
-                <Link to={'/login'} className='rounded-md bg-primary p-2 text-xl text-primary-foreground transition-colors hover:bg-primary/90'>
+                <Link
+                    to={'/login'}
+                    className='rounded-md bg-primary p-2 text-xl text-primary-foreground transition-colors hover:bg-primary-hover-dark'
+                >
                     Login
                 </Link>
-                <Link to={'/register'} className='rounded-md bg-primary p-2 text-xl text-primary-foreground transition-colors hover:bg-primary/90'>
+                <Link
+                    to={'/register'}
+                    className='rounded-md bg-primary p-2 text-xl text-primary-foreground transition-colors hover:bg-primary-hover-dark'
+                >
                     Register
                 </Link>
             </div>

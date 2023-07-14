@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import z from 'zod';
 
+import { MemberCheck } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -77,12 +77,7 @@ const RegisterPage = () => {
                         <Button type='submit' size={'sm'}>
                             Sign Up
                         </Button>
-                        <div className='mt-4 flex justify-center gap-2'>
-                            <p>Already have an account?</p>
-                            <Link to='/login' className=' transition-color hover:text-primary-hover font-semibold text-primary'>
-                                Login
-                            </Link>
-                        </div>
+                        <MemberCheck to='/login' question='Already have an account?' text='Login' />
                     </form>
                 </Form>
             </div>
