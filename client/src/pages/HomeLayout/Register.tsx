@@ -30,14 +30,14 @@ const RegisterPage = () => {
     };
 
     return (
-        <main className='h-screen w-screen grid place-content-center'>
-            <div className='w-screen-90 max-w-md mx-auto'>
+        <main className='grid h-screen w-screen place-content-center'>
+            <div className='mx-auto w-screen-90 max-w-md'>
                 <Form {...form}>
-                    <div className='grid place-content-center mb-4'>
+                    <div className='mb-4 grid place-content-center'>
                         <img src={logo} alt='logo' />
                     </div>
-                    <h1 className='font-semibold text-2xl text-center mb-4'>Sign up for an account</h1>
-                    <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4 grid max-w-sm mx-auto'>
+                    <h1 className='mb-4 text-center text-2xl font-semibold'>Sign up for an account</h1>
+                    <form onSubmit={form.handleSubmit(handleSubmit)} className='mx-auto grid max-w-sm space-y-4'>
                         <FormField
                             name='username'
                             render={({ field }) => (
@@ -77,9 +77,9 @@ const RegisterPage = () => {
                         <Button type='submit' size={'sm'}>
                             Sign Up
                         </Button>
-                        <div className='flex justify-center mt-4 gap-2'>
+                        <div className='mt-4 flex justify-center gap-2'>
                             <p>Already have an account?</p>
-                            <Link to='/login' className=' transition-color text-primary font-semibold hover:text-primary-hover'>
+                            <Link to='/login' className=' transition-color hover:text-primary-hover font-semibold text-primary'>
                                 Login
                             </Link>
                         </div>

@@ -33,5 +33,5 @@
         }
     },
     "root": true,
-    "ignorePatterns": ["node_modules", "src/lib", "src/components/ui", "tailwind.config.js"]
+    "ignorePatterns": ["node_modules", "src/lib", "src/components/ui", "tailwind.config.js", "postcss.config.js", "vite.config.ts"]
 }
