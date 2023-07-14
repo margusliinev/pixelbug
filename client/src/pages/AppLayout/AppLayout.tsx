@@ -1,15 +1,16 @@
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { DesktopSidebar } from '@/components';
-
-import { Navbar } from '../../components';
+import { DesktopSidebar, MobileSidebar, Navbar } from '@/components';
 
 const AppLayout = () => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     return (
         <div className='grid lg:grid-cols-sidebar-layout'>
             <DesktopSidebar />
+            <MobileSidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <div>
-                <Navbar />
+                <Navbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
                 <div>
                     <Outlet />
                 </div>

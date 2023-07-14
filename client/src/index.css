@@ -21,8 +21,16 @@
         --border: 0 0% 89.8%;
         --input: 0 0% 89.8%;
 
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
+        /* --primary: 0 0% 9%;
+        --primary-foreground: 0 0% 98%; */
+        --primary-lighter: 156.2, 71.6%, 66.9%;
+        --primary-light: 158.1, 64.4%, 51.6%;
+        --primary-hover-light: 160.1, 84.1%, 39.4%;
+        --primary: 161.4, 93.5%, 30.4%;
+        --primary-hover-dark: 162.9, 93.5%, 24.3%;
+        --primary-dark: 163.1, 88.1%, 19.8%;
+        --primary-darker: 164.2, 85.7%, 16.5%;
+        --primary-foreground: 151.8, 81%, 95.9%;
 
         --secondary: 0 0% 96.1%;
         --secondary-foreground: 0 0% 9%;

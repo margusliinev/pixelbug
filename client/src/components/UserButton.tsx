@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const NavbarUserButton = () => {
+const UserButton = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     return (
         <div className='relative'>
@@ -12,7 +12,7 @@ const NavbarUserButton = () => {
                         setIsDropdownOpen(false);
                     }, 150);
                 }}
-                className='flex max-w-fit items-center gap-3'
+                className='flex max-w-fit items-center gap-2'
             >
                 <span className=' font-normal text-neutral-500'>
                     <svg
@@ -21,7 +21,7 @@ const NavbarUserButton = () => {
                         viewBox='0 0 24 24'
                         strokeWidth='1'
                         stroke='currentColor'
-                        className='h-9 w-9 lg:h-8 lg:w-8'
+                        className='h-8 w-8 sm:h-9 sm:w-9'
                     >
                         <path
                             strokeLinecap='round'
@@ -30,7 +30,7 @@ const NavbarUserButton = () => {
                         />
                     </svg>
                 </span>
-                <p className='hidden whitespace-nowrap text-sm font-medium lg:block'>John Doe</p>
+                <p className='hidden whitespace-nowrap text-base font-medium lg:block'>John Doe</p>
                 {isDropdownOpen ? (
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -38,7 +38,7 @@ const NavbarUserButton = () => {
                         viewBox='0 0 24 24'
                         strokeWidth='2.5'
                         stroke='currentColor'
-                        className='ml-px hidden h-3.5 w-3.5 text-neutral-500 lg:block'
+                        className='ml-1 hidden h-3.5 w-3.5 text-neutral-500 lg:block'
                     >
                         <path strokeLinecap='round' strokeLinejoin='round' d='M4.5 15.75l7.5-7.5 7.5 7.5' />
                     </svg>
@@ -49,13 +49,19 @@ const NavbarUserButton = () => {
                         viewBox='0 0 24 24'
                         strokeWidth='2.5'
                         stroke='currentColor'
-                        className='ml-px hidden h-3.5 w-3.5 text-neutral-500 lg:block'
+                        className='ml-1 hidden h-3.5 w-3.5 text-neutral-500 lg:block'
                     >
                         <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' />
                     </svg>
                 )}
             </button>
-            <div className={isDropdownOpen ? 'absolute right-0 top-10 w-32 rounded-md border bg-background shadow-sm grid' : 'hidden'}>
+            <div
+                className={
+                    isDropdownOpen
+                        ? 'absolute right-0 top-10 w-32 rounded-md border bg-background shadow-sm transition-opacity grid'
+                        : 'absolute right-0 top-10 w-32 rounded-md border bg-background shadow-sm transition-opacity opacity-0 invisible'
+                }
+            >
                 <Link to={'/app/profile'} className='px-3 pt-3 pb-1 text-sm hover:bg-accent w-full'>
                     Your Profile
                 </Link>
@@ -65,4 +71,4 @@ const NavbarUserButton = () => {
     );
 };
 
-export default NavbarUserButton;
+export default UserButton;

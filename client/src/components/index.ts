@@ -1,6 +1,7 @@
 import DesktopSidebar from './DesktopSidebar';
+import MobileSidebar from './MobileSidebar';
 import Navbar from './Navbar';
-import NavbarUserButton from './NavbarUserButton';
 import SidebarLinks from './SidebarLinks';
+import UserButton from './UserButton';
 
-export { DesktopSidebar, Navbar, NavbarUserButton, SidebarLinks };
+export { DesktopSidebar, MobileSidebar, Navbar, SidebarLinks, UserButton };

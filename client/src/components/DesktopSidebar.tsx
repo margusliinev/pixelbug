@@ -9,9 +9,7 @@ const DesktopSidebar = () => {
                     <img src={logo} alt='logo' className='h-10 w-10' />
                     <h1 className='text-xl font-semibold text-emerald-800'>PixelBug</h1>
                 </div>
-                <div className='h-full px-4 py-8'>
-                    <SidebarLinks />
-                </div>
+                <SidebarLinks />
             </div>
         </aside>
     );
