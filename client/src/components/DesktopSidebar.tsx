@@ -4,7 +4,7 @@ import logo from '../assets/logo.svg';
 
 const DesktopSidebar = () => {
     return (
-        <aside className='hidden min-h-screen w-72 z-0 border-r md:block'>
+        <aside className='hidden min-h-screen w-72 z-0 border-r lg:block'>
             <div className='sticky'>
                 <div className='flex items-center gap-2 py-4 px-8 h-20'>
                     <img src={logo} alt='logo' className='w-10 h-10' />

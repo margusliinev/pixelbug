@@ -6,7 +6,7 @@ import { Navbar } from '../../components';
 
 const AppLayout = () => {
     return (
-        <div className='grid md:grid-cols-sidebar-layout'>
+        <div className='grid lg:grid-cols-sidebar-layout'>
             <DesktopSidebar />
             <div>
                 <Navbar />

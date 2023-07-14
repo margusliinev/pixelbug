@@ -1,9 +1,12 @@
+import { useState } from 'react';
+
 const Navbar = () => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     return (
-        <nav className='h-20 top-0 border-b z-50 w-full sticky bg-white grid'>
-            <div className='px-8 md:px-16 flex items-center'>
-                <div className='flex gap-2 w-full'>
-                    <label htmlFor='search' className='text-neutral-500'>
+        <nav className='h-16 top-0 border-b shadow-sm z-50 w-full sticky bg-white grid'>
+            <div className='px-6 xs:px-8 lg:px-12 xl:px-16 flex items-center justify-between'>
+                <div className='flex items-center gap-4'>
+                    <div className='block lg:hidden text-neutral-600 cursor-pointer'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
@@ -12,16 +15,31 @@ const Navbar = () => {
                             stroke='currentColor'
                             className='w-6 h-6'
                         >
-                            <path
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                                d='M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z'
-                            />
+                            <path strokeLinecap='round' strokeLinejoin='round' d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5' />
                         </svg>
-                    </label>
-                    <input type='text' name='search' id='search' placeholder='Search...' className='w-full text-base focus:outline-none' />
+                    </div>
+                    <div className='h-6 w-px bg-neutral-300 lg:hidden'></div>
+                    <div className='flex gap-2 w-full'>
+                        <label htmlFor='search' className='text-neutral-400'>
+                            <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                fill='none'
+                                viewBox='0 0 24 24'
+                                strokeWidth='2'
+                                stroke='currentColor'
+                                className='w-5 h-5'
+                            >
+                                <path
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                    d='M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z'
+                                />
+                            </svg>
+                        </label>
+                        <input type='text' name='search' id='search' placeholder='Search...' className='w-full text-sm focus:outline-none' />
+                    </div>
                 </div>
-                <div className='max-w-fit flex items-center gap-2'>
+                <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className='flex items-center gap-3 max-w-fit'>
                     <span className='font-normal text-neutral-500'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
@@ -29,7 +47,7 @@ const Navbar = () => {
                             viewBox='0 0 24 24'
                             strokeWidth='1'
                             stroke='currentColor'
-                            className='w-6 h-6 md:w-8 md:h-8'
+                            className='w-9 h-9 lg:w-8 lg:h-8'
                         >
                             <path
                                 strokeLinecap='round'
@@ -38,8 +56,31 @@ const Navbar = () => {
                             />
                         </svg>
                     </span>
-                    <p className='text-sm md:text-base whitespace-nowrap font-medium'>John Doe</p>
-                </div>
+                    <p className='hidden text-sm whitespace-nowrap font-medium lg:block'>John Doe</p>
+                    {isDropdownOpen ? (
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth='2.5'
+                            stroke='currentColor'
+                            className='w-3.5 h-3.5 text-neutral-500 hidden lg:block ml-px'
+                        >
+                            <path strokeLinecap='round' strokeLinejoin='round' d='M4.5 15.75l7.5-7.5 7.5 7.5' />
+                        </svg>
+                    ) : (
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth='2.5'
+                            stroke='currentColor'
+                            className='w-3.5 h-3.5 text-neutral-500 hidden lg:block ml-px'
+                        >
+                            <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' />
+                        </svg>
+                    )}
+                </button>
             </div>
         </nav>
     );

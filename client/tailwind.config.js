@@ -42,6 +42,9 @@ module.exports = {
             minHeight: {
                 'screen-minus-nav': 'calc(100vh - 5rem)',
             },
+            screens: {
+                xs: '400px',
+            },
             colors: {
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',
