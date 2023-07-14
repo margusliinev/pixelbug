@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import moment from 'moment';
 
 import { db } from '../../db';
-import { NewUser,users } from '../../db/schema';
+import { NewUser, users } from '../../db/schema';
 import {
     BadRequestError,
     createCookie,

@@ -70,10 +70,7 @@ export const normalizeEmail = (email: string): string => {
 };
 
 export const isEmailUnique = async (email: string): Promise<boolean> => {
-    const result = await db
-        .select()
-        .from(users)
-        .where(and(eq(users.email, email)));
+    const result = await db.select({ email: users.email }).from(users).where(eq(users.email, email));
     if (result.length >= 1) {
         return false;
     } else {
@@ -83,7 +80,7 @@ export const isEmailUnique = async (email: string): Promise<boolean> => {
 
 export const isUpdatedEmailUnique = async (email: string, userId: number): Promise<boolean> => {
     const result = await db
-        .select()
+        .select({ email: users.email })
         .from(users)
         .where(and(eq(users.email, email), not(eq(users.id, userId))));
     if (result.length >= 1) {

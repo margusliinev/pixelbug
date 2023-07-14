@@ -25,5 +25,5 @@ export const getUser = async (req: AuthenticatedRequest, res: Response) => {
         updated_at: result[0].updated_at,
     };
 
-    res.status(200).json({ success: true, user: user });
+    res.status(200).json({ success: true, isAuth: true, user: user });
 };

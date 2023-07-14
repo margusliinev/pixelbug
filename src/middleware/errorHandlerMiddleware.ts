@@ -16,5 +16,9 @@ export const globalErrorHandler = (err: CustomError, req: Request, res: Response
     const status = err.status || 500;
     const message = err.message || '500 Internal Server Error';
 
+    if (status === 401) {
+        res.status(status).json({ success: false, isAuth: false, msg: message });
+    }
+
     res.status(status).json({ success: false, msg: message });
 };

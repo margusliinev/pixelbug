@@ -9,10 +9,10 @@ import {
     isUpdatedEmailUnique,
     normalizeEmail,
     validateEmail,
+    validateJobTitle,
     validateName,
     validatePassword,
     validateUsername,
-    validateJobTitle,
 } from './validation';
 
 export {
@@ -30,9 +30,9 @@ export {
     UnauthenticatedError,
     UnauthorizedError,
     validateEmail,
+    validateJobTitle,
     validateName,
     validatePassword,
     validateUsername,
-    validateJobTitle,
     verifyToken,
 };

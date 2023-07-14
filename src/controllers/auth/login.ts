@@ -2,8 +2,8 @@ import { eq } from 'drizzle-orm';
 import { Request, Response } from 'express';
 
 import { db } from '../../db';
-import { User,users } from '../../db/schema';
-import { BadRequestError, comparePassword,createCookie, createToken, normalizeEmail, UnauthenticatedError } from '../../utils';
+import { User, users } from '../../db/schema';
+import { BadRequestError, comparePassword, createCookie, createToken, normalizeEmail, UnauthenticatedError } from '../../utils';
 
 export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body as User;

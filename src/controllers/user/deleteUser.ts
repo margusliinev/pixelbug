@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { db } from '../../db/index';
 import { users } from '../../db/schema';
-import { AuthenticatedRequest,NotFoundError, UnauthenticatedError } from '../../utils';
+import { AuthenticatedRequest, NotFoundError, UnauthenticatedError } from '../../utils';
 
 export const deleteUser = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
@@ -17,5 +17,5 @@ export const deleteUser = async (req: AuthenticatedRequest, res: Response) => {
         expires: new Date(Date.now()),
     });
 
-    res.status(204).json({ success: true, msg: 'User has been deleted' });
+    res.status(204).json({ success: true, isAuth: true, msg: 'User has been deleted' });
 };
