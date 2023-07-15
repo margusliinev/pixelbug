@@ -1,31 +1,44 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
-import { MemberCheck } from '@/components';
+import { MemberCheck, Spinner } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useLoginMutation } from '@/features/api/apiSlice';
+import { DefaultAPIError } from '@/utils/types';
+import { loginFormSchema } from '@/utils/zodSchemas';
 
 import logo from '../../assets/logo.svg';
 
-const formSchema = z.object({
-    email: z.string().trim(),
-    password: z.string().trim(),
-});
-
 const LoginPage = () => {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const [login, { isLoading }] = useLoginMutation();
+    const navigate = useNavigate();
+
+    const form = useForm<z.infer<typeof loginFormSchema>>({
+        resolver: zodResolver(loginFormSchema),
         defaultValues: {
             email: '',
             password: '',
         },
     });
 
-    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-        if (formSchema.safeParse(values).success) {
-            console.log(values);
+    const handleSubmit = (values: z.infer<typeof loginFormSchema>) => {
+        if (loginFormSchema.safeParse(values).success) {
+            login(values)
+                .unwrap()
+                .then((res) => {
+                    if (res.success) {
+                        navigate('/');
+                    }
+                    return;
+                })
+                .catch((error: DefaultAPIError) => {
+                    form.setError('email', { message: error.data.msg });
+                    form.setError('password', { message: error.data.msg });
+                });
         }
     };
 
@@ -45,11 +58,18 @@ const LoginPage = () => {
                             name='email'
                             render={({ field }) => (
                                 <FormItem>
+                                    <FormMessage className='text-center font-medium' />
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input type='email' placeholder='Email' {...field} />
+                                        <Input
+                                            type='email'
+                                            placeholder='Email'
+                                            {...field}
+                                            onFocus={() => {
+                                                form.clearErrors();
+                                            }}
+                                        />
                                     </FormControl>
-                                    <FormMessage />
                                 </FormItem>
                             )}
                         ></FormField>
@@ -59,14 +79,20 @@ const LoginPage = () => {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input type='password' placeholder='Password' {...field} />
+                                        <Input
+                                            type='password'
+                                            placeholder='Password'
+                                            {...field}
+                                            onFocus={() => {
+                                                form.clearErrors();
+                                            }}
+                                        />
                                     </FormControl>
-                                    <FormMessage />
                                 </FormItem>
                             )}
                         ></FormField>
-                        <Button type='submit' size={'sm'}>
-                            Sign In
+                        <Button type='submit' size={'sm'} disabled={isLoading}>
+                            {isLoading ? <Spinner /> : 'Sign In'}
                         </Button>
                         <MemberCheck to={'/register'} question={"Don't have an account?"} text={'Register'} />
                     </form>

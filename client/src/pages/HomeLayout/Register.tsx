@@ -3,58 +3,21 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
-import { MemberCheck } from '@/components';
+import { MemberCheck, Spinner } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
 import { useRegisterMutation } from '@/features/api/apiSlice';
+import { DefaultAPIError } from '@/utils/types';
+import { registerFormSchema } from '@/utils/zodSchemas';
 
 import logo from '../../assets/logo.svg';
 
-const formSchema = z.object({
-    username: z
-        .string()
-        .trim()
-        .refine((username) => username.length >= 3 && username.length <= 16, {
-            message: 'Username must be between 3 and 16 characters',
-        })
-        .refine((username) => !username.startsWith('-') && !username.endsWith('-'), {
-            message: 'Username cannot start or end with a hyphen',
-        })
-        .refine((username) => /^[a-zA-Z-]+$/.test(username), {
-            message: 'Username can only contain letters A-Z and hyphens (-)',
-        }),
-    email: z
-        .string()
-        .max(50, { message: 'Email must be under 50 characters' })
-        .email({ message: 'Invalid Email' })
-        .trim()
-        .refine((email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email), {
-            message: 'Invalid Email',
-        }),
-    password: z
-        .string()
-        .min(8, { message: 'Password must be at least 8 characters' })
-        .max(50, { message: 'Password must be under 50 characters' })
-        .trim()
-        .refine((password) => /[A-Za-z]/.test(password), {
-            message: 'Password must contain at least one letter',
-        })
-        .refine((password) => /\d/.test(password), {
-            message: 'Password must contain at least one number',
-        })
-        .refine((password) => /^[A-Za-z\d!@#$%&*,.?]+$/.test(password), {
-            message: 'Allowed special characters: !@#$%&*,.?',
-        }),
-});
-
 const RegisterPage = () => {
-    const { toast } = useToast();
     const navigate = useNavigate();
     const [register, { isLoading }] = useRegisterMutation();
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof registerFormSchema>>({
+        resolver: zodResolver(registerFormSchema),
         defaultValues: {
             username: '',
             email: '',
@@ -62,27 +25,27 @@ const RegisterPage = () => {
         },
     });
 
-    const submitForm = async (values: z.infer<typeof formSchema>) => {
-        if (formSchema.safeParse(values).success) {
-            try {
-                const response = await register(values).unwrap();
-                if (response.success) {
-                    navigate('/app');
-                }
-            } catch (error) {
-                if (error.type === 'username') {
-                    form.setError('username', { message: error.message });
-                } else if (error.type === 'email') {
-                    form.setError('email', { message: error.message });
-                } else if (error.type === 'password') {
-                    form.setError('password', { message: error.message });
-                } else {
-                    toast({
-                        title: 'Failed to register the account',
-                        description: 'Please try again later.',
-                    });
-                }
-            }
+    const submitForm = (values: z.infer<typeof registerFormSchema>) => {
+        if (registerFormSchema.safeParse(values).success) {
+            register(values)
+                .unwrap()
+                .then((res) => {
+                    if (res.success) {
+                        navigate('/');
+                    }
+                    return;
+                })
+                .catch((error: DefaultAPIError) => {
+                    if (error.data.type === 'username') {
+                        form.setError('username', { message: error.data.msg });
+                    } else if (error.data.type === 'email') {
+                        form.setError('email', { message: error.data.msg });
+                    } else if (error.data.type === 'password') {
+                        form.setError('password', { message: error.data.msg });
+                    } else {
+                        return;
+                    }
+                });
         }
     };
 
@@ -134,8 +97,8 @@ const RegisterPage = () => {
                                 </FormItem>
                             )}
                         ></FormField>
-                        <Button type='submit' size={'sm'}>
-                            Sign Up
+                        <Button type='submit' size={'sm'} disabled={isLoading}>
+                            {isLoading ? <Spinner /> : 'Sign Up'}
                         </Button>
                         <MemberCheck to='/login' question='Already have an account?' text='Login' />
                     </form>

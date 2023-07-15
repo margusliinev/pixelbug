@@ -12,16 +12,14 @@ const jobTitleRegex = /^[A-Za-z /-]+$/;
 
 export const validateUsername = (username: string): void => {
     if (!usernameRegex.test(username)) {
-        if (!usernameRegex.test(username)) {
-            if (username.length < 3 || username.length > 16) {
-                throw new BadRequestError('username', 'Username must be between 3 and 16 characters.');
-            } else if (username.startsWith('-')) {
-                throw new BadRequestError('username', 'Username cannot start with a hyphen.');
-            } else if (username.endsWith('-')) {
-                throw new BadRequestError('username', 'Username cannot end with a hyphen.');
-            } else {
-                throw new BadRequestError('username', 'Username can only contain letters (A-Z), numbers (0-9), and hyphens (-).');
-            }
+        if (username.length < 3 || username.length > 16) {
+            throw new BadRequestError('username', 'Username must be between 3 and 16 characters.');
+        } else if (username.startsWith('-')) {
+            throw new BadRequestError('username', 'Username cannot start with a hyphen.');
+        } else if (username.endsWith('-')) {
+            throw new BadRequestError('username', 'Username cannot end with a hyphen.');
+        } else {
+            throw new BadRequestError('username', 'Username can only contain letters (A-Z), numbers (0-9), and hyphens (-).');
         }
     }
 };

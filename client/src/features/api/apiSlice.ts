@@ -1,9 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-interface DefaultAPIResponse {
-    success: boolean;
-    msg: string;
-}
+import { DefaultAPIResponse } from '../../utils/types';
 
 interface Register {
     username: string;

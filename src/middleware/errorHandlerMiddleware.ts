@@ -16,10 +16,10 @@ export const globalErrorHandler = (err: CustomError, req: Request, res: Response
 
     const status = err.status || 500;
     const message = err.message || '500 Internal Server Error';
-    const error = err.type || 'server';
+    const errorType = err.type || 'server';
 
     if (status === 400) {
-        res.status(status).json({ success: false, msg: message, error: error });
+        res.status(status).json({ success: false, msg: message, type: errorType });
     }
 
     if (status === 401) {
