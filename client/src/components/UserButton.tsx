@@ -1,8 +1,20 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useLogoutMutation } from '@/features/api/apiSlice';
+import { useAppSelector } from '@/utils/hooks';
 
 const UserButton = () => {
+    const [logout] = useLogoutMutation();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const { user } = useAppSelector((store) => store.user);
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        await logout(null);
+        navigate('/');
+    };
+
     return (
         <div className='relative'>
             <button
@@ -23,7 +35,7 @@ const UserButton = () => {
                         />
                     </svg>
                 </span>
-                <p className='hidden whitespace-nowrap text-sm font-medium lg:block'>John Doe</p>
+                <p className='hidden whitespace-nowrap text-sm font-medium lg:block'>{user?.username}</p>
                 {isDropdownOpen ? (
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -58,7 +70,9 @@ const UserButton = () => {
                 <Link to={'/app/profile'} className='px-3 pt-3 pb-1 text-sm hover:bg-accent w-full'>
                     Your Profile
                 </Link>
-                <button className='px-3 pb-3 pt-1 text-sm hover:bg-accent w-full text-left'>Sign Out</button>
+                <button className='px-3 pb-3 pt-1 text-sm hover:bg-accent w-full text-left' onClick={handleLogout}>
+                    Sign Out
+                </button>
             </div>
         </div>
     );
