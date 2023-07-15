@@ -10,8 +10,8 @@ import { Input } from '@/components/ui/input';
 import logo from '../../assets/logo.svg';
 
 const formSchema = z.object({
-    email: z.string().min(0).max(50).email(),
-    password: z.string().min(8),
+    email: z.string().trim(),
+    password: z.string().trim(),
 });
 
 const LoginPage = () => {
@@ -31,18 +31,21 @@ const LoginPage = () => {
         <main className='grid h-screen w-screen place-content-center'>
             <div className='mx-auto w-screen-90 max-w-md'>
                 <Form {...form}>
-                    <div className='mb-4 grid place-content-center'>
+                    <div className='mb-4 grid place-content-center mx-auto max-w-sm'>
                         <img src={logo} alt='logo' />
                     </div>
-                    <h1 className='mb-4 text-center text-2xl font-semibold'>Sign in to your account</h1>
-                    <form onSubmit={form.handleSubmit(handleSubmit)} className='mx-auto grid max-w-sm space-y-4'>
+                    <div className='mx-auto max-w-sm'>
+                        <h1 className='mb-1 text-2xl font-semibold text-center'>Welcome back!</h1>
+                        <p className='text-sm text-neutral-500 mb-4 text-center'>Please enter your credentials to sign in!</p>
+                    </div>
+                    <form onSubmit={form.handleSubmit(handleSubmit)} className='mx-auto grid max-w-sm space-y-4' noValidate>
                         <FormField
                             name='email'
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input type='email' placeholder='Email' {...field} required />
+                                        <Input type='email' placeholder='Email' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -54,7 +57,7 @@ const LoginPage = () => {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input type='password' placeholder='Password' {...field} required />
+                                        <Input type='password' placeholder='Password' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
