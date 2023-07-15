@@ -31,7 +31,7 @@ const RegisterPage = () => {
                 .unwrap()
                 .then((res) => {
                     if (res.success) {
-                        navigate('/');
+                        navigate('/app');
                     }
                     return;
                 })

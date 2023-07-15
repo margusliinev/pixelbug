@@ -31,7 +31,7 @@ const LoginPage = () => {
                 .unwrap()
                 .then((res) => {
                     if (res.success) {
-                        navigate('/');
+                        navigate('/app');
                     }
                     return;
                 })
