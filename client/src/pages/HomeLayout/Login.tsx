@@ -23,8 +23,10 @@ const LoginPage = () => {
         },
     });
 
-    const handleSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+        if (formSchema.safeParse(values).success) {
+            console.log(values);
+        }
     };
 
     return (

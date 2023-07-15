@@ -24,7 +24,7 @@ export const updateUserProfile = async (req: AuthenticatedRequest, res: Response
     const { username, email, first_name, last_name, job_title } = req.body as NewUser;
 
     if (!username || !email) {
-        throw new BadRequestError('Missing username or email');
+        throw new BadRequestError('form', 'Missing username or email');
     }
 
     validateUsername(username);
@@ -33,7 +33,7 @@ export const updateUserProfile = async (req: AuthenticatedRequest, res: Response
     const normalizedEmail = normalizeEmail(email);
 
     const uniqueEmail = await isUpdatedEmailUnique(normalizedEmail, req.user.userId);
-    if (!uniqueEmail) throw new BadRequestError('Email is already in use');
+    if (!uniqueEmail) throw new BadRequestError('email', 'Email is already in use');
 
     const updateData: Partial<NewUser> = { username: username, email: normalizedEmail };
 

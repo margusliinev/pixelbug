@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 
 interface CustomError extends Error {
     status: number;
+    type: string;
 }
 
 export const notFoundHandler = (req: Request, res: Response, next: NextFunction) => {
@@ -15,6 +16,11 @@ export const globalErrorHandler = (err: CustomError, req: Request, res: Response
 
     const status = err.status || 500;
     const message = err.message || '500 Internal Server Error';
+    const error = err.type || 'server';
+
+    if (status === 400) {
+        res.status(status).json({ success: false, msg: message, error: error });
+    }
 
     if (status === 401) {
         res.status(status).json({ success: false, isAuth: false, msg: message });

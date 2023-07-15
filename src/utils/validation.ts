@@ -14,13 +14,13 @@ export const validateUsername = (username: string): void => {
     if (!usernameRegex.test(username)) {
         if (!usernameRegex.test(username)) {
             if (username.length < 3 || username.length > 16) {
-                throw new BadRequestError('Username must be between 3 and 16 characters.');
+                throw new BadRequestError('username', 'Username must be between 3 and 16 characters.');
             } else if (username.startsWith('-')) {
-                throw new BadRequestError('Username cannot start with a hyphen.');
+                throw new BadRequestError('username', 'Username cannot start with a hyphen.');
             } else if (username.endsWith('-')) {
-                throw new BadRequestError('Username cannot end with a hyphen.');
+                throw new BadRequestError('username', 'Username cannot end with a hyphen.');
             } else {
-                throw new BadRequestError('Username can only contain letters (A-Z), numbers (0-9), and hyphens (-).');
+                throw new BadRequestError('username', 'Username can only contain letters (A-Z), numbers (0-9), and hyphens (-).');
             }
         }
     }
@@ -28,22 +28,22 @@ export const validateUsername = (username: string): void => {
 
 export const validateEmail = (email: string): void => {
     if (!emailRegex.test(email)) {
-        throw new BadRequestError('Email is invalid');
+        throw new BadRequestError('email', 'Email is invalid');
     }
 };
 
 export const validatePassword = (password: string): void => {
     if (!passwordRegex.test(password)) {
         if (password.length < 8) {
-            throw new BadRequestError('Password must be at least 8 characters long');
+            throw new BadRequestError('password', 'Password must be at least 8 characters long');
         } else if (password.length > 50) {
-            throw new BadRequestError('Password must be less than 50 characters long');
+            throw new BadRequestError('password', 'Password must be less than 50 characters long');
         } else if (!/(?=.*[a-z])/.test(password)) {
-            throw new BadRequestError('Password must contain at least one letter');
+            throw new BadRequestError('password', 'Password must contain at least one letter');
         } else if (!/(?=.*\d)/.test(password)) {
-            throw new BadRequestError('Password must contain at least one number');
+            throw new BadRequestError('password', 'Password must contain at least one number');
         } else {
-            throw new BadRequestError('Allowed special characters in password: !@#$%&*,.?');
+            throw new BadRequestError('password', 'Allowed special characters in password: !@#$%&*,.?');
         }
     }
 };
@@ -51,16 +51,16 @@ export const validatePassword = (password: string): void => {
 export const validateName = (name: string): void => {
     if (!nameRegex.test(name)) {
         if (name.length > 16) {
-            throw new BadRequestError('Name must be under 16 characters long.');
+            throw new BadRequestError('name', 'Name must be under 16 characters long.');
         } else {
-            throw new BadRequestError('Name can only contain letters (A-Z).');
+            throw new BadRequestError('name', 'Name can only contain letters (A-Z).');
         }
     }
 };
 
 export const validateJobTitle = (jobTitle: string): void => {
     if (!jobTitleRegex.test(jobTitle)) {
-        throw new BadRequestError('Job title can only contain letters (A-Z), hyphens (-) or forward slash (/).');
+        throw new BadRequestError('job_title', 'Job title can only contain letters (A-Z), hyphens (-) or forward slash (/).');
     }
 };
 

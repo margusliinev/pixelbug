@@ -1,17 +1,16 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
 import { MemberCheck } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
+import { useRegisterMutation } from '@/features/api/apiSlice';
 
 import logo from '../../assets/logo.svg';
-
-// const usernameRegex = /^[a-zA-Z\d](?:[a-zA-Z\d]|-(?=[a-zA-Z\d])){3,16}$/;
-// const emailRegex = /^[^\s@]{1,50}@[^\s@]+\.[^\s@]+$/;
-// const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%&*,.?]{8,50}$/;
 
 const formSchema = z.object({
     username: z
@@ -51,6 +50,9 @@ const formSchema = z.object({
 });
 
 const RegisterPage = () => {
+    const { toast } = useToast();
+    const navigate = useNavigate();
+    const [register, { isLoading }] = useRegisterMutation();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -60,8 +62,28 @@ const RegisterPage = () => {
         },
     });
 
-    const submitForm = (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+    const submitForm = async (values: z.infer<typeof formSchema>) => {
+        if (formSchema.safeParse(values).success) {
+            try {
+                const response = await register(values).unwrap();
+                if (response.success) {
+                    navigate('/app');
+                }
+            } catch (error) {
+                if (error.type === 'username') {
+                    form.setError('username', { message: error.message });
+                } else if (error.type === 'email') {
+                    form.setError('email', { message: error.message });
+                } else if (error.type === 'password') {
+                    form.setError('password', { message: error.message });
+                } else {
+                    toast({
+                        title: 'Failed to register the account',
+                        description: 'Please try again later.',
+                    });
+                }
+            }
+        }
     };
 
     return (

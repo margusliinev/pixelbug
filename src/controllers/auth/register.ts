@@ -19,7 +19,7 @@ export const register = async (req: Request, res: Response) => {
     const { username, email, password } = req.body as NewUser;
 
     if (!username || !email || !password) {
-        throw new BadRequestError('Missing username, email or password');
+        throw new BadRequestError('form', 'Missing username, email or password');
     }
 
     validateUsername(username);
@@ -29,7 +29,7 @@ export const register = async (req: Request, res: Response) => {
     const normalizedEmail = normalizeEmail(email);
 
     const uniqueEmail = await isEmailUnique(normalizedEmail);
-    if (!uniqueEmail) throw new BadRequestError('Email is already in use');
+    if (!uniqueEmail) throw new BadRequestError('email', 'Email is already in use');
 
     const hash = await hashPassword(password);
 
@@ -41,7 +41,7 @@ export const register = async (req: Request, res: Response) => {
         .returning();
 
     const newUser = result[0];
-    if (!newUser) throw new BadRequestError('Failed to create user');
+    if (!newUser) throw new BadRequestError('form', 'Failed to create user');
 
     const token = createToken({ userId: newUser.id, role: 'user' });
 

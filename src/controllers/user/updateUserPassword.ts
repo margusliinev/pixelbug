@@ -20,7 +20,7 @@ export const updateUserPassword = async (req: AuthenticatedRequest, res: Respons
     const { password, newPassword, confirmNewPassword } = req.body as UserUpdatePassword;
 
     if (!password || !newPassword || !confirmNewPassword) {
-        throw new BadRequestError('Missing current password, new password, or confirm password');
+        throw new BadRequestError('form', 'Missing current password, new password, or confirm password');
     }
 
     validatePassword(newPassword);
@@ -31,11 +31,11 @@ export const updateUserPassword = async (req: AuthenticatedRequest, res: Respons
     const passwordMatch = await comparePassword(password, currentPassword);
 
     if (!passwordMatch) {
-        throw new BadRequestError('Your current password is incorrect');
+        throw new BadRequestError('password', 'Your current password is incorrect');
     }
 
     if (newPassword !== confirmNewPassword) {
-        throw new BadRequestError('Passwords do not match');
+        throw new BadRequestError('password_match', 'Passwords do not match');
     }
 
     const hashedPassword = await hashPassword(newPassword);
@@ -44,7 +44,7 @@ export const updateUserPassword = async (req: AuthenticatedRequest, res: Respons
 
     const result = await db.update(users).set({ password: hashedPassword, updated_at: updateTime }).where(eq(users.id, req.user.userId)).returning();
     const updatedUser = result[0];
-    if (!updatedUser) throw new BadRequestError('Failed to update user password');
+    if (!updatedUser) throw new BadRequestError('form', 'Failed to update user password');
 
     const user = {
         id: result[0].id,

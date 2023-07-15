@@ -1,9 +1,11 @@
 export class BadRequestError extends Error {
     status: number;
-    constructor(message: string) {
+    type: string;
+    constructor(key: string, message: string) {
         super(message);
         this.name = 'BadRequestError';
         this.status = 400;
+        this.type = key;
     }
 }
 export class UnauthenticatedError extends Error {

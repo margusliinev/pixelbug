@@ -9,7 +9,7 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body as User;
 
     if (!email || !password) {
-        throw new BadRequestError('Missing email or password');
+        throw new BadRequestError('form', 'Missing email or password');
     }
 
     const normalizedEmail = normalizeEmail(email);
