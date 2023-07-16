@@ -29,7 +29,7 @@ const AppLayout = () => {
 
     return (
         <div className='grid lg:grid-cols-sidebar-layout'>
-            <DesktopSidebar />
+            <DesktopSidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <MobileSidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <div>
                 <Navbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />

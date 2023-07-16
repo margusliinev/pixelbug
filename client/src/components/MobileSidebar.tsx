@@ -13,8 +13,8 @@ const MobileSidebar = ({
             <div
                 className={
                     isSidebarOpen
-                        ? 'fixed h-screen w-screen transition-sidebar duration-700 z-50 bg-gray-900/80 lg:hidden'
-                        : 'fixed h-screen w-screen transition-sidebar duration-700 -z-50 opacity-0 -ml-96 lg:hidden'
+                        ? 'fixed h-screen w-screen transition-opacity duration-700 z-50 bg-gray-900/80 lg:hidden'
+                        : 'fixed h-screen w-screen transition-opacity duration-700 -z-50 opacity-0 -ml-96 lg:hidden'
                 }
             ></div>
             <aside

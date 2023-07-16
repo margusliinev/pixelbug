@@ -1,7 +1,13 @@
 import logo from '../assets/logo.svg';
 import { SidebarLinks } from '.';
 
-const DesktopSidebar = () => {
+const DesktopSidebar = ({
+    isSidebarOpen,
+    setIsSidebarOpen,
+}: {
+    isSidebarOpen: boolean;
+    setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
     return (
         <aside className='z-0 hidden min-h-screen w-72 border-r lg:block'>
             <div className='sticky'>
@@ -9,7 +15,7 @@ const DesktopSidebar = () => {
                     <img src={logo} alt='logo' className='h-10 w-10' />
                     <h1 className='text-xl font-semibold text-emerald-800'>PixelBug</h1>
                 </div>
-                <SidebarLinks />
+                <SidebarLinks isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             </div>
         </aside>
     );
