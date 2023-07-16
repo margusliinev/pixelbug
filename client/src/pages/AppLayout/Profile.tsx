@@ -2,9 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
-// import { Spinner } from '@/components';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'; // import { Spinner } from '@/components';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useAppSelector } from '@/utils/hooks';
 import { User } from '@/utils/types';
@@ -37,15 +37,37 @@ const Profile = () => {
                     <h1 className='mb-1 text-2xl font-semibold'>Personal Information</h1>
                     <p className='text-sm text-neutral-500 mb-4'>Use a permanent address where you can receive mail.</p>
                 </div>
-                <form onSubmit={form.handleSubmit(submitForm)} className='grid max-w-sm space-y-4 w-full' noValidate>
-                    <div className='flex gap-4'>
+                <form className='flex items-center gap-6 mt-4 mb-6'>
+                    <Avatar className='w-24 h-24'>
+                        <AvatarImage src={user?.profile_picture} />
+                        <AvatarFallback className='text-2xl bg-neutral-200'>{user?.username.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <FormField
+                        name='profile_picture'
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel
+                                    htmlFor='profile_picture'
+                                    className='bg-primary text-white p-3 rounded-md font-semibold block w-fit transition-colors hover:bg-primary-hover-dark cursor-pointer'
+                                >
+                                    Change Avatar
+                                </FormLabel>
+                                <FormDescription className='tracking-tight'>JPG or PNG. 1MB max.</FormDescription>
+                                <FormMessage />
+                                <Input type='file' id='profile_picture' accept='image/*' {...field} className='hidden' />
+                            </FormItem>
+                        )}
+                    ></FormField>
+                </form>
+                <form onSubmit={form.handleSubmit(submitForm)} className='grid max-w-xl space-y-4 w-full' noValidate>
+                    <div className='grid grid-cols-2 gap-4'>
                         <FormField
                             name='first_name'
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>First Name</FormLabel>
                                     <FormControl>
-                                        <Input type='text' placeholder='First Name' {...field} />
+                                        <Input type='text' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -57,7 +79,7 @@ const Profile = () => {
                                 <FormItem>
                                     <FormLabel>Last Name</FormLabel>
                                     <FormControl>
-                                        <Input type='text' placeholder='Last Name' {...field} />
+                                        <Input type='text' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -70,7 +92,7 @@ const Profile = () => {
                             <FormItem>
                                 <FormLabel>Username</FormLabel>
                                 <FormControl>
-                                    <Input type='text' placeholder='Username' {...field} />
+                                    <Input type='text' {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -82,7 +104,7 @@ const Profile = () => {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input type='email' placeholder='Email' {...field} />
+                                    <Input type='email' {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -92,15 +114,15 @@ const Profile = () => {
                         name='job_title'
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>Job Title</FormLabel>
                                 <FormControl>
-                                    <Input type='text' placeholder='Job Title' {...field} />
+                                    <Input type='text' {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     ></FormField>
-                    <Button type='submit' size={'sm'}>
+                    <Button type='submit' size={'lg'} className='max-w-fit'>
                         Update Profile
                     </Button>
                 </form>
