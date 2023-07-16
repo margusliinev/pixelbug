@@ -1,4 +1,14 @@
-import { Button } from './ui/button';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 const DeleteAccount = () => {
     return (
@@ -8,9 +18,23 @@ const DeleteAccount = () => {
                 No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this
                 account will be deleted permanently.
             </p>
-            <Button type='submit' variant='destructive' className='max-w-fit'>
-                Yes, delete my account
-            </Button>
+            <AlertDialog>
+                <AlertDialogTrigger className='bg-destructive hover:bg-destructive/90 text-white max-w-fit text-sm py-3 px-4 rounded-md'>
+                    Yes, delete my account
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription className='text-neutral-600'>
+                            This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction className='bg-destructive hover:bg-destructive/90'>Delete</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </form>
     );
 };
