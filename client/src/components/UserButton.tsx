@@ -60,8 +60,8 @@ const UserButton = () => {
             <div
                 className={
                     isDropdownOpen
-                        ? 'absolute right-0 top-10 w-32 rounded-md border bg-background shadow-sm transition-opacity grid'
-                        : 'absolute right-0 top-10 w-32 rounded-md border bg-background shadow-sm transition-opacity opacity-0 invisible'
+                        ? 'absolute right-0 top-12 w-32 rounded-md border bg-background shadow-sm transition-opacity grid'
+                        : 'absolute right-0 top-12 w-32 rounded-md border bg-background shadow-sm transition-opacity opacity-0 invisible'
                 }
             >
                 <Link to={'/app/profile'} className='px-3 pt-3 pb-1 text-sm hover:bg-accent w-full'>

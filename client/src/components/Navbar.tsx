@@ -3,8 +3,8 @@ import { UserButton } from '.';
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }: { isSidebarOpen: boolean; setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     return (
         <nav className='sticky top-0 z-20 grid h-20 w-full border-b bg-white shadow-sm'>
-            <div className='flex items-center justify-between px-6 xs:px-8 lg:px-12 xl:px-16'>
-                <div className='flex items-center gap-4'>
+            <div className='flex items-center justify-between gap-4 px-6 xs:px-8 lg:px-12 xl:px-16'>
+                <div className='flex items-center gap-4 w-full max-w-md'>
                     <button className='block cursor-pointer text-neutral-600 lg:hidden' onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
@@ -18,8 +18,8 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }: { isSidebarOpen: boolean; s
                         </svg>
                     </button>
                     <div className='h-6 w-px bg-neutral-300 lg:hidden'></div>
-                    <div className='flex w-full gap-2'>
-                        <label htmlFor='search' className='text-neutral-400'>
+                    <div className='flex w-full gap-2 ring-1 ring-border p-2 rounded-md'>
+                        <label htmlFor='search' className='text-neutral-400  hidden xs:block'>
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 fill='none'

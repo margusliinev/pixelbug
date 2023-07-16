@@ -37,6 +37,15 @@ export const registerFormSchema = z.object({
         }),
 });
 
+export const loginFormSchema = z.object({
+    email: z.string().trim(),
+    password: z.string().trim(),
+});
+
+export const avatarFormSchema = z.object({
+    profile_picture: z.any().refine((val) => val.length > 0, 'File is required'),
+});
+
 export const profileFormSchema = z.object({
     first_name: z
         .string()
@@ -76,7 +85,27 @@ export const profileFormSchema = z.object({
         }),
 });
 
-export const loginFormSchema = z.object({
-    email: z.string().trim(),
-    password: z.string().trim(),
+export const updatePasswordFormSchema = z.object({
+    password: z
+        .string()
+        .trim()
+        .max(16, { message: 'First name must be under 16 characters' })
+        .refine((password) => /^[a-zA-Z]/.test(password), { message: 'Name can only contain letters (A-Z).' }),
+    newPassword: z
+        .string()
+        .trim()
+        .max(16, { message: 'Last name must be under 16 characters' })
+        .refine((newPassword) => /^[a-zA-Z]/.test(newPassword), { message: 'Name can only contain letters (A-Z).' }),
+    confirmNewPassword: z
+        .string()
+        .trim()
+        .refine((confirmNewPassword) => confirmNewPassword.length >= 3 && confirmNewPassword.length <= 16, {
+            message: 'Username must be between 3 and 16 characters',
+        })
+        .refine((username) => !username.startsWith('-') && !username.endsWith('-'), {
+            message: 'Username cannot start or end with a hyphen',
+        })
+        .refine((username) => /^[a-zA-Z0-9-]+$/.test(username), {
+            message: 'Username can only contain letters A-Z, numbers, and hyphens (-)',
+        }),
 });
