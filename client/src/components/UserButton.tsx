@@ -12,7 +12,7 @@ const UserButton = () => {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        await logout(null);
+        await logout(undefined);
         navigate('/');
     };
 

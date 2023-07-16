@@ -51,12 +51,12 @@ export const profileFormSchema = z.object({
         .string()
         .trim()
         .max(16, { message: 'First name must be under 16 characters' })
-        .refine((first_name) => /^[a-zA-Z]/.test(first_name), { message: 'Name can only contain letters (A-Z).' }),
+        .refine((first_name) => /^[a-zA-Z]/.test(first_name), { message: 'First name can only contain letters (A-Z).' }),
     last_name: z
         .string()
         .trim()
         .max(16, { message: 'Last name must be under 16 characters' })
-        .refine((last_name) => /^[a-zA-Z]/.test(last_name), { message: 'Name can only contain letters (A-Z).' }),
+        .refine((last_name) => /^[a-zA-Z]/.test(last_name), { message: 'Last name can only contain letters (A-Z).' }),
     username: z
         .string()
         .trim()

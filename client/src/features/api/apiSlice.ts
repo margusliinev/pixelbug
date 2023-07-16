@@ -32,7 +32,7 @@ export const apiSlice = createApi({
                 body: user,
             }),
         }),
-        logout: builder.mutation<DefaultAPIResponse, null>({
+        logout: builder.mutation<DefaultAPIResponse, undefined>({
             query: () => ({
                 url: '/logout',
                 method: 'POST',
@@ -53,7 +53,20 @@ export const apiSlice = createApi({
                 body: passwords,
             }),
         }),
+        deleteUser: builder.mutation<DefaultAPIResponse, undefined>({
+            query: () => ({
+                url: '/users/me',
+                method: 'DELETE',
+            }),
+        }),
     }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useLogoutMutation, useUpdateUserProfileMutation, useUpdateUserPasswordMutation } = apiSlice;
+export const {
+    useRegisterMutation,
+    useLoginMutation,
+    useLogoutMutation,
+    useUpdateUserProfileMutation,
+    useUpdateUserPasswordMutation,
+    useDeleteUserMutation,
+} = apiSlice;

@@ -42,7 +42,6 @@ const PersonalInformation = () => {
             await updateUserProfile(values)
                 .unwrap()
                 .then((res) => {
-                    console.log(res);
                     if (res.success) {
                         dispatch(setUser(res.user));
                         toast({
@@ -53,7 +52,7 @@ const PersonalInformation = () => {
                 .catch((error: DefaultAPIError) => {
                     if (error.status === 401) {
                         setUser(null);
-                        logout(null).finally(() => {
+                        logout(undefined).finally(() => {
                             navigate('/');
                         });
                     }

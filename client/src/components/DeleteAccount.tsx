@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -9,8 +11,24 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { useToast } from '@/components/ui/use-toast';
+import { useDeleteUserMutation, useLogoutMutation } from '@/features/api/apiSlice';
 
 const DeleteAccount = () => {
+    const { toast } = useToast();
+    const navigate = useNavigate();
+    const [deleteUser] = useDeleteUserMutation();
+    const [logout] = useLogoutMutation();
+
+    const handleDeleteUser = async () => {
+        await deleteUser(undefined).unwrap();
+        toast({
+            title: 'Account Successfully Deleted!',
+        });
+        await logout(undefined);
+        navigate('/');
+    };
+
     return (
         <form className='grid gap-1 px-6 py-6 xs:px-8 lg:px-12 xl:px-16 pb-12'>
             <h1 className='mb-1 text-2xl font-semibold'>Delete account</h1>
@@ -31,7 +49,9 @@ const DeleteAccount = () => {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction className='bg-destructive hover:bg-destructive/90'>Delete</AlertDialogAction>
+                        <AlertDialogAction className='bg-destructive hover:bg-destructive/90' onClick={handleDeleteUser}>
+                            Delete
+                        </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
