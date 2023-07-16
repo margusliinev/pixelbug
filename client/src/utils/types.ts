@@ -27,8 +27,23 @@ export interface User {
     updated_At: Date;
 }
 
+export interface UpdateUserProfile {
+    first_name: string;
+    last_name: string;
+    username: string;
+    email: string;
+    job_title: string;
+}
+
+export interface UpdateUserPassword {
+    password: string;
+    newPassword: string;
+    confirmNewPassword: string;
+}
+
 export interface UserAPIResponse {
     success: boolean;
     isAuth: boolean;
     user: User;
+    msg: string;
 }

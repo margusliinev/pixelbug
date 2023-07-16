@@ -13,6 +13,7 @@ const AppLayout = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
+            console.log('1');
             const { isAuth } = await dispatch(getUser()).unwrap();
             if (isAuth) {
                 setIsAuthenticated(true);

@@ -2,19 +2,27 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
-// import { Spinner } from '@/components';
+import { Spinner } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useAppSelector } from '@/utils/hooks';
+import { useToast } from '@/components/ui/use-toast';
+import { useUpdateUserProfileMutation } from '@/features/api/apiSlice';
+import { setUser } from '@/features/user/userSlice';
+import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { User } from '@/utils/types';
+import { DefaultAPIError } from '@/utils/types';
 import { profileFormSchema } from '@/utils/zodSchemas';
 
 import { ChangeAvatar } from '.';
 
 const PersonalInformation = () => {
+    const { toast } = useToast();
     const { user } = useAppSelector((store) => store.user);
+    const dispatch = useAppDispatch();
+    const [updateUserProfile, { isLoading }] = useUpdateUserProfileMutation();
     const { first_name, last_name, username, email, job_title } = user as User;
+
     const form = useForm<z.infer<typeof profileFormSchema>>({
         resolver: zodResolver(profileFormSchema),
         defaultValues: {
@@ -26,9 +34,34 @@ const PersonalInformation = () => {
         },
     });
 
-    const submitForm = (values: z.infer<typeof profileFormSchema>) => {
+    const submitForm = async (values: z.infer<typeof profileFormSchema>) => {
         if (profileFormSchema.safeParse(values).success) {
-            console.log(values);
+            await updateUserProfile(values)
+                .unwrap()
+                .then((res) => {
+                    if (res.success) {
+                        dispatch(setUser(res.user));
+                        toast({
+                            title: 'Successfully updated your profile!',
+                            // description: 'Friday, February 10, 2023 at 5:57 PM',
+                        });
+                    }
+                })
+                .catch((error: DefaultAPIError) => {
+                    if (error.data.type === 'username') {
+                        form.setError('username', { message: error.data.msg });
+                    } else if (error.data.type === 'email') {
+                        form.setError('email', { message: error.data.msg });
+                    } else if (error.data.type === 'first_name') {
+                        form.setError('first_name', { message: error.data.msg });
+                    } else if (error.data.type === 'last_name') {
+                        form.setError('last_name', { message: error.data.msg });
+                    } else if (error.data.type === 'job_title') {
+                        form.setError('job_title', { message: error.data.msg });
+                    } else {
+                        return;
+                    }
+                });
         }
     };
     return (
@@ -47,7 +80,7 @@ const PersonalInformation = () => {
                                 <FormItem>
                                     <FormLabel>First Name</FormLabel>
                                     <FormControl>
-                                        <Input type='text' {...field} />
+                                        <Input type='text' {...field} className='capitalize' />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -59,7 +92,7 @@ const PersonalInformation = () => {
                                 <FormItem>
                                     <FormLabel>Last Name</FormLabel>
                                     <FormControl>
-                                        <Input type='text' {...field} />
+                                        <Input type='text' {...field} className='capitalize' />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -102,8 +135,8 @@ const PersonalInformation = () => {
                             </FormItem>
                         )}
                     ></FormField>
-                    <Button type='submit' size={'sm'} className='max-w-fit p-5'>
-                        Update Profile
+                    <Button type='submit' size={'sm'} className='w-36 p-5' disabled={isLoading}>
+                        {isLoading ? <Spinner /> : 'Update Profile'}
                     </Button>
                 </form>
             </Form>

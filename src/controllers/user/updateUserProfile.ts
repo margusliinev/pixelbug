@@ -11,8 +11,9 @@ import {
     normalizeEmail,
     UnauthenticatedError,
     validateEmail,
+    validateFirstName,
     validateJobTitle,
-    validateName,
+    validateLastName,
     validateUsername,
 } from '../../utils';
 
@@ -41,14 +42,14 @@ export const updateUserProfile = async (req: AuthenticatedRequest, res: Response
         const first_name = '';
         updateData.first_name = first_name;
     } else {
-        validateName(first_name);
+        validateFirstName(first_name);
         updateData.first_name = first_name.toLowerCase().trim();
     }
     if (!last_name) {
         const last_name = '';
         updateData.last_name = last_name;
     } else {
-        validateName(last_name);
+        validateLastName(last_name);
         updateData.last_name = last_name.toLowerCase().trim();
     }
     if (!job_title) {

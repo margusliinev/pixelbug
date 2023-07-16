@@ -33,25 +33,35 @@ export const validateEmail = (email: string): void => {
 export const validatePassword = (password: string): void => {
     if (!passwordRegex.test(password)) {
         if (password.length < 8) {
-            throw new BadRequestError('password', 'Password must be at least 8 characters long');
+            throw new BadRequestError('newPassword', 'Password must be at least 8 characters long');
         } else if (password.length > 50) {
-            throw new BadRequestError('password', 'Password must be less than 50 characters long');
+            throw new BadRequestError('newPassword', 'Password must be less than 50 characters long');
         } else if (!/(?=.*[a-z])/.test(password)) {
-            throw new BadRequestError('password', 'Password must contain at least one letter');
+            throw new BadRequestError('newPassword', 'Password must contain at least one letter');
         } else if (!/(?=.*\d)/.test(password)) {
-            throw new BadRequestError('password', 'Password must contain at least one number');
+            throw new BadRequestError('newPassword', 'Password must contain at least one number');
         } else {
-            throw new BadRequestError('password', 'Allowed special characters in password: !@#$%&*,.?');
+            throw new BadRequestError('newPassword', 'Allowed special characters in password: !@#$%&*,.?');
         }
     }
 };
 
-export const validateName = (name: string): void => {
+export const validateFirstName = (name: string): void => {
     if (!nameRegex.test(name)) {
         if (name.length > 16) {
-            throw new BadRequestError('name', 'Name must be under 16 characters long.');
+            throw new BadRequestError('first_name', 'First name must be under 16 characters long.');
         } else {
-            throw new BadRequestError('name', 'Name can only contain letters (A-Z).');
+            throw new BadRequestError('first_name', 'First name can only contain letters (A-Z).');
+        }
+    }
+};
+
+export const validateLastName = (name: string): void => {
+    if (!nameRegex.test(name)) {
+        if (name.length > 16) {
+            throw new BadRequestError('last_name', 'Last name must be under 16 characters long.');
+        } else {
+            throw new BadRequestError('last_name', 'Last name can only contain letters (A-Z).');
         }
     }
 };

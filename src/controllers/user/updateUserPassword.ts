@@ -35,7 +35,7 @@ export const updateUserPassword = async (req: AuthenticatedRequest, res: Respons
     }
 
     if (newPassword !== confirmNewPassword) {
-        throw new BadRequestError('password_match', 'Passwords do not match');
+        throw new BadRequestError('confirmNewPassword', 'Passwords do not match');
     }
 
     const hashedPassword = await hashPassword(newPassword);

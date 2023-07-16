@@ -40,7 +40,7 @@ const RegisterPage = () => {
                         form.setError('username', { message: error.data.msg });
                     } else if (error.data.type === 'email') {
                         form.setError('email', { message: error.data.msg });
-                    } else if (error.data.type === 'password') {
+                    } else if (error.data.type === 'newPassword') {
                         form.setError('password', { message: error.data.msg });
                     } else {
                         return;

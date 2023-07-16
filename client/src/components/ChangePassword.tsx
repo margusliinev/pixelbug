@@ -2,13 +2,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
-// import { Spinner } from '@/components';
+import { Spinner } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
+import { useUpdateUserPasswordMutation } from '@/features/api/apiSlice';
+import { setUser } from '@/features/user/userSlice';
+import { useAppDispatch } from '@/utils/hooks';
+import { DefaultAPIError } from '@/utils/types';
 import { updatePasswordFormSchema } from '@/utils/zodSchemas';
 
 const ChangePassword = () => {
+    const { toast } = useToast();
+    const [updateUserPassword, { isLoading }] = useUpdateUserPasswordMutation();
+    const dispatch = useAppDispatch();
     const form = useForm<z.infer<typeof updatePasswordFormSchema>>({
         resolver: zodResolver(updatePasswordFormSchema),
         defaultValues: {
@@ -18,9 +26,32 @@ const ChangePassword = () => {
         },
     });
 
-    const submitForm = (values: z.infer<typeof updatePasswordFormSchema>) => {
+    const submitForm = async (values: z.infer<typeof updatePasswordFormSchema>) => {
         if (updatePasswordFormSchema.safeParse(values).success) {
-            console.log(values);
+            await updateUserPassword(values)
+                .unwrap()
+                .then((res) => {
+                    if (res.success) {
+                        form.reset();
+                        dispatch(setUser(res.user));
+                        toast({
+                            title: 'Successfully updated your password!',
+                            // description: 'Friday, February 10, 2023 at 5:57 PM',
+                        });
+                    }
+                })
+                .catch((error: DefaultAPIError) => {
+                    if (error.data.type === 'password') {
+                        form.setError('password', { message: error.data.msg });
+                    } else if (error.data.type === 'newPassword') {
+                        form.setError('newPassword', { message: error.data.msg });
+                    } else if (error.data.type === 'confirmNewPassword') {
+                        form.setError('newPassword', { message: error.data.msg });
+                        form.setError('confirmNewPassword', { message: error.data.msg });
+                    } else {
+                        return;
+                    }
+                });
         }
     };
     return (
@@ -49,27 +80,26 @@ const ChangePassword = () => {
                             <FormItem>
                                 <FormLabel>New Password</FormLabel>
                                 <FormControl>
-                                    <Input type='password' {...field} />
+                                    <Input type='password' {...field} onFocus={() => form.clearErrors()} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     ></FormField>
-
                     <FormField
                         name='confirmNewPassword'
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Confirm New Password</FormLabel>
                                 <FormControl>
-                                    <Input type='password' {...field} />
+                                    <Input type='password' {...field} onFocus={() => form.clearErrors()} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     ></FormField>
-                    <Button type='submit' size={'sm'} className='max-w-fit p-5'>
-                        Update Password
+                    <Button type='submit' size={'sm'} className='w-40 p-5' disabled={isLoading}>
+                        {isLoading ? <Spinner /> : 'Update Password'}
                     </Button>
                 </form>
             </Form>

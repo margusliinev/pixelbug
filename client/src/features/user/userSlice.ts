@@ -27,7 +27,15 @@ const getUser = createAsyncThunk<UserAPIResponse>('user/getUser', async () => {
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        setUser: (state, action: PayloadAction<User | null>) => {
+            if (action.payload !== null) {
+                state.user = action.payload;
+            } else {
+                state.user = null;
+            }
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getUser.pending, (state) => {
@@ -45,4 +53,5 @@ const userSlice = createSlice({
 });
 
 export { getUser };
+export const { setUser } = userSlice.actions;
 export default userSlice.reducer;
