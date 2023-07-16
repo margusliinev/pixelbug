@@ -86,7 +86,7 @@ export const profileFormSchema = z.object({
 });
 
 export const updatePasswordFormSchema = z.object({
-    password: z.string().trim(),
-    newPassword: z.string().trim(),
-    confirmNewPassword: z.string().trim(),
+    password: z.string().trim().min(1, { message: 'Please enter your current password' }),
+    newPassword: z.string().trim().min(1, { message: 'Choose a new password' }),
+    confirmNewPassword: z.string().trim().min(1, { message: 'Confirm the new password' }),
 });

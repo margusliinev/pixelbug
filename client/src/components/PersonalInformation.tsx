@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
 import { Spinner } from '@/components';
@@ -7,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
-import { useUpdateUserProfileMutation } from '@/features/api/apiSlice';
+import { useLogoutMutation, useUpdateUserProfileMutation } from '@/features/api/apiSlice';
 import { setUser } from '@/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { User } from '@/utils/types';
@@ -18,9 +19,11 @@ import { ChangeAvatar } from '.';
 
 const PersonalInformation = () => {
     const { toast } = useToast();
-    const { user } = useAppSelector((store) => store.user);
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [updateUserProfile, { isLoading }] = useUpdateUserProfileMutation();
+    const [logout] = useLogoutMutation();
+    const { user } = useAppSelector((store) => store.user);
     const { first_name, last_name, username, email, job_title } = user as User;
 
     const form = useForm<z.infer<typeof profileFormSchema>>({
@@ -39,15 +42,21 @@ const PersonalInformation = () => {
             await updateUserProfile(values)
                 .unwrap()
                 .then((res) => {
+                    console.log(res);
                     if (res.success) {
                         dispatch(setUser(res.user));
                         toast({
-                            title: 'Successfully updated your profile!',
-                            // description: 'Friday, February 10, 2023 at 5:57 PM',
+                            title: 'Profile Successfully Updated!',
                         });
                     }
                 })
                 .catch((error: DefaultAPIError) => {
+                    if (error.status === 401) {
+                        setUser(null);
+                        logout(null).finally(() => {
+                            navigate('/');
+                        });
+                    }
                     if (error.data.type === 'username') {
                         form.setError('username', { message: error.data.msg });
                     } else if (error.data.type === 'email') {

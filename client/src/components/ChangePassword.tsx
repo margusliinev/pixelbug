@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
 import { Spinner } from '@/components';
@@ -7,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
-import { useUpdateUserPasswordMutation } from '@/features/api/apiSlice';
+import { useLogoutMutation, useUpdateUserPasswordMutation } from '@/features/api/apiSlice';
 import { setUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
@@ -15,8 +16,11 @@ import { updatePasswordFormSchema } from '@/utils/zodSchemas';
 
 const ChangePassword = () => {
     const { toast } = useToast();
+    const navigate = useNavigate();
     const [updateUserPassword, { isLoading }] = useUpdateUserPasswordMutation();
+    const [logout] = useLogoutMutation();
     const dispatch = useAppDispatch();
+
     const form = useForm<z.infer<typeof updatePasswordFormSchema>>({
         resolver: zodResolver(updatePasswordFormSchema),
         defaultValues: {
@@ -35,12 +39,17 @@ const ChangePassword = () => {
                         form.reset();
                         dispatch(setUser(res.user));
                         toast({
-                            title: 'Successfully updated your password!',
-                            // description: 'Friday, February 10, 2023 at 5:57 PM',
+                            title: 'Password Successfully Updated!',
                         });
                     }
                 })
                 .catch((error: DefaultAPIError) => {
+                    if (error.status === 401) {
+                        setUser(null);
+                        logout(null).finally(() => {
+                            navigate('/');
+                        });
+                    }
                     if (error.data.type === 'password') {
                         form.setError('password', { message: error.data.msg });
                     } else if (error.data.type === 'newPassword') {
