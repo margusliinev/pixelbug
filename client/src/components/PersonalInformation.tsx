@@ -35,7 +35,7 @@ const PersonalInformation = () => {
         <div className='grid px-6 py-4 xs:px-8 lg:px-12 xl:px-16'>
             <div>
                 <h1 className='mb-1 text-2xl font-semibold'>Personal Information</h1>
-                <p className='text-sm text-neutral-500 mb-4'>Use a permanent address where you can receive mail.</p>
+                <p className='text-sm text-gray-600 mb-4'>Use a permanent address where you can receive mail.</p>
             </div>
             <ChangeAvatar />
             <Form {...form}>
@@ -102,7 +102,7 @@ const PersonalInformation = () => {
                             </FormItem>
                         )}
                     ></FormField>
-                    <Button type='submit' size={'lg'} className='max-w-fit'>
+                    <Button type='submit' size={'sm'} className='max-w-fit p-5'>
                         Update Profile
                     </Button>
                 </form>

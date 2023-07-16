@@ -58,7 +58,7 @@ const RegisterPage = () => {
                     </div>
                     <div className='mx-auto max-w-sm'>
                         <h1 className='mb-1 text-center text-2xl font-semibold'>Create an account</h1>
-                        <p className='text-sm text-neutral-500 mb-4 text-center'>And lets get you started with your free trial</p>
+                        <p className='text-sm text-gray-600 mb-4 text-center'>And lets get you started with your free trial</p>
                     </div>
                     <form onSubmit={form.handleSubmit(submitForm)} className='mx-auto grid max-w-sm space-y-4' noValidate>
                         <FormField
@@ -67,7 +67,7 @@ const RegisterPage = () => {
                                 <FormItem>
                                     <FormLabel>Username</FormLabel>
                                     <FormControl>
-                                        <Input type='text' placeholder='Username' {...field} />
+                                        <Input type='text' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -79,7 +79,7 @@ const RegisterPage = () => {
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input type='email' placeholder='Email' {...field} />
+                                        <Input type='email' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -91,7 +91,7 @@ const RegisterPage = () => {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input type='password' placeholder='Password' {...field} />
+                                        <Input type='password' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

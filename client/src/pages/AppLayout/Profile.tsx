@@ -1,4 +1,4 @@
-import { ChangePassword, PersonalInformation } from '@/components';
+import { ChangePassword, DeleteAccount, PersonalInformation } from '@/components';
 
 const Profile = () => {
     return (
@@ -6,6 +6,8 @@ const Profile = () => {
             <PersonalInformation />
             <hr className='m-4' />
             <ChangePassword />
+            <hr className='m-4' />
+            <DeleteAccount />
         </main>
     );
 };

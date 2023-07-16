@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
-import { Spinner } from '@/components';
+// import { Spinner } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -28,35 +28,34 @@ const ChangePassword = () => {
             <Form {...form}>
                 <div>
                     <h1 className='mb-1 text-2xl font-semibold'>Change password</h1>
-                    <p className='text-sm text-neutral-500 mb-4'>Update your password associated with your account.</p>
+                    <p className='text-sm text-gray-600 mb-4'>Update your password associated with your account.</p>
                 </div>
                 <form onSubmit={form.handleSubmit(submitForm)} className='grid max-w-xl space-y-4 w-full' noValidate>
-                    <div className='grid grid-cols-2 gap-4'>
-                        <FormField
-                            name='password'
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Current Password</FormLabel>
-                                    <FormControl>
-                                        <Input type='password' {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        ></FormField>
-                        <FormField
-                            name='newPassword'
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>New Password</FormLabel>
-                                    <FormControl>
-                                        <Input type='password' {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        ></FormField>
-                    </div>
+                    <FormField
+                        name='password'
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Current Password</FormLabel>
+                                <FormControl>
+                                    <Input type='password' {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    ></FormField>
+                    <FormField
+                        name='newPassword'
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>New Password</FormLabel>
+                                <FormControl>
+                                    <Input type='password' {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    ></FormField>
+
                     <FormField
                         name='confirmNewPassword'
                         render={({ field }) => (
@@ -69,7 +68,7 @@ const ChangePassword = () => {
                             </FormItem>
                         )}
                     ></FormField>
-                    <Button type='submit' size={'lg'} className='max-w-fit'>
+                    <Button type='submit' size={'sm'} className='max-w-fit p-5'>
                         Update Password
                     </Button>
                 </form>

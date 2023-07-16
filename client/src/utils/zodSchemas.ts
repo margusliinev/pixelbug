@@ -43,7 +43,7 @@ export const loginFormSchema = z.object({
 });
 
 export const avatarFormSchema = z.object({
-    profile_picture: z.any().refine((val) => val.length > 0, 'File is required'),
+    profile_picture: z.any(),
 });
 
 export const profileFormSchema = z.object({

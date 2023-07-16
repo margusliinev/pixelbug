@@ -51,7 +51,7 @@ const LoginPage = () => {
                     </div>
                     <div className='mx-auto max-w-sm'>
                         <h1 className='mb-1 text-2xl font-semibold text-center'>Welcome back!</h1>
-                        <p className='text-sm text-neutral-500 mb-4 text-center'>Please enter your credentials to sign in!</p>
+                        <p className='text-sm text-gray-600 mb-4 text-center'>Please enter your credentials to sign in!</p>
                     </div>
                     <form onSubmit={form.handleSubmit(handleSubmit)} className='mx-auto grid max-w-sm space-y-4' noValidate>
                         <FormField
@@ -63,7 +63,6 @@ const LoginPage = () => {
                                     <FormControl>
                                         <Input
                                             type='email'
-                                            placeholder='Email'
                                             {...field}
                                             onFocus={() => {
                                                 form.clearErrors();
@@ -81,7 +80,6 @@ const LoginPage = () => {
                                     <FormControl>
                                         <Input
                                             type='password'
-                                            placeholder='Password'
                                             {...field}
                                             onFocus={() => {
                                                 form.clearErrors();

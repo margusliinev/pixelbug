@@ -33,7 +33,7 @@ const ChangeAvatar = () => {
                         <FormItem>
                             <FormLabel
                                 htmlFor='profile_picture'
-                                className='bg-primary text-white p-3 rounded-md font-semibold block w-fit transition-colors hover:bg-primary-hover-dark cursor-pointer'
+                                className='bg-primary text-white p-3 rounded-md block w-fit transition-colors hover:bg-primary-hover-dark cursor-pointer'
                             >
                                 Change Avatar
                             </FormLabel>
