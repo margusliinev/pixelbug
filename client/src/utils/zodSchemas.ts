@@ -50,11 +50,13 @@ export const profileFormSchema = z.object({
     first_name: z
         .string()
         .trim()
+        .min(1, { message: 'Please enter your first name' })
         .max(16, { message: 'First name must be under 16 characters' })
         .refine((first_name) => /^[a-zA-Z]/.test(first_name), { message: 'First name can only contain letters (A-Z).' }),
     last_name: z
         .string()
         .trim()
+        .min(1, { message: 'Please enter your last name' })
         .max(16, { message: 'Last name must be under 16 characters' })
         .refine((last_name) => /^[a-zA-Z]/.test(last_name), { message: 'Last name can only contain letters (A-Z).' }),
     username: z
@@ -80,6 +82,7 @@ export const profileFormSchema = z.object({
     job_title: z
         .string()
         .trim()
+        .min(1, { message: 'Please add your job title' })
         .refine((job_title) => /^[A-Za-z /-]+$/.test(job_title), {
             message: 'Job title can only contain letters (A-Z), hyphens (-) or forward slash (/).',
         }),

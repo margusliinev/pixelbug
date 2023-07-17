@@ -45,7 +45,7 @@ const ChangePassword = () => {
                 })
                 .catch((error: DefaultAPIError) => {
                     if (error.status === 401) {
-                        setUser(null);
+                        dispatch(setUser(null));
                         logout(undefined).finally(() => {
                             navigate('/');
                         });

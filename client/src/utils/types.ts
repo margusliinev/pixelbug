@@ -23,8 +23,8 @@ export interface User {
     profile_picture: string;
     verified: boolean;
     role: 'user' | 'admin' | 'test';
-    created_t: Date;
-    updated_At: Date;
+    created_at: Date;
+    updated_at: Date;
 }
 
 export interface UpdateUserProfile {

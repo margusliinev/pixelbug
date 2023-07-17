@@ -53,7 +53,7 @@ export const apiSlice = createApi({
                 body: passwords,
             }),
         }),
-        deleteUser: builder.mutation<DefaultAPIResponse, undefined>({
+        deleteUser: builder.mutation({
             query: () => ({
                 url: '/users/me',
                 method: 'DELETE',

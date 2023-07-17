@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useToast } from '@/components/ui/use-toast';
 import { useDeleteUserMutation, useLogoutMutation } from '@/features/api/apiSlice';
+import { DefaultAPIError } from '@/utils/types';
 
 const DeleteAccount = () => {
     const { toast } = useToast();
@@ -21,11 +22,16 @@ const DeleteAccount = () => {
     const [logout] = useLogoutMutation();
 
     const handleDeleteUser = async () => {
-        await deleteUser(undefined).unwrap();
+        await deleteUser(undefined).catch((error: DefaultAPIError) => {
+            if (error.status === 401) {
+                logout(undefined).finally(() => {
+                    return;
+                });
+            }
+        });
         toast({
             title: 'Account Successfully Deleted!',
         });
-        await logout(undefined);
         navigate('/');
     };
 

@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import moment from 'moment';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
@@ -26,6 +27,9 @@ const PersonalInformation = () => {
     const { user } = useAppSelector((store) => store.user);
     const { first_name, last_name, username, email, job_title } = user as User;
 
+    const date = user?.updated_at.toLocaleString('en-EU', { timeZone: 'gmt' });
+    const formattedDate = moment(date).format('Do MMMM');
+
     const form = useForm<z.infer<typeof profileFormSchema>>({
         resolver: zodResolver(profileFormSchema),
         defaultValues: {
@@ -51,7 +55,7 @@ const PersonalInformation = () => {
                 })
                 .catch((error: DefaultAPIError) => {
                     if (error.status === 401) {
-                        setUser(null);
+                        dispatch(setUser(null));
                         logout(undefined).finally(() => {
                             navigate('/');
                         });
@@ -75,7 +79,14 @@ const PersonalInformation = () => {
     return (
         <div className='grid px-6 py-4 xs:px-8 lg:px-12 xl:px-16'>
             <div>
-                <h1 className='mb-1 text-2xl font-semibold'>Personal Information</h1>
+                <h1 className='mb-1 text-2xl font-semibold flex items-center gap-2'>
+                    Personal Information{' '}
+                    {user?.created_at === user?.updated_at ? (
+                        <span className='text-sm text-destructive font-medium mt-1 whitespace-nowrap'>(Profile not complete)</span>
+                    ) : (
+                        <span className='text-sm text-neutral-500 font-normal mt-1'>Last update: {formattedDate}</span>
+                    )}
+                </h1>
                 <p className='text-sm text-gray-600 mb-4'>Use a permanent address where you can receive mail.</p>
             </div>
             <ChangeAvatar />

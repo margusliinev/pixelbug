@@ -31,8 +31,9 @@ const UserButton = () => {
                     <AvatarImage src={user?.profile_picture} />
                     <AvatarFallback className='bg-neutral-200'>{user?.username.charAt(0)}</AvatarFallback>
                 </Avatar>
-
-                <p className='hidden whitespace-nowrap text-sm font-medium lg:block'>{user?.username}</p>
+                <p className='hidden whitespace-nowrap text-sm font-medium lg:block capitalize'>
+                    {user?.first_name && user.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
+                </p>
                 {isDropdownOpen ? (
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
