@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -21,7 +21,6 @@ const ChangeAvatar = () => {
     const dispatch = useAppDispatch();
     const { profile_picture, username } = user as User;
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const inputRef = useRef(null);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0] || null;
@@ -50,6 +49,12 @@ const ChangeAvatar = () => {
                         logout(undefined).finally(() => {
                             navigate('/');
                         });
+                    } else {
+                        toast({
+                            title: 'Failed to update profile picture',
+                            description: `${error.data.msg}`,
+                            variant: 'destructive',
+                        });
                     }
                 });
         }
@@ -64,16 +69,8 @@ const ChangeAvatar = () => {
             <div>
                 <p className='tracking-tight text-sm mb-2 text-neutral-600'>JPG or PNG. 0.5 MB max.</p>
                 <div className='flex items-center gap-2'>
-                    <Input
-                        ref={inputRef}
-                        type='file'
-                        name='profile_picture'
-                        id='profile_picture'
-                        accept='image/*'
-                        className='w-56'
-                        onChange={handleFileChange}
-                    />
-                    <Button type='submit' className='w-16 p-5'>
+                    <Input type='file' name='profile_picture' id='profile_picture' accept='image/*' className='w-56' onChange={handleFileChange} />
+                    <Button type='submit' size={'sm'} className='w-16 p-5'>
                         {isLoading ? <Spinner /> : 'Save'}
                     </Button>
                 </div>

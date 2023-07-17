@@ -48,7 +48,7 @@ const PersonalInformation = () => {
                     if (res.success) {
                         dispatch(setUser(res.user));
                         toast({
-                            title: 'Profile Successfully Updated!',
+                            title: 'Profile was successfully updated',
                         });
                     }
                 })
