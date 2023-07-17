@@ -1,5 +1,6 @@
 import 'express-async-errors';
 
+import cloudinary from 'cloudinary';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
@@ -14,9 +15,18 @@ import userRoutes from './routes/user';
 import { limiter } from './utils/limiter';
 
 dotenv.config();
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET,
+});
 const app = express();
 
-app.use(helmet());
+app.use(
+    helmet({
+        contentSecurityPolicy: false,
+    })
+);
 app.use(compression());
 app.use(express.json());
 app.use(cookieParser());
@@ -31,6 +41,7 @@ app.use('/api/v1/users/me', userRoutes);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, '../client/dist')));
+    app.use(express.static(path.resolve(__dirname, '../public')));
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
     });

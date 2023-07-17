@@ -1,4 +1,3 @@
-import ChangeAvatar from './ChangeAvatar';
 import ChangePassword from './ChangePassword';
 import DeleteAccount from './DeleteAccount';
 import DesktopSidebar from './DesktopSidebar';
@@ -10,16 +9,4 @@ import SidebarLinks from './SidebarLinks';
 import Spinner from './Spinner';
 import UserButton from './UserButton';
 
-export {
-    ChangeAvatar,
-    ChangePassword,
-    DeleteAccount,
-    DesktopSidebar,
-    MemberCheck,
-    MobileSidebar,
-    Navbar,
-    PersonalInformation,
-    SidebarLinks,
-    Spinner,
-    UserButton,
-};
+export { ChangePassword, DeleteAccount, DesktopSidebar, MemberCheck, MobileSidebar, Navbar, PersonalInformation, SidebarLinks, Spinner, UserButton };

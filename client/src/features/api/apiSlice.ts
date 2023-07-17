@@ -39,6 +39,14 @@ export const apiSlice = createApi({
             }),
         }),
         // User
+        updateUserPicture: builder.mutation<UserAPIResponse, FormData>({
+            query: (profile) => ({
+                url: '/users/me/picture',
+                method: 'PATCH',
+                body: profile,
+                formData: true,
+            }),
+        }),
         updateUserProfile: builder.mutation<UserAPIResponse, UpdateUserProfile>({
             query: (profile) => ({
                 url: '/users/me',
@@ -69,4 +77,5 @@ export const {
     useUpdateUserProfileMutation,
     useUpdateUserPasswordMutation,
     useDeleteUserMutation,
+    useUpdateUserPictureMutation,
 } = apiSlice;

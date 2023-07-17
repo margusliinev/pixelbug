@@ -12,11 +12,10 @@ import { useToast } from '@/components/ui/use-toast';
 import { useLogoutMutation, useUpdateUserProfileMutation } from '@/features/api/apiSlice';
 import { setUser } from '@/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
-import { User } from '@/utils/types';
-import { DefaultAPIError } from '@/utils/types';
+import { DefaultAPIError, User } from '@/utils/types';
 import { profileFormSchema } from '@/utils/zodSchemas';
 
-import { ChangeAvatar } from '.';
+import ChangeAvatar from './ChangeAvatar';
 
 const PersonalInformation = () => {
     const { toast } = useToast();
@@ -80,7 +79,7 @@ const PersonalInformation = () => {
         <div className='grid px-6 py-4 xs:px-8 lg:px-12 xl:px-16'>
             <div>
                 <h1 className='mb-1 text-2xl font-semibold flex items-center gap-2'>
-                    Personal Information{' '}
+                    Personal Information
                     {user?.created_at === user?.updated_at ? (
                         <span className='text-sm text-destructive font-medium mt-1 whitespace-nowrap'>(Profile not complete)</span>
                     ) : (

@@ -42,10 +42,6 @@ export const loginFormSchema = z.object({
     password: z.string().trim(),
 });
 
-export const avatarFormSchema = z.object({
-    profile_picture: z.any(),
-});
-
 export const profileFormSchema = z.object({
     first_name: z
         .string()
