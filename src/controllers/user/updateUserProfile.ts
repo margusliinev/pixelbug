@@ -33,7 +33,7 @@ export const updateUserProfile = async (req: AuthenticatedRequest, res: Response
 
     const normalizedEmail = normalizeEmail(email);
 
-    const uniqueEmail = await isUpdatedEmailUnique(normalizedEmail, req.user.userId);
+    const uniqueEmail = await isUpdatedEmailUnique(normalizedEmail, req.user.user_id);
     if (!uniqueEmail) throw new BadRequestError('email', 'Email is already in use');
 
     const updateData: Partial<NewUser> = { username: username, email: normalizedEmail };
@@ -62,10 +62,10 @@ export const updateUserProfile = async (req: AuthenticatedRequest, res: Response
 
     updateData.updated_at = moment.utc().toDate();
 
-    const result = await db.update(users).set(updateData).where(eq(users.id, req.user.userId)).returning();
+    const result = await db.update(users).set(updateData).where(eq(users.user_id, req.user.user_id)).returning();
 
     const user = {
-        id: result[0].id,
+        user_id: result[0].user_id,
         username: result[0].username,
         email: result[0].email,
         first_name: result[0].first_name,

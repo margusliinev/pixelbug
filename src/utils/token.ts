@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Role } from '../db/schema';
 
 export interface DecodedJwtPayload extends JwtPayload {
-    userId: number;
+    user_id: number;
     role: Role;
 }
 

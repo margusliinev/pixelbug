@@ -4,9 +4,9 @@ import { boolean, pgEnum, pgTable, serial, timestamp, varchar } from 'drizzle-or
 const roleEnum = pgEnum('role', ['user', 'admin', 'test']);
 
 export const users = pgTable('users', {
-    id: serial('id').primaryKey(),
+    user_id: serial('user_id').primaryKey(),
     username: varchar('username', { length: 16 }).notNull(),
-    email: varchar('email', { length: 50 }).notNull().unique(),
+    email: varchar('email', { length: 50 }).notNull(),
     password: varchar('password', { length: 256 }).notNull(),
     first_name: varchar('first_name', { length: 16 }),
     last_name: varchar('last_name', { length: 16 }),

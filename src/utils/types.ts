@@ -4,7 +4,7 @@ import { Role } from '../db/schema';
 
 export interface AuthenticatedRequest extends Request {
     user?: {
-        userId: number;
+        user_id: number;
         role: Role;
     };
     cookies: {

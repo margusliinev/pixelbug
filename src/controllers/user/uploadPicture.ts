@@ -22,10 +22,10 @@ export const uploadPicture = async (req: AuthenticatedRequest, res: Response) =>
     }
 
     const response = await cloudinary.v2.uploader.upload(req.file.path);
-    const result = await db.update(users).set({ profile_picture: response.secure_url }).where(eq(users.id, req.user.userId)).returning();
+    const result = await db.update(users).set({ profile_picture: response.secure_url }).where(eq(users.user_id, req.user.user_id)).returning();
 
     const user = {
-        id: result[0].id,
+        user_id: result[0].user_id,
         username: result[0].username,
         email: result[0].email,
         first_name: result[0].first_name,

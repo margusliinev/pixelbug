@@ -1,6 +1,6 @@
 import { ChangePassword, DeleteAccount, PersonalInformation } from '@/components';
 
-const Profile = () => {
+const ProfilePage = () => {
     return (
         <main>
             <PersonalInformation />
@@ -12,4 +12,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default ProfilePage;

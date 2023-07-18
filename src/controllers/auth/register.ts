@@ -43,7 +43,7 @@ export const register = async (req: Request, res: Response) => {
     const newUser = result[0];
     if (!newUser) throw new BadRequestError('form', 'Failed to create user');
 
-    const token = createToken({ userId: newUser.id, role: 'user' });
+    const token = createToken({ user_id: newUser.user_id, role: 'user' });
 
     createCookie({ res, token });
 

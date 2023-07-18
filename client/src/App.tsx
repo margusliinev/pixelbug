@@ -1,24 +1,37 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 
-import { AppLayout, Dashboard, Home, HomeLayout, Login, Profile, Projects, Register, Tickets, Users } from './pages';
+import {
+    AppLayout,
+    DashboardPage,
+    ErrorPage,
+    HomeLayout,
+    HomePage,
+    LoginPage,
+    ProfilePage,
+    ProjectsPage,
+    RegisterPage,
+    TicketsPage,
+    UsersPage,
+} from './pages';
 
 function App() {
     const router = createBrowserRouter([
         {
             path: '/',
             element: <HomeLayout />,
+            errorElement: <ErrorPage />,
             children: [
                 {
                     index: true,
-                    element: <Home />,
+                    element: <HomePage />,
                 },
                 {
                     path: 'register',
-                    element: <Register />,
+                    element: <RegisterPage />,
                 },
                 {
                     path: 'login',
-                    element: <Login />,
+                    element: <LoginPage />,
                 },
                 {
                     path: 'app',
@@ -30,23 +43,23 @@ function App() {
                         },
                         {
                             path: 'dashboard',
-                            element: <Dashboard />,
+                            element: <DashboardPage />,
                         },
                         {
                             path: 'projects',
-                            element: <Projects />,
+                            element: <ProjectsPage />,
                         },
                         {
                             path: 'tickets',
-                            element: <Tickets />,
+                            element: <TicketsPage />,
                         },
                         {
                             path: 'profile',
-                            element: <Profile />,
+                            element: <ProfilePage />,
                         },
                         {
                             path: 'users',
-                            element: <Users />,
+                            element: <UsersPage />,
                         },
                     ],
                 },

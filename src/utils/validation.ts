@@ -86,11 +86,11 @@ export const isEmailUnique = async (email: string): Promise<boolean> => {
     }
 };
 
-export const isUpdatedEmailUnique = async (email: string, userId: number): Promise<boolean> => {
+export const isUpdatedEmailUnique = async (email: string, user_id: number): Promise<boolean> => {
     const result = await db
         .select({ email: users.email })
         .from(users)
-        .where(and(eq(users.email, email), not(eq(users.id, userId))));
+        .where(and(eq(users.email, email), not(eq(users.user_id, user_id))));
     if (result.length >= 1) {
         return false;
     } else {

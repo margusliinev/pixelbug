@@ -25,7 +25,7 @@ export const updateUserPassword = async (req: AuthenticatedRequest, res: Respons
 
     validatePassword(newPassword);
 
-    const userData = await db.select().from(users).where(eq(users.id, req.user.userId));
+    const userData = await db.select().from(users).where(eq(users.user_id, req.user.user_id));
     const currentPassword = userData[0].password;
 
     const passwordMatch = await comparePassword(password, currentPassword);
@@ -42,12 +42,16 @@ export const updateUserPassword = async (req: AuthenticatedRequest, res: Respons
 
     const updateTime = moment.utc().toDate();
 
-    const result = await db.update(users).set({ password: hashedPassword, updated_at: updateTime }).where(eq(users.id, req.user.userId)).returning();
+    const result = await db
+        .update(users)
+        .set({ password: hashedPassword, updated_at: updateTime })
+        .where(eq(users.user_id, req.user.user_id))
+        .returning();
     const updatedUser = result[0];
     if (!updatedUser) throw new BadRequestError('form', 'Failed to update user password');
 
     const user = {
-        id: result[0].id,
+        user_id: result[0].user_id,
         username: result[0].username,
         email: result[0].email,
         first_name: result[0].first_name,

@@ -8,11 +8,11 @@ import { AuthenticatedRequest, NotFoundError, UnauthenticatedError } from '../..
 export const getUser = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
 
-    const result = await db.select().from(users).where(eq(users.id, req.user.userId));
+    const result = await db.select().from(users).where(eq(users.user_id, req.user.user_id));
     if (!result[0]) throw new NotFoundError('User not found');
 
     const user = {
-        id: result[0].id,
+        user_id: result[0].user_id,
         username: result[0].username,
         email: result[0].email,
         first_name: result[0].first_name,

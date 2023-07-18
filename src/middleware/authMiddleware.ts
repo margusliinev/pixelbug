@@ -8,8 +8,8 @@ export const auth = (req: AuthenticatedRequest, res: Response, next: NextFunctio
         throw new UnauthenticatedError('Authentication Invalid');
     }
     try {
-        const { userId, role } = verifyToken(token);
-        req.user = { userId, role };
+        const { user_id, role } = verifyToken(token);
+        req.user = { user_id, role };
         next();
     } catch (error) {
         throw new UnauthenticatedError('Authentication Invalid');

@@ -1,12 +1,13 @@
 import AppLayout from './AppLayout/AppLayout';
-import Dashboard from './AppLayout/Dashboard';
-import Profile from './AppLayout/Profile';
-import Projects from './AppLayout/Projects';
-import Tickets from './AppLayout/Tickets';
-import Users from './AppLayout/Users';
-import Home from './HomeLayout/Home';
+import DashboardPage from './AppLayout/DashboardPage';
+import ProfilePage from './AppLayout/ProfilePage';
+import ProjectsPage from './AppLayout/ProjectsPage';
+import TicketsPage from './AppLayout/TicketsPage';
+import UsersPage from './AppLayout/UsersPage';
+import ErrorPage from './HomeLayout/ErrorPage';
 import HomeLayout from './HomeLayout/HomeLayout';
-import Login from './HomeLayout/Login';
-import Register from './HomeLayout/Register';
+import HomePage from './HomeLayout/HomePage';
+import LoginPage from './HomeLayout/LoginPage';
+import RegisterPage from './HomeLayout/RegisterPage';
 
-export { AppLayout, Dashboard, Home, HomeLayout, Login, Profile, Projects, Register, Tickets, Users };
+export { AppLayout, DashboardPage, ErrorPage, HomeLayout, HomePage, LoginPage, ProfilePage, ProjectsPage, RegisterPage, TicketsPage, UsersPage };
