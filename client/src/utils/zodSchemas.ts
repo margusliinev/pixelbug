@@ -89,3 +89,10 @@ export const updatePasswordFormSchema = z.object({
     newPassword: z.string().trim().min(1, { message: 'Choose a new password' }),
     confirmNewPassword: z.string().trim().min(1, { message: 'Confirm the new password' }),
 });
+
+export const createProjectFormSchema = z.object({
+    title: z.string().trim().min(1, { message: 'Please enter project title' }),
+    description: z.string().trim().min(1, { message: 'Please enter project description' }),
+    start_date: z.any().refine((date) => date === undefined && date === null && date === '', { message: 'Please choose a start date' }),
+    end_date: z.any().refine((date) => date === undefined && date === null && date === '', { message: 'Please choose a end date' }),
+});

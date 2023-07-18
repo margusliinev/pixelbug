@@ -16,6 +16,7 @@ import logo from '../../assets/logo.svg';
 const RegisterPage = () => {
     const navigate = useNavigate();
     const [register, { isLoading }] = useRegisterMutation();
+
     const form = useForm<z.infer<typeof registerFormSchema>>({
         resolver: zodResolver(registerFormSchema),
         defaultValues: {
