@@ -74,7 +74,7 @@ const ProjectsPage = () => {
                             <FormField
                                 name='title'
                                 render={({ field }) => (
-                                    <FormItem>
+                                    <FormItem className='px-1'>
                                         <FormLabel>Project Name</FormLabel>
                                         <FormControl>
                                             <Input type='text' {...field} />
@@ -87,7 +87,7 @@ const ProjectsPage = () => {
                                 control={form.control}
                                 name='description'
                                 render={({ field }) => (
-                                    <FormItem>
+                                    <FormItem className='px-1'>
                                         <FormLabel>Description</FormLabel>
                                         <FormControl>
                                             <Textarea className='h-32' {...field} />
@@ -97,11 +97,11 @@ const ProjectsPage = () => {
                                 )}
                             />
                             <Command>
-                                <FormLabel className='mb-1'>Developers</FormLabel>
+                                <FormLabel className='mb-1 px-1'>Developers</FormLabel>
                                 <div className='flex items-center border-b px-2'>
                                     <Search className='mr-2 h-4 w-4 shrink-0 opacity-50' />
                                     <input
-                                        placeholder='Find developers by job title (Try Full-Stack Developer)'
+                                        placeholder='Find by name, email, or job title'
                                         type='text'
                                         className='flex h-10 w-full rounded-md py-3 text-sm outline-none placeholder:text-neutral-500'
                                         value={state.search}
@@ -111,8 +111,8 @@ const ProjectsPage = () => {
                                 <CommandList
                                     className={
                                         users && users.length < 1
-                                            ? 'absolute rounded-md bg-white z-50 top-[340px] w-full'
-                                            : 'absolute rounded-md bg-white z-50 top-[340px] w-full border shadow-md'
+                                            ? 'absolute rounded-md bg-white z-50 top-[0] w-full'
+                                            : 'absolute rounded-md bg-white z-50 top-[0] w-full border shadow-2xl'
                                     }
                                 >
                                     {users && users.length < 1 ? null : (
@@ -150,7 +150,7 @@ const ProjectsPage = () => {
                                         control={form.control}
                                         name='start_date'
                                         render={({ field }) => (
-                                            <FormItem className='flex flex-col'>
+                                            <FormItem className='flex flex-col px-1'>
                                                 <FormLabel>Start Date</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
@@ -173,7 +173,7 @@ const ProjectsPage = () => {
                                         control={form.control}
                                         name='end_date'
                                         render={({ field }) => (
-                                            <FormItem className='flex flex-col'>
+                                            <FormItem className='flex flex-col px-1'>
                                                 <FormLabel>End Date</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>

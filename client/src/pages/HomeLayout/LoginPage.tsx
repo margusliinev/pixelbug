@@ -44,7 +44,7 @@ const LoginPage = () => {
 
     return (
         <main className='grid h-screen w-screen place-content-center'>
-            <div className='mx-auto w-screen-90 max-w-md'>
+            <div className='mx-auto w-screen-90 max-w-md mb-32'>
                 <Form {...form}>
                     <div className='mb-4 grid place-content-center mx-auto max-w-sm'>
                         <img src={logo} alt='logo' />
