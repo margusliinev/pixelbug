@@ -64,5 +64,5 @@ export const updateUserPassword = async (req: AuthenticatedRequest, res: Respons
         updated_at: result[0].updated_at,
     };
 
-    res.status(200).json({ success: true, isAuth: true, user: user, msg: 'Your password has been updated' });
+    res.status(200).json({ success: true, user: user, msg: 'Your password has been updated' });
 };

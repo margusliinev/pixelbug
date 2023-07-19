@@ -93,6 +93,6 @@ export const updatePasswordFormSchema = z.object({
 export const createProjectFormSchema = z.object({
     title: z.string().trim().min(1, { message: 'Please enter project title' }),
     description: z.string().trim().min(1, { message: 'Please enter project description' }),
-    start_date: z.any().refine((date) => date === undefined && date === null && date === '', { message: 'Please choose a start date' }),
-    end_date: z.any().refine((date) => date === undefined && date === null && date === '', { message: 'Please choose a end date' }),
+    start_date: z.any().refine((date) => date !== null, { message: 'Please choose a start date' }),
+    end_date: z.any().refine((date) => date !== null, { message: 'Please choose a end date' }),
 });

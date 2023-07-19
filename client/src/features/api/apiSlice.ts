@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { DefaultAPIResponse, UpdateUserPassword, UpdateUserProfile, UserAPIResponse } from '../../utils/types';
+import { DefaultAPIResponse, ProjectUsersAPIResponse, UpdateUserPassword, UpdateUserProfile, UserAPIResponse } from '../../utils/types';
 
 interface Register {
     username: string;
@@ -67,6 +67,13 @@ export const apiSlice = createApi({
                 method: 'DELETE',
             }),
         }),
+        // Project Users
+        getProjectUsers: builder.query<ProjectUsersAPIResponse, undefined>({
+            query: () => ({
+                url: '/users',
+                method: 'GET',
+            }),
+        }),
     }),
 });
 
@@ -78,4 +85,5 @@ export const {
     useUpdateUserPasswordMutation,
     useDeleteUserMutation,
     useUpdateUserPictureMutation,
+    useGetProjectUsersQuery,
 } = apiSlice;

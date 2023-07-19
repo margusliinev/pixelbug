@@ -78,5 +78,5 @@ export const updateUserProfile = async (req: AuthenticatedRequest, res: Response
         updated_at: result[0].updated_at,
     };
 
-    res.status(200).json({ success: true, isAuth: true, user: user, msg: 'Your profile was successfully updated' });
+    res.status(200).json({ success: true, user: user, msg: 'Your profile was successfully updated' });
 };

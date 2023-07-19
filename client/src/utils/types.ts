@@ -47,3 +47,8 @@ export interface UserAPIResponse {
     user: User;
     msg: string;
 }
+
+export interface ProjectUsersAPIResponse {
+    success: boolean;
+    users: User[];
+}
