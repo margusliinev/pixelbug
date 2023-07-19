@@ -24,6 +24,7 @@ interface Login {
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
+    tagTypes: ['Projects'],
     endpoints: (builder) => ({
         // Auth
         register: builder.mutation<DefaultAPIResponse, Register>({
@@ -81,6 +82,7 @@ export const apiSlice = createApi({
                 url: '/projects',
                 method: 'GET',
             }),
+            providesTags: ['Projects'],
         }),
         createProject: builder.mutation<CreateProjectAPIResponse, CreateProject>({
             query: (projectData) => ({
@@ -88,6 +90,7 @@ export const apiSlice = createApi({
                 method: 'POST',
                 body: projectData,
             }),
+            invalidatesTags: ['Projects'],
         }),
     }),
 });

@@ -20,8 +20,8 @@ const MobileSidebar = ({
             <aside
                 className={
                     isSidebarOpen
-                        ? 'min-h-screen fixed bg-white z-50 w-64 inset-0 ml-0 lg:hidden transition-all duration-300 shadow-md-r sm:w-72'
-                        : 'min-h-screen fixed bg-white z-50 w-64 inset-0 -ml-96 lg:hidden transition-all duration-300 shadow-md-r sm:w-72'
+                        ? 'min-h-screen fixed bg-white z-50 w-64 inset-0 ml-0 lg:hidden transition-all duration-300 sm:w-72'
+                        : 'min-h-screen fixed bg-white z-50 w-64 inset-0 -ml-96 lg:hidden transition-all duration-300 sm:w-72'
                 }
             >
                 <button

@@ -2,7 +2,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import moment from 'moment';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
@@ -37,6 +37,7 @@ import { Spinner } from '.';
 import { useToast } from './ui/use-toast';
 
 const NewProject = () => {
+    const [open, setOpen] = useState(false);
     const [logout] = useLogoutMutation();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -59,10 +60,12 @@ const NewProject = () => {
                 .unwrap()
                 .then((res) => {
                     if (res.success) {
+                        form.reset();
                         toast({
                             title: 'Project created successfully',
                             description: 'You can now add users to the project',
                         });
+                        setOpen(false);
                     }
                 })
                 .catch((error: DefaultAPIError) => {
@@ -77,7 +80,7 @@ const NewProject = () => {
     };
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger className='bg-primary text-white transition-colors w-fit h-10 px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark'>
                 Create Project
             </DialogTrigger>

@@ -47,9 +47,7 @@ module.exports = {
                 xs: '400px',
             },
             boxShadow: {
-                'sm-r': '1px 0px 2px 0 rgb(0 0 0 / 0.05)',
-                'md-r': '4px 0px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-                container: '0 0 5px 2px rgb(0 0 0 / 0.1)',
+                'project-card': '0 0 5px 1px rgb(0 0 0 / 0.15)',
             },
             colors: {
                 border: 'hsl(var(--border))',
