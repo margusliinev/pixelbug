@@ -51,7 +51,7 @@ CommandInput.displayName = CommandPrimitive.Input.displayName;
 
 const CommandList = React.forwardRef<React.ElementRef<typeof CommandPrimitive.List>, React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>>(
     ({ className, ...props }, ref) => (
-        <CommandPrimitive.List ref={ref} className={cn('blur-fix max-h-[270px] overflow-y-auto overflow-x-hidden', className)} {...props} />
+        <CommandPrimitive.List ref={ref} className={cn('blur-fix max-h-[280px] overflow-y-auto overflow-x-hidden', className)} {...props} />
     )
 );
 

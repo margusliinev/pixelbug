@@ -43,14 +43,14 @@ export const updateUserProfile = async (req: AuthenticatedRequest, res: Response
         updateData.first_name = first_name;
     } else {
         validateFirstName(first_name);
-        updateData.first_name = first_name.toLowerCase().trim();
+        updateData.first_name = first_name.trim();
     }
     if (!last_name) {
         const last_name = '';
         updateData.last_name = last_name;
     } else {
         validateLastName(last_name);
-        updateData.last_name = last_name.toLowerCase().trim();
+        updateData.last_name = last_name.trim();
     }
     if (!job_title) {
         const job_title = '';

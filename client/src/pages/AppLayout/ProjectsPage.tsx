@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Command, CommandGroup, CommandItem, CommandList } from '@/components/ui/command';
@@ -16,23 +17,32 @@ import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
 import { useGetProjectUsersQuery } from '@/features/api/apiSlice';
+import { User } from '@/utils/types';
 import { createProjectFormSchema } from '@/utils/zodSchemas';
 
 const initialState = {
     search: '',
+    projectUsers: [],
 };
 
+interface State {
+    search: string;
+    projectUsers: User[];
+}
+
 const ProjectsPage = () => {
-    const [state, setState] = useState(initialState);
+    const [state, setState] = useState<State>(initialState);
     const { data } = useGetProjectUsersQuery(undefined);
     const users = data?.users.filter((user) => {
         const searchTerm = state.search.toLowerCase();
+        const addedUsers = state.projectUsers;
         return (
-            (searchTerm && user.job_title.toLowerCase().includes(searchTerm)) ||
-            (searchTerm && user.username.toLowerCase().includes(searchTerm)) ||
-            (searchTerm && user.email.toLowerCase().includes(searchTerm))
+            (searchTerm && !addedUsers.includes(user) && user.job_title.toLowerCase().includes(searchTerm)) ||
+            (searchTerm && !addedUsers.includes(user) && user.username.toLowerCase().includes(searchTerm)) ||
+            (searchTerm && !addedUsers.includes(user) && user.email.toLowerCase().includes(searchTerm))
         );
     });
+
     const form = useForm<z.infer<typeof createProjectFormSchema>>({
         resolver: zodResolver(createProjectFormSchema),
         defaultValues: {
@@ -43,9 +53,14 @@ const ProjectsPage = () => {
         },
     });
 
+    const addUserToProject = (user: User) => {
+        setState({ search: '', projectUsers: [...state.projectUsers, user] });
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchValue = e.target.value;
-        setState({ search: searchValue });
+        setState({ ...state, search: searchValue });
+        console.log(state);
     };
 
     const submitForm = (values: z.infer<typeof createProjectFormSchema>) => {
@@ -98,7 +113,7 @@ const ProjectsPage = () => {
                             />
                             <Command>
                                 <FormLabel className='mb-1 px-1'>Developers</FormLabel>
-                                <div className='flex items-center border-b px-2'>
+                                <div className='flex items-center border-b px-1'>
                                     <Search className='mr-2 h-4 w-4 shrink-0 opacity-50' />
                                     <input
                                         placeholder='Find by name, email, or job title'
@@ -111,30 +126,46 @@ const ProjectsPage = () => {
                                 <CommandList
                                     className={
                                         users && users.length < 1
-                                            ? 'absolute rounded-md bg-white z-50 top-[0] w-full'
-                                            : 'absolute rounded-md bg-white z-50 top-[0] w-full border shadow-2xl'
+                                            ? 'absolute rounded-md bg-white z-50 top-[-7px] w-full'
+                                            : 'absolute rounded-md bg-white z-50 top-[-7px] w-full border shadow-container'
                                     }
                                 >
                                     {users && users.length < 1 ? null : (
-                                        <CommandGroup heading='users' className='px-3'>
+                                        <CommandGroup heading='users' className='px-3 pt-1'>
+                                            <button
+                                                className='text-destructive text-xs absolute right-5 top-2 font-medium'
+                                                onClick={() => setState({ ...state, search: '' })}
+                                            >
+                                                close
+                                            </button>
                                             {users &&
                                                 users.map((user) => {
                                                     return (
                                                         <article
                                                             key={user.user_id}
                                                             className='border-b cursor-pointer last-of-type:border-none last-of-type:mb-2'
+                                                            onClick={() => addUserToProject(user)}
                                                         >
                                                             <CommandItem className='h-20'>
-                                                                <div className='grid items-center gap-2 justify-between w-full pr-6 sm:flex'>
-                                                                    <div>
-                                                                        <div className='font-medium mb-1'>
+                                                                <div className='grid grid-cols-[auto_1fr] sm:grid-cols-[1fr_auto_1fr] items-center w-full gap-2 overflow-x-hidden'>
+                                                                    <div className='flex items-center gap-2 xs:gap-4'>
+                                                                        <Avatar className='w-12 h-12 sm:w-16 sm:h-16'>
+                                                                            <AvatarImage src={user.profile_picture} className='rounded-full' />
+                                                                            <AvatarFallback className='text-2xl bg-neutral-200'>
+                                                                                {user.username.charAt(0)}
+                                                                            </AvatarFallback>
+                                                                        </Avatar>
+                                                                        <div className='font-medium'>
                                                                             {user.first_name && user.last_name
                                                                                 ? `${user.first_name} ${user.last_name}`
                                                                                 : user.username}
+                                                                            <div className='block sm:hidden font-normal'>{user.email}</div>
                                                                         </div>
-                                                                        <div>{user.email}</div>
                                                                     </div>
-                                                                    <div>{user.job_title}</div>
+                                                                    <div className='hidden justify-self-start sm:block'>{user.email}</div>
+                                                                    <div className='hidden self-end justify-self-end xs-550:block sm:self-center'>
+                                                                        {user.job_title}
+                                                                    </div>
                                                                 </div>
                                                             </CommandItem>
                                                         </article>
@@ -150,7 +181,7 @@ const ProjectsPage = () => {
                                         control={form.control}
                                         name='start_date'
                                         render={({ field }) => (
-                                            <FormItem className='flex flex-col px-1'>
+                                            <FormItem className='flex flex-col px-1 w-fit'>
                                                 <FormLabel>Start Date</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
@@ -173,7 +204,7 @@ const ProjectsPage = () => {
                                         control={form.control}
                                         name='end_date'
                                         render={({ field }) => (
-                                            <FormItem className='flex flex-col px-1'>
+                                            <FormItem className='flex flex-col px-1 w-fit'>
                                                 <FormLabel>End Date</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
