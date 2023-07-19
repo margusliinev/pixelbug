@@ -5,9 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
 import { Spinner } from '@/components';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
 import { useLogoutMutation, useUpdateUserProfileMutation } from '@/features/api/apiSlice';
 import { setUser } from '@/features/user/userSlice';

@@ -48,7 +48,44 @@ export interface UserAPIResponse {
     msg: string;
 }
 
+export interface Project {
+    project_id: number;
+    title: string;
+    description: string;
+    manager_id: number;
+    start_date: Date;
+    end_date: Date;
+    completed_date: Date;
+}
+
+export interface ProjectWithManager {
+    project_id: number;
+    title: string;
+    description: string;
+    start_date: Date;
+    end_date: Date;
+    completed_date: Date;
+    manager: User;
+}
+
 export interface ProjectUsersAPIResponse {
     success: boolean;
     users: User[];
+}
+
+export interface AllProjectsAPIResponse {
+    success: boolean;
+    projects: ProjectWithManager[];
+}
+
+export interface CreateProjectAPIResponse {
+    success: boolean;
+    project: Project;
+}
+
+export interface CreateProject {
+    title: string;
+    description: string;
+    start_date: Date;
+    end_date: Date;
 }

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage, Button, Input } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
 import { useLogoutMutation, useUpdateUserPictureMutation } from '@/features/api/apiSlice';
 import { setUser } from '@/features/user/userSlice';
@@ -10,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 
 import { Spinner } from '.';
-import { Button } from './ui/button';
 
 const ChangeAvatar = () => {
     const navigate = useNavigate();
