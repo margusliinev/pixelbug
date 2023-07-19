@@ -61,7 +61,7 @@ const ChangeAvatar = () => {
     };
 
     return (
-        <form className='flex items-center gap-6 mt-3 mb-6' onSubmit={handleSubmit}>
+        <form className='grid items-center gap-6 mt-3 mb-6 sm:flex' onSubmit={handleSubmit}>
             <Avatar className='w-24 h-24'>
                 <AvatarImage src={profile_picture} />
                 <AvatarFallback className='text-2xl bg-neutral-200'>{username.charAt(0)}</AvatarFallback>
