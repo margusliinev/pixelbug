@@ -68,6 +68,17 @@ export interface ProjectWithManager {
     manager: User;
 }
 
+export interface ProjectWithManagerAndUsers {
+    project_id: number;
+    title: string;
+    description: string;
+    start_date: Date;
+    end_date: Date;
+    completed_date: Date;
+    manager: User;
+    users: User[];
+}
+
 export interface ProjectUsersAPIResponse {
     success: boolean;
     users: User[];
@@ -88,4 +99,9 @@ export interface CreateProject {
     description: string;
     start_date: Date;
     end_date: Date;
+}
+
+export interface ProjectAPIResponse {
+    success: boolean;
+    project: ProjectWithManagerAndUsers;
 }

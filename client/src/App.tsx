@@ -8,6 +8,7 @@ import {
     HomePage,
     LoginPage,
     ProfilePage,
+    ProjectPage,
     ProjectsPage,
     RegisterPage,
     TicketsPage,
@@ -48,6 +49,10 @@ function App() {
                         {
                             path: 'projects',
                             element: <ProjectsPage />,
+                        },
+                        {
+                            path: 'projects/:project_id',
+                            element: <ProjectPage />,
                         },
                         {
                             path: 'tickets',

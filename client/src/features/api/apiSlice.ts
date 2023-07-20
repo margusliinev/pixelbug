@@ -5,6 +5,7 @@ import {
     CreateProject,
     CreateProjectAPIResponse,
     DefaultAPIResponse,
+    ProjectAPIResponse,
     UpdateUserPassword,
     UpdateUserProfile,
     UserAPIResponse,
@@ -92,6 +93,12 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['Projects'],
         }),
+        getSingleProject: builder.query<ProjectAPIResponse, string>({
+            query: (project_id) => ({
+                url: `/projects/${project_id}`,
+                method: 'GET',
+            }),
+        }),
     }),
 });
 
@@ -105,4 +112,5 @@ export const {
     useUpdateUserPictureMutation,
     useCreateProjectMutation,
     useGetAllProjectsQuery,
+    useGetSingleProjectQuery,
 } = apiSlice;

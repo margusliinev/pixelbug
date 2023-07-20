@@ -79,9 +79,11 @@ const PersonalInformation = () => {
                 <h1 className='mb-1 text-2xl font-semibold flex items-center gap-2'>
                     Personal Information
                     {user?.created_at === user?.updated_at ? (
-                        <span className='text-sm text-destructive font-medium mt-1 whitespace-nowrap'>(Profile not complete)</span>
+                        <span className='text-sm text-destructive font-medium mt-1 whitespace-nowrap hidden sm:block'>(Profile not complete)</span>
                     ) : (
-                        <span className='text-sm text-neutral-500 font-normal mt-1 whitespace-nowrap'>Last update: {formattedDate}</span>
+                        <span className='text-sm text-neutral-500 font-normal mt-1 whitespace-nowrap hidden sm:block'>
+                            Last update: {formattedDate}
+                        </span>
                     )}
                 </h1>
                 <p className='text-sm text-gray-600 mb-4'>Use a permanent address where you can receive mail.</p>

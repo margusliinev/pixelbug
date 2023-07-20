@@ -1,3 +1,5 @@
 import { createProject } from './createProject';
+import { getAllProjects } from './getAllProjects';
+import { getSingleProject } from './getSingleProject';
 
-export { createProject };
+export { createProject, getAllProjects, getSingleProject };

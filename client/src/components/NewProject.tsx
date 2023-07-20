@@ -56,6 +56,7 @@ const NewProject = () => {
 
     const submitForm = async (values: z.infer<typeof createProjectFormSchema>) => {
         if (createProjectFormSchema.safeParse(values).success) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             await createProject({ title: values.title, description: values.description, start_date: values.start_date, end_date: values.end_date })
                 .unwrap()
                 .then((res) => {
@@ -146,7 +147,7 @@ const NewProject = () => {
                                     name='end_date'
                                     render={({ field }) => (
                                         <FormItem className='flex flex-col px-1 w-fit'>
-                                            <FormLabel>End Date</FormLabel>
+                                            <FormLabel>Deadline</FormLabel>
                                             <Popover>
                                                 <PopoverTrigger asChild>
                                                     <FormControl>
