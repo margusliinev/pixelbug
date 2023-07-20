@@ -1,6 +1,7 @@
 import ChangePassword from './ChangePassword';
 import DeleteAccount from './DeleteAccount';
 import DesktopSidebar from './DesktopSidebar';
+import ManageProjectUsers from './ManageProjectUsers';
 import MemberCheck from './MemberCheck';
 import MobileSidebar from './MobileSidebar';
 import Navbar from './Navbar';
@@ -16,6 +17,7 @@ export {
     ChangePassword,
     DeleteAccount,
     DesktopSidebar,
+    ManageProjectUsers,
     MemberCheck,
     MobileSidebar,
     Navbar,

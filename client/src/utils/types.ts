@@ -81,7 +81,8 @@ export interface ProjectWithManagerAndUsers {
 
 export interface ProjectUsersAPIResponse {
     success: boolean;
-    users: User[];
+    projectUsers: User[];
+    otherUsers: User[];
 }
 
 export interface AllProjectsAPIResponse {

@@ -96,3 +96,7 @@ export const createProjectFormSchema = z.object({
     start_date: z.any().refine((date) => date !== null, { message: 'Please choose a start date' }),
     end_date: z.any().refine((date) => date !== null, { message: 'Please choose a end date' }),
 });
+
+export const manageProjectUsersFormSchema = z.object({
+    users: z.array(z.number()),
+});
