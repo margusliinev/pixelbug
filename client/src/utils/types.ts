@@ -106,3 +106,8 @@ export interface ProjectAPIResponse {
     success: boolean;
     project: ProjectWithManagerAndUsers;
 }
+
+export interface UpdateProjectUsers {
+    updated_users: number[];
+    project_id: string;
+}

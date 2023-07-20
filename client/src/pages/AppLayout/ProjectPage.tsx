@@ -56,6 +56,11 @@ const ProjectPage = () => {
                 <hr />
                 <section>
                     <h3 className='font-semibold mb-2'>Project Team:</h3>
+                    <div className='grid gap-2'>
+                        {data.project.users.map((user) => {
+                            return <article key={user.user_id}>{user.username}</article>;
+                        })}
+                    </div>
                 </section>
             </div>
         </main>

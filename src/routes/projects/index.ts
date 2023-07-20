@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.route('/').get(auth, getAllProjects).post(auth, createProject);
 router.route('/:project_id').get(auth, getSingleProject);
-router.route('/:project_id/users').get(auth, getProjectUsers).patch(auth, updateProjectUsers);
+router.route('/:project_id/users').get(auth, getProjectUsers).put(auth, updateProjectUsers);
 
 export default router;

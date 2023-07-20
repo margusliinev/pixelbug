@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import z from 'zod';
 
 import {
+    Button,
     Command,
     CommandGroup,
     CommandItem,
@@ -16,11 +17,12 @@ import {
     DialogTitle,
     DialogTrigger,
     Form,
-    FormLabel,
 } from '@/components/ui';
-import { useGetProjectUsersQuery } from '@/features/api/apiSlice';
+import { useGetProjectUsersQuery, useUpdateProjectUsersMutation } from '@/features/api/apiSlice';
 import { User } from '@/utils/types';
 import { manageProjectUsersFormSchema } from '@/utils/zodSchemas';
+
+import { Spinner } from '.';
 
 interface Users {
     project_users: User[];
@@ -42,6 +44,8 @@ const ManageProjectUsers = () => {
     const [users, setUsers] = useState(usersState);
     const [search, setSearch] = useState(searchState);
     const { data } = useGetProjectUsersQuery(project_id || '');
+    const [updateProjectUsers, { isLoading }] = useUpdateProjectUsersMutation();
+
     const filteredUsers = users.other_users.filter((user) => {
         const searchTerm = search.searchTerm.toLowerCase();
         return (
@@ -87,10 +91,12 @@ const ManageProjectUsers = () => {
         resolver: zodResolver(manageProjectUsersFormSchema),
     });
 
-    const submitForm = (values: z.infer<typeof manageProjectUsersFormSchema>) => {
-        if (manageProjectUsersFormSchema.safeParse(values).success) {
-            console.log(values);
-        }
+    const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const updated_users = users.project_users.map((user) => user.user_id);
+        await updateProjectUsers({ updated_users, project_id: project_id || '' }).catch((error) => {
+            console.log(error);
+        });
     };
 
     return (
@@ -103,9 +109,8 @@ const ManageProjectUsers = () => {
                     <DialogTitle>Manage Users</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(submitForm)} className='grid space-y-6' noValidate>
+                    <form onSubmit={submitForm} className='grid space-y-6' noValidate>
                         <Command>
-                            <FormLabel className='mb-1 px-1'>Developers</FormLabel>
                             <div className='flex items-center border-b px-2'>
                                 <Search className='mr-2 h-4 w-4 shrink-0 opacity-50' />
                                 <input
@@ -117,10 +122,10 @@ const ManageProjectUsers = () => {
                                 />
                             </div>
                             <CommandList className={users && 'rounded-md bg-white z-50 mt-2 w-full border h-[500px]'}>
-                                {users && users.project_users.length < 1 ? null : (
+                                {!users ? null : (
                                     <section>
                                         <CommandGroup heading='Project Users' className='px-3'>
-                                            {users &&
+                                            {users.project_users &&
                                                 users.project_users.map((user) => {
                                                     return (
                                                         <article
@@ -166,7 +171,7 @@ const ManageProjectUsers = () => {
                                                 })}
                                         </CommandGroup>
                                         <CommandGroup heading='Add developers to project' className='px-3'>
-                                            {users &&
+                                            {users.other_users &&
                                                 filteredUsers.map((user) => {
                                                     return (
                                                         <article
@@ -215,6 +220,11 @@ const ManageProjectUsers = () => {
                                 )}
                             </CommandList>
                         </Command>
+                        <div className='grid mt-4'>
+                            <Button type='submit' className='w-full xs-550:w-32 justify-self-end'>
+                                {isLoading ? <Spinner /> : 'Update Users'}
+                            </Button>
+                        </div>
                     </form>
                 </Form>
             </DialogContent>

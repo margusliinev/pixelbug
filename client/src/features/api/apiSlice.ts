@@ -7,6 +7,7 @@ import {
     DefaultAPIResponse,
     ProjectAPIResponse,
     ProjectUsersAPIResponse,
+    UpdateProjectUsers,
     UpdateUserPassword,
     UpdateUserProfile,
     UserAPIResponse,
@@ -106,6 +107,13 @@ export const apiSlice = createApi({
                 method: 'GET',
             }),
         }),
+        updateProjectUsers: builder.mutation<DefaultAPIResponse, UpdateProjectUsers>({
+            query: ({ updated_users, project_id }) => ({
+                url: `/projects/${project_id}/users`,
+                method: 'PUT',
+                body: updated_users,
+            }),
+        }),
     }),
 });
 
@@ -121,4 +129,5 @@ export const {
     useGetAllProjectsQuery,
     useGetSingleProjectQuery,
     useGetProjectUsersQuery,
+    useUpdateProjectUsersMutation,
 } = apiSlice;
