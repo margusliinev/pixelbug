@@ -30,21 +30,21 @@ export const apiSlice = createApi({
         // Auth
         register: builder.mutation<DefaultAPIResponse, Register>({
             query: (newUser) => ({
-                url: '/register',
+                url: '/auth/register',
                 method: 'POST',
                 body: newUser,
             }),
         }),
         login: builder.mutation<DefaultAPIResponse, Login>({
             query: (user) => ({
-                url: '/login',
+                url: '/auth/login',
                 method: 'POST',
                 body: user,
             }),
         }),
         logout: builder.mutation<DefaultAPIResponse, undefined>({
             query: () => ({
-                url: '/logout',
+                url: '/auth/logout',
                 method: 'POST',
             }),
         }),
