@@ -22,7 +22,7 @@ import { useGetProjectUsersQuery, useUpdateProjectUsersMutation } from '@/featur
 import { User } from '@/utils/types';
 import { manageProjectUsersFormSchema } from '@/utils/zodSchemas';
 
-import { Spinner } from '.';
+import { ButtonSpinner } from '.';
 
 interface Users {
     project_users: User[];
@@ -222,7 +222,7 @@ const ManageProjectUsers = () => {
                         </Command>
                         <div className='grid mt-4'>
                             <Button type='submit' className='w-full xs-550:w-32 justify-self-end'>
-                                {isLoading ? <Spinner /> : 'Update Users'}
+                                {isLoading ? <ButtonSpinner /> : 'Update Users'}
                             </Button>
                         </div>
                     </form>

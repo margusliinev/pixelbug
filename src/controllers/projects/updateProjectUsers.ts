@@ -12,10 +12,7 @@ export const updateProjectUsers = async (req: AuthenticatedRequest, res: Respons
 
     const updated_users = req.body as User['user_id'][];
 
-    // if (!project_id) throw new Error('Failed to update the users');
-
-    console.log('project_id', project_id);
-    console.log('updated_users', updated_users);
+    if (!project_id) throw new Error('Failed to update the users');
 
     const manager_id_query = await db
         .selectDistinct({ manager_id: projects.manager_id })

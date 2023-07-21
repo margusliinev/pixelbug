@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
-import { MemberCheck, Spinner } from '@/components';
+import { MemberCheck, ButtonSpinner } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -99,7 +99,7 @@ const RegisterPage = () => {
                             )}
                         ></FormField>
                         <Button type='submit' size={'sm'} disabled={isLoading}>
-                            {isLoading ? <Spinner /> : 'Sign Up'}
+                            {isLoading ? <ButtonSpinner /> : 'Sign Up'}
                         </Button>
                         <MemberCheck to='/login' question='Already have an account?' text='Login' />
                     </form>

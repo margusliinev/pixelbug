@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
-import { Spinner } from '@/components';
+import { ButtonSpinner } from '@/components';
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
 import { useLogoutMutation, useUpdateUserProfileMutation } from '@/features/api/apiSlice';
@@ -154,7 +154,7 @@ const PersonalInformation = () => {
                         )}
                     ></FormField>
                     <Button type='submit' size={'sm'} className='w-36 p-5' disabled={isLoading}>
-                        {isLoading ? <Spinner /> : 'Update Profile'}
+                        {isLoading ? <ButtonSpinner /> : 'Update Profile'}
                     </Button>
                 </form>
             </Form>

@@ -8,7 +8,7 @@ import { setUser } from '@/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 
-import { Spinner } from '.';
+import { ButtonSpinner } from '.';
 
 const ChangeAvatar = () => {
     const navigate = useNavigate();
@@ -69,7 +69,7 @@ const ChangeAvatar = () => {
                 <div className='flex items-center gap-2'>
                     <Input type='file' name='profile_picture' id='profile_picture' accept='image/*' className='w-56' onChange={handleFileChange} />
                     <Button type='submit' size={'sm'} className='w-16 p-5'>
-                        {isLoading ? <Spinner /> : 'Save'}
+                        {isLoading ? <ButtonSpinner /> : 'Save'}
                     </Button>
                 </div>
             </div>

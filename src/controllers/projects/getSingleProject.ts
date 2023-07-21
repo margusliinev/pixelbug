@@ -1,9 +1,9 @@
-import { eq } from 'drizzle-orm';
+import { and, eq, ne } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db';
 import { projects, projects_users, users } from '../../db/schema';
-import { AuthenticatedRequest, UnauthenticatedError } from '../../utils';
+import { AuthenticatedRequest, UnauthenticatedError, UnauthorizedError } from '../../utils';
 
 export const getSingleProject = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
@@ -26,8 +26,12 @@ export const getSingleProject = async (req: AuthenticatedRequest, res: Response)
         .from(projects)
         .leftJoin(projects_users, eq(projects.project_id, projects_users.project_id))
         .leftJoin(users, eq(projects_users.user_id, users.user_id))
-        .where(eq(projects.project_id, Number(project_id)));
+        .where(and(eq(projects.project_id, Number(project_id)), ne(projects_users.user_id, manager_id)));
     const projectUsers = projectUsersQuery.map((user) => user.users);
+
+    if (req.user.user_id !== projectManagerId || projectUsers.map((user) => user?.user_id).includes(req.user.user_id)) {
+        throw new UnauthorizedError('You are not authorized to view this project');
+    }
 
     const project = { ...projectData, manager: manager[0], users: projectUsers };
 

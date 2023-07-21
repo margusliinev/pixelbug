@@ -53,6 +53,7 @@ function App() {
                         {
                             path: 'projects/:project_id',
                             element: <ProjectPage />,
+                            errorElement: <Navigate to='/app/projects' />,
                         },
                         {
                             path: 'tickets',

@@ -1,24 +1,35 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { ManageProjectUsers } from '@/components';
+import { ManageProjectUsers, PageSpinner } from '@/components';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui';
 import { useGetSingleProjectQuery } from '@/features/api/apiSlice';
 
 const ProjectPage = () => {
     const { project_id } = useParams();
     const navigate = useNavigate();
-    const { data, isError } = useGetSingleProjectQuery(project_id || '');
+    const { data, isLoading } = useGetSingleProjectQuery(project_id || '');
 
-    if (!data) return null;
+    if (isLoading) {
+        return (
+            <main className='w-full min-h-screen-minus-nav grid place-items-center'>
+                <PageSpinner />
+            </main>
+        );
+    }
 
-    if (isError) {
+    if (!data) {
         setTimeout(() => {
-            navigate('/jobs');
-        }, 1000);
+            navigate('/app/projects');
+        }, 500);
+        return (
+            <main className='w-full min-h-screen-minus-nav grid place-items-center'>
+                <PageSpinner />
+            </main>
+        );
     }
 
     return (
-        <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav'>
+        <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-min-h-screen-minus-nav-minus-nav'>
             {/* <Link to={'/app/projects'} className='flex items-center gap-2 text-2xl font-medium mb-4 text-primary-hover-dark group'>
                 <svg
                     xmlns='http://www.w3.org/2000/svg'

@@ -33,7 +33,7 @@ import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
 import { createProjectFormSchema } from '@/utils/zodSchemas';
 
-import { Spinner } from '.';
+import { ButtonSpinner } from '.';
 import { useToast } from './ui/use-toast';
 
 const NewProject = () => {
@@ -168,7 +168,7 @@ const NewProject = () => {
                                 />
                             </div>
                             <Button type='submit' className='mt-4 w-full xs-550:w-32'>
-                                {isLoading ? <Spinner /> : 'Create Project'}
+                                {isLoading ? <ButtonSpinner /> : 'Create Project'}
                             </Button>
                         </div>
                     </form>

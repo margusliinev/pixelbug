@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
-import { Spinner } from '@/components';
+import { ButtonSpinner } from '@/components';
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
 import { useLogoutMutation, useUpdateUserPasswordMutation } from '@/features/api/apiSlice';
@@ -106,7 +106,7 @@ const ChangePassword = () => {
                         )}
                     ></FormField>
                     <Button type='submit' size={'sm'} className='w-40 p-5' disabled={isLoading}>
-                        {isLoading ? <Spinner /> : 'Update Password'}
+                        {isLoading ? <ButtonSpinner /> : 'Update Password'}
                     </Button>
                 </form>
             </Form>

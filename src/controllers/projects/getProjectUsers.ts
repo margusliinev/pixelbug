@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { and, eq, ne } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db';
@@ -10,12 +10,19 @@ export const getProjectUsers = async (req: AuthenticatedRequest, res: Response) 
 
     const { project_id } = req.params;
 
+    // Get manager ID to filter it out from the returned project users
+    const manager_id_query = await db
+        .selectDistinct({ manager_id: projects.manager_id })
+        .from(projects)
+        .where(eq(projects.project_id, Number(project_id)));
+    const manager_id = manager_id_query[0].manager_id;
+
     const projectUsersQuery = await db
         .selectDistinct({ users: users })
         .from(projects)
         .leftJoin(projects_users, eq(projects.project_id, projects_users.project_id))
         .leftJoin(users, eq(projects_users.user_id, users.user_id))
-        .where(eq(projects.project_id, Number(project_id)));
+        .where(and(eq(projects.project_id, Number(project_id)), ne(projects_users.user_id, manager_id)));
 
     const allUsers = await db.select().from(users);
 
