@@ -29,7 +29,10 @@ export const getSingleProject = async (req: AuthenticatedRequest, res: Response)
         .where(and(eq(projects.project_id, Number(project_id)), ne(projects_users.user_id, manager_id)));
     const projectUsers = projectUsersQuery.map((user) => user.users);
 
-    if (req.user.user_id !== projectManagerId || projectUsers.map((user) => user?.user_id).includes(req.user.user_id)) {
+    const isUserProjectMember = projectUsers.map((user) => user?.user_id).includes(req.user.user_id);
+    const isUserManager = req.user.user_id === projectManagerId;
+
+    if (!isUserManager && !isUserProjectMember) {
         throw new UnauthorizedError('You are not authorized to view this project');
     }
 
