@@ -31,7 +31,7 @@ export const getProjectUsers = async (req: AuthenticatedRequest, res: Response) 
     // Array to compare user ID-s to get the users that are not in the project (other users)
     const projectUsersID = projectUsersQuery.map((user) => user.users?.user_id);
 
-    const otherUsers = allUsers.filter((user) => !projectUsersID.includes(user.user_id));
+    const otherUsers = allUsers.filter((user) => !projectUsersID.includes(user.user_id) && user.user_id !== manager_id);
 
     res.status(200).json({ success: true, projectUsers, otherUsers });
 };

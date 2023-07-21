@@ -44,11 +44,12 @@ module.exports = {
             },
             screens: {
                 'xs-550': '550px',
+                'xs-500': '500px',
+                'xs-450': '450px',
                 xs: '400px',
             },
             boxShadow: {
                 'project-card': '0 0 5px 1px rgb(0 0 0 / 0.15)',
-                'button-hover': '0 0 5px 0px rgb(0 0 0 / 0.1)',
             },
             colors: {
                 border: 'hsl(var(--border))',

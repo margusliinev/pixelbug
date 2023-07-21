@@ -28,8 +28,6 @@ import {
     Textarea,
 } from '@/components/ui';
 import { useCreateProjectMutation, useLogoutMutation } from '@/features/api/apiSlice';
-import { setUser } from '@/features/user/userSlice';
-import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
 import { createProjectFormSchema } from '@/utils/zodSchemas';
 
@@ -39,7 +37,6 @@ import { useToast } from './ui/use-toast';
 const NewProject = () => {
     const [open, setOpen] = useState(false);
     const [logout] = useLogoutMutation();
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { toast } = useToast();
     const [createProject, { isLoading }] = useCreateProjectMutation();
@@ -71,11 +68,15 @@ const NewProject = () => {
                 })
                 .catch((error: DefaultAPIError) => {
                     if (error.status === 401) {
-                        dispatch(setUser(null));
                         logout(undefined).finally(() => {
                             navigate('/');
                         });
                     }
+                    toast({
+                        title: 'Failed to create the project',
+                        description: 'Please try again later',
+                        variant: 'destructive',
+                    });
                 });
         }
     };

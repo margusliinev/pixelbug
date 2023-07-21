@@ -87,7 +87,4 @@
     body {
         @apply bg-background text-foreground;
     }
-    .blur-fix {
-        zoom: 101%;
-    }
 }

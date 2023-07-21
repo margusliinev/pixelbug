@@ -27,7 +27,7 @@ interface Login {
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
-    tagTypes: ['Projects'],
+    tagTypes: ['Projects', 'Project_Users'],
     endpoints: (builder) => ({
         // Auth
         register: builder.mutation<DefaultAPIResponse, Register>({
@@ -100,6 +100,7 @@ export const apiSlice = createApi({
                 url: `/projects/${project_id}`,
                 method: 'GET',
             }),
+            providesTags: ['Project_Users'],
         }),
         getProjectUsers: builder.query<ProjectUsersAPIResponse, string>({
             query: (project_id) => ({
@@ -113,6 +114,7 @@ export const apiSlice = createApi({
                 method: 'PUT',
                 body: updated_users,
             }),
+            invalidatesTags: ['Project_Users'],
         }),
     }),
 });

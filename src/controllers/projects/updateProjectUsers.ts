@@ -25,18 +25,20 @@ export const updateProjectUsers = async (req: AuthenticatedRequest, res: Respons
         .where(and(eq(projects_users.project_id, Number(project_id)), ne(projects_users.user_id, manager_id)))
         .returning();
 
-    const update_users_result = await db
-        .insert(projects_users)
-        .values(
-            updated_users.map((user_id) => ({
-                project_id: Number(project_id),
-                user_id: user_id,
-            }))
-        )
-        .returning();
+    if (updated_users.length >= 1) {
+        const update_users_result = await db
+            .insert(projects_users)
+            .values(
+                updated_users.map((user_id) => ({
+                    project_id: Number(project_id),
+                    user_id: user_id,
+                }))
+            )
+            .returning();
 
-    if (update_users_result.length !== updated_users.length) {
-        throw new Error('Failed to update project users');
+        if (update_users_result.length !== updated_users.length) {
+            throw new Error('Failed to update project users');
+        }
     }
 
     res.status(200).json({ success: true, msg: 'Successfully updated project users' });

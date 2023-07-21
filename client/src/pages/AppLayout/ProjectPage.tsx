@@ -50,8 +50,8 @@ const ProjectPage = () => {
                 </header>
                 <hr />
                 <section>
-                    <h3 className='text-lg font-semibold'>Project Description:</h3>
-                    <p className='text-sm text-neutral-600'>{data.project.description}</p>
+                    <h3 className='text-lg font-semibold mb-1'>Project Description:</h3>
+                    <p className='text-sm text-neutral-600 whitespace-pre-wrap'>{data.project.description}</p>
                 </section>
                 <hr />
                 <section>
