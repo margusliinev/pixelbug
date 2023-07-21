@@ -11,6 +11,7 @@ import PageSpinner from './PageSpinner';
 import PersonalInformation from './PersonalInformation';
 import Project from './Project';
 import ProjectsList from './ProjectsList';
+import ProjectTeam from './ProjectTeam';
 import SidebarLinks from './SidebarLinks';
 import UserButton from './UserButton';
 
@@ -28,6 +29,7 @@ export {
     PersonalInformation,
     Project,
     ProjectsList,
+    ProjectTeam,
     SidebarLinks,
     UserButton,
 };
