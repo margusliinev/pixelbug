@@ -5,29 +5,21 @@ import {
     CreateProject,
     CreateProjectAPIResponse,
     DefaultAPIResponse,
+    Login,
     ProjectAPIResponse,
     ProjectUsersAPIResponse,
+    Register,
+    UpdateProject,
     UpdateProjectUsers,
     UpdateUserPassword,
     UpdateUserProfile,
     UserAPIResponse,
 } from '../../utils/types';
 
-interface Register {
-    username: string;
-    email: string;
-    password: string;
-}
-
-interface Login {
-    email: string;
-    password: string;
-}
-
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
-    tagTypes: ['Projects', 'Project_Users'],
+    tagTypes: ['Projects', 'Project'],
     endpoints: (builder) => ({
         // Auth
         register: builder.mutation<DefaultAPIResponse, Register>({
@@ -100,7 +92,7 @@ export const apiSlice = createApi({
                 url: `/projects/${project_id}`,
                 method: 'GET',
             }),
-            providesTags: ['Project_Users'],
+            providesTags: ['Project'],
         }),
         getProjectUsers: builder.query<ProjectUsersAPIResponse, string>({
             query: (project_id) => ({
@@ -114,7 +106,15 @@ export const apiSlice = createApi({
                 method: 'PUT',
                 body: updated_users,
             }),
-            invalidatesTags: ['Project_Users'],
+            invalidatesTags: ['Project'],
+        }),
+        updateProject: builder.mutation<DefaultAPIResponse, UpdateProject>({
+            query: ({ values, project_id }) => ({
+                url: `/projects/${project_id}`,
+                method: 'PATCH',
+                body: values,
+            }),
+            invalidatesTags: ['Project'],
         }),
     }),
 });
@@ -132,4 +132,5 @@ export const {
     useGetSingleProjectQuery,
     useGetProjectUsersQuery,
     useUpdateProjectUsersMutation,
+    useUpdateProjectMutation,
 } = apiSlice;

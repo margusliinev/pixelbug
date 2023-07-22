@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
-import { ButtonSpinner } from '@/components';
+import { SpinnerButton } from '@/components';
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
 import { useLogoutMutation, useUpdateUserProfileMutation } from '@/features/api/apiSlice';
@@ -13,9 +13,9 @@ import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 import { profileFormSchema } from '@/utils/zodSchemas';
 
-import ChangeAvatar from './ChangeAvatar';
+import ChangeAvatar from './ProfileAvatar';
 
-const PersonalInformation = () => {
+const ProfileInfo = () => {
     const { toast } = useToast();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -153,7 +153,7 @@ const PersonalInformation = () => {
                         )}
                     ></FormField>
                     <Button type='submit' size={'sm'} className='w-36 p-5' disabled={isLoading}>
-                        {isLoading ? <ButtonSpinner /> : 'Update Profile'}
+                        {isLoading ? <SpinnerButton /> : 'Update Profile'}
                     </Button>
                 </form>
             </Form>
@@ -161,4 +161,4 @@ const PersonalInformation = () => {
     );
 };
 
-export default PersonalInformation;
+export default ProfileInfo;

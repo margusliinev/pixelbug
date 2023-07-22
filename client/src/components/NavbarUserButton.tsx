@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useLogoutMutation } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
 
-const UserButton = () => {
+const NavbarUserButton = () => {
     const [logout] = useLogoutMutation();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { user } = useAppSelector((store) => store.user);
@@ -77,4 +77,4 @@ const UserButton = () => {
     );
 };
 
-export default UserButton;
+export default NavbarUserButton;

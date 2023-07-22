@@ -15,7 +15,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useDeleteUserMutation, useLogoutMutation } from '@/features/api/apiSlice';
 import { DefaultAPIError } from '@/utils/types';
 
-const DeleteAccount = () => {
+const ProfileAccount = () => {
     const { toast } = useToast();
     const navigate = useNavigate();
     const [deleteUser] = useDeleteUserMutation();
@@ -65,4 +65,4 @@ const DeleteAccount = () => {
     );
 };
 
-export default DeleteAccount;
+export default ProfileAccount;

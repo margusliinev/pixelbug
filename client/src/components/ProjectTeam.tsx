@@ -4,7 +4,7 @@ import { ProjectAPIResponse, User } from '@/utils/types';
 const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
     return (
         <div className='shadow-project-card p-4 grid gap-4 my-4 rounded-md max-w-xl bg-white'>
-            <h1 className='text-2xl md:text-4xl font-semibold'>Project Team</h1>
+            <h1 className='text-2xl md:text-3xl font-semibold'>Project Team</h1>
             <hr />
             <section>
                 <h2 className='text-xl md:text-2xl font-semibold mb-2'>Manager:</h2>
@@ -25,7 +25,7 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
                                 return (
                                     <article key={user.user_id}>
                                         <div className='flex gap-2 xs:gap-4 items-center justify-between'>
-                                            <div className='flex items-center gap-2 py-2'>
+                                            <div className='flex items-center gap-2'>
                                                 <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                                                     <AvatarImage src={user.profile_picture} />
                                                     <AvatarFallback className='text-2xl bg-neutral-200'>{user.username.charAt(0)}</AvatarFallback>

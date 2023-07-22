@@ -1,7 +1,7 @@
 import logo from '../assets/logo.svg';
 import { SidebarLinks } from '.';
 
-const DesktopSidebar = ({
+const SidebarDesktop = ({
     isSidebarOpen,
     setIsSidebarOpen,
 }: {
@@ -21,4 +21,4 @@ const DesktopSidebar = ({
     );
 };
 
-export default DesktopSidebar;
+export default SidebarDesktop;

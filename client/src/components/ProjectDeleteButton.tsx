@@ -10,15 +10,15 @@ import {
     AlertDialogTrigger,
 } from '@/components/ui';
 
-const DeleteProject = () => {
+const ProjectDeleteButton = () => {
     const handleDeleteProject = () => {
         console.log('delete project');
     };
 
     return (
         <AlertDialog>
-            <AlertDialogTrigger className='text-destructive text-left py-1 px-4 rounded-bl-md rounded-br-md transition-colors hover:bg-accent whitespace-nowrap'>
-                Delete
+            <AlertDialogTrigger className='bg-destructive text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-red-600'>
+                Delete Project
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
@@ -38,4 +38,4 @@ const DeleteProject = () => {
     );
 };
 
-export default DeleteProject;
+export default ProjectDeleteButton;

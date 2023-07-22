@@ -1,4 +1,4 @@
-const PageSpinner = () => {
+const SpinnerPage = () => {
     return (
         <div
             className='animate-spin duration-700 inline-block w-10 h-10 border-[5px] border-current border-t-transparent text-primary rounded-full'
@@ -10,4 +10,4 @@ const PageSpinner = () => {
     );
 };
 
-export default PageSpinner;
+export default SpinnerPage;

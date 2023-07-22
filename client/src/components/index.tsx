@@ -1,41 +1,41 @@
-import ButtonSpinner from './ButtonSpinner';
-import ChangePassword from './ChangePassword';
-import DeleteAccount from './DeleteAccount';
-import DeleteProject from './DeleteProject';
-import DesktopSidebar from './DesktopSidebar';
-import EditProject from './EditProject';
-import ManageProjectUsers from './ManageProjectUsers';
 import MemberCheck from './MemberCheck';
-import MobileSidebar from './MobileSidebar';
 import Navbar from './Navbar';
+import NavbarUserButton from './NavbarUserButton';
 import NewProject from './NewProject';
-import PageSpinner from './PageSpinner';
-import PersonalInformation from './PersonalInformation';
+import ProfileAccount from './ProfileAccount';
+import ProfileInfo from './ProfileInfo';
+import ProfilePassword from './ProfilePassword';
 import Project from './Project';
-import ProjectSettingsModal from './ProjectSettingsModal';
+import DeleteProjectButton from './ProjectDeleteButton';
+import ProjectManagementButtons from './ProjectManagementButtons';
 import ProjectsList from './ProjectsList';
 import ProjectTeam from './ProjectTeam';
+import ProjectUpdateButton from './ProjectUpdateButton';
+import ProjectUsersButton from './ProjectUsersButton';
+import SidebarDesktop from './SidebarDesktop';
 import SidebarLinks from './SidebarLinks';
-import UserButton from './UserButton';
+import SidebarMobile from './SidebarMobile';
+import SpinnerButton from './SpinnerButton';
+import SpinnerPage from './SpinnerPage';
 
 export {
-    ButtonSpinner,
-    ChangePassword,
-    DeleteAccount,
-    DeleteProject,
-    DesktopSidebar,
-    EditProject,
-    ManageProjectUsers,
+    DeleteProjectButton,
     MemberCheck,
-    MobileSidebar,
     Navbar,
+    NavbarUserButton,
     NewProject,
-    PageSpinner,
-    PersonalInformation,
+    ProfileAccount,
+    ProfileInfo,
+    ProfilePassword,
     Project,
-    ProjectSettingsModal,
+    ProjectManagementButtons,
     ProjectsList,
     ProjectTeam,
+    ProjectUpdateButton,
+    ProjectUsersButton,
+    SidebarDesktop,
     SidebarLinks,
-    UserButton,
+    SidebarMobile,
+    SpinnerButton,
+    SpinnerPage,
 };

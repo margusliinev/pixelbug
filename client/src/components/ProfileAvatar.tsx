@@ -8,9 +8,9 @@ import { setUser } from '@/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 
-import { ButtonSpinner } from '.';
+import { SpinnerButton } from '.';
 
-const ChangeAvatar = () => {
+const ProfileAvatar = () => {
     const navigate = useNavigate();
     const { toast } = useToast();
     const { user } = useAppSelector((store) => store.user);
@@ -68,7 +68,7 @@ const ChangeAvatar = () => {
                 <div className='flex items-center gap-2'>
                     <Input type='file' name='profile_picture' id='profile_picture' accept='image/*' className='w-56' onChange={handleFileChange} />
                     <Button type='submit' size={'sm'} className='w-16 p-5'>
-                        {isLoading ? <ButtonSpinner /> : 'Save'}
+                        {isLoading ? <SpinnerButton /> : 'Save'}
                     </Button>
                 </div>
             </div>
@@ -76,4 +76,4 @@ const ChangeAvatar = () => {
     );
 };
 
-export default ChangeAvatar;
+export default ProfileAvatar;

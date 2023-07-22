@@ -5,6 +5,7 @@ import { CalendarIcon } from 'lucide-react';
 import moment from 'moment';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
 import z from 'zod';
 
 import {
@@ -27,10 +28,19 @@ import {
     PopoverTrigger,
     Textarea,
 } from '@/components/ui';
-import { ProjectAPIResponse } from '@/utils/types';
+import { useLogoutMutation, useUpdateProjectMutation } from '@/features/api/apiSlice';
+import { DefaultAPIError, ProjectAPIResponse } from '@/utils/types';
 import { createProjectFormSchema } from '@/utils/zodSchemas';
 
-const EditProject = ({ data }: { data: ProjectAPIResponse }) => {
+import { SpinnerButton } from '.';
+import { useToast } from './ui/use-toast';
+
+const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
+    const [updateProject, { isLoading }] = useUpdateProjectMutation();
+    const [logout] = useLogoutMutation();
+    const navigate = useNavigate();
+    const { toast } = useToast();
+    const { project_id } = useParams();
     const [open, setOpen] = useState(false);
 
     const form = useForm<z.infer<typeof createProjectFormSchema>>({
@@ -43,17 +53,39 @@ const EditProject = ({ data }: { data: ProjectAPIResponse }) => {
         },
     });
 
-    const submitForm = (values: z.infer<typeof createProjectFormSchema>) => {
+    const submitForm = async (values: z.infer<typeof createProjectFormSchema>) => {
         if (createProjectFormSchema.safeParse(values).success) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            console.log(values);
+            await updateProject({ values, project_id: project_id || '' })
+                .unwrap()
+                .then((res) => {
+                    if (res.success) {
+                        form.reset();
+                        toast({
+                            title: 'Successfully updated the project',
+                        });
+                        setOpen(false);
+                    }
+                })
+                .catch((error: DefaultAPIError) => {
+                    if (error.status === 401) {
+                        logout(undefined).finally(() => {
+                            navigate('/');
+                        });
+                    }
+                    toast({
+                        title: 'Failed to updated the project',
+                        description: 'Please try again later',
+                        variant: 'destructive',
+                    });
+                });
         }
     };
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger className='text-primary text-left py-1 px-4 rounded-tl-md rounded-tr-md transition-colors hover:bg-accent whitespace-nowrap'>
-                Edit
+            <DialogTrigger className='bg-primary text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark'>
+                Update Project
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -80,7 +112,7 @@ const EditProject = ({ data }: { data: ProjectAPIResponse }) => {
                                 <FormItem className='px-1'>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea className='h-32' {...field} />
+                                        <Textarea className='h-64' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -137,8 +169,8 @@ const EditProject = ({ data }: { data: ProjectAPIResponse }) => {
                                     )}
                                 />
                             </div>
-                            <Button type='submit' className='mt-4 w-full xs-550:w-32'>
-                                Update Project
+                            <Button type='submit' className='mt-4 w-full xs-550:w-36'>
+                                {isLoading ? <SpinnerButton /> : 'Update Project'}
                             </Button>
                         </div>
                     </form>
@@ -148,4 +180,4 @@ const EditProject = ({ data }: { data: ProjectAPIResponse }) => {
     );
 };
 
-export default EditProject;
+export default ProjectUpdateButton;

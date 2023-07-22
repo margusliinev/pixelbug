@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { DesktopSidebar, MobileSidebar, Navbar } from '@/components';
+import { Navbar, SidebarDesktop, SidebarMobile } from '@/components';
 import { getUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
 
@@ -29,8 +29,8 @@ const AppLayout = () => {
 
     return (
         <div className='grid lg:grid-cols-sidebar-layout'>
-            <DesktopSidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
-            <MobileSidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+            <SidebarDesktop isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+            <SidebarMobile isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <div>
                 <Navbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
                 <div>

@@ -1,7 +1,7 @@
 import logo from '../assets/logo.svg';
 import { SidebarLinks } from '.';
 
-const MobileSidebar = ({
+const SidebarMobile = ({
     isSidebarOpen,
     setIsSidebarOpen,
 }: {
@@ -56,4 +56,4 @@ const MobileSidebar = ({
     );
 };
 
-export default MobileSidebar;
+export default SidebarMobile;

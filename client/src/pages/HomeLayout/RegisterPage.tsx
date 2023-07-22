@@ -3,10 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
-import { MemberCheck, ButtonSpinner } from '@/components';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { MemberCheck, SpinnerButton } from '@/components';
+import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
 import { useRegisterMutation } from '@/features/api/apiSlice';
 import { DefaultAPIError } from '@/utils/types';
 import { registerFormSchema } from '@/utils/zodSchemas';
@@ -99,7 +97,7 @@ const RegisterPage = () => {
                             )}
                         ></FormField>
                         <Button type='submit' size={'sm'} disabled={isLoading}>
-                            {isLoading ? <ButtonSpinner /> : 'Sign Up'}
+                            {isLoading ? <SpinnerButton /> : 'Sign Up'}
                         </Button>
                         <MemberCheck to='/login' question='Already have an account?' text='Login' />
                     </form>

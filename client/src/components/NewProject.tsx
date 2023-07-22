@@ -2,6 +2,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
+import moment from 'moment';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +32,7 @@ import { useCreateProjectMutation, useLogoutMutation } from '@/features/api/apiS
 import { DefaultAPIError } from '@/utils/types';
 import { createProjectFormSchema } from '@/utils/zodSchemas';
 
-import { ButtonSpinner } from '.';
+import { SpinnerButton } from '.';
 import { useToast } from './ui/use-toast';
 
 const NewProject = () => {
@@ -46,8 +47,8 @@ const NewProject = () => {
         defaultValues: {
             title: '',
             description: '',
-            start_date: null,
-            end_date: null,
+            start_date: moment.utc().toDate(),
+            end_date: moment.utc().toDate(),
         },
     });
 
@@ -169,7 +170,7 @@ const NewProject = () => {
                                 />
                             </div>
                             <Button type='submit' className='mt-4 w-full xs-550:w-32'>
-                                {isLoading ? <ButtonSpinner /> : 'Create Project'}
+                                {isLoading ? <SpinnerButton /> : 'Create Project'}
                             </Button>
                         </div>
                     </form>

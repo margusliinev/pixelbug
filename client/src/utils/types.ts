@@ -12,6 +12,17 @@ export interface DefaultAPIError {
     status: number;
 }
 
+export interface Register {
+    username: string;
+    email: string;
+    password: string;
+}
+
+export interface Login {
+    email: string;
+    password: string;
+}
+
 export interface User {
     user_id: number;
     username: string;
@@ -109,5 +120,15 @@ export interface ProjectAPIResponse {
 
 export interface UpdateProjectUsers {
     updated_users: number[];
+    project_id: string;
+}
+
+export interface UpdateProject {
+    values: {
+        title: string;
+        description: string;
+        start_date: Date;
+        end_date: Date;
+    };
     project_id: string;
 }

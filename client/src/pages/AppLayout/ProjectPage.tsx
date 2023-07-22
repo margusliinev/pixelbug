@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { ManageProjectUsers, PageSpinner, ProjectSettingsModal, ProjectTeam } from '@/components';
+import { ProjectManagementButtons, ProjectTeam, SpinnerPage } from '@/components';
 import { useGetSingleProjectQuery } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
 
@@ -14,7 +14,7 @@ const ProjectPage = () => {
     if (isLoading) {
         return (
             <main className='w-full min-h-screen-minus-nav grid place-items-center'>
-                <PageSpinner />
+                <SpinnerPage />
             </main>
         );
     }
@@ -25,13 +25,13 @@ const ProjectPage = () => {
         }, 500);
         return (
             <main className='w-full min-h-screen-minus-nav grid place-items-center'>
-                <PageSpinner />
+                <SpinnerPage />
             </main>
         );
     }
 
     return (
-        <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-min-h-screen-minus-nav-minus-nav bg-emerald-50'>
+        <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-emerald-50'>
             <div className='grid gap-4 xs-550:flex items-end justify-between'>
                 <Link to={'/app/projects'} className='flex items-center gap-2 text-2xl font-medium text-primary-hover-dark group w-fit'>
                     <svg
@@ -46,12 +46,11 @@ const ProjectPage = () => {
                     </svg>
                     <span>All Projects</span>
                 </Link>
-                {user?.user_id === data.project.manager.user_id && <ManageProjectUsers />}
+                {user?.user_id === data.project.manager.user_id && <ProjectManagementButtons data={data} />}
             </div>
             <div className='bg-white shadow-project-card grid gap-4 my-4 p-4 rounded-md w-full'>
                 <header className='flex justify-between'>
-                    <h1 className='text-2xl md:text-4xl font-semibold'>{data.project.title}</h1>
-                    <ProjectSettingsModal data={data} />
+                    <h1 className='text-2xl md:text-3xl font-semibold'>{data.project.title}</h1>
                 </header>
                 <hr />
                 <section className='my-2'>

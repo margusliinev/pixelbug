@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
-import { ButtonSpinner } from '@/components';
+import { SpinnerButton } from '@/components';
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
 import { useLogoutMutation, useUpdateUserPasswordMutation } from '@/features/api/apiSlice';
@@ -12,7 +12,7 @@ import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
 import { updatePasswordFormSchema } from '@/utils/zodSchemas';
 
-const ChangePassword = () => {
+const ProfilePassword = () => {
     const { toast } = useToast();
     const navigate = useNavigate();
     const [updateUserPassword, { isLoading }] = useUpdateUserPasswordMutation();
@@ -105,7 +105,7 @@ const ChangePassword = () => {
                         )}
                     ></FormField>
                     <Button type='submit' size={'sm'} className='w-40 p-5' disabled={isLoading}>
-                        {isLoading ? <ButtonSpinner /> : 'Update Password'}
+                        {isLoading ? <SpinnerButton /> : 'Update Password'}
                     </Button>
                 </form>
             </Form>
@@ -113,4 +113,4 @@ const ChangePassword = () => {
     );
 };
 
-export default ChangePassword;
+export default ProfilePassword;

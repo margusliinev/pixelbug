@@ -26,7 +26,7 @@ import { useGetProjectUsersQuery, useLogoutMutation, useUpdateProjectUsersMutati
 import { DefaultAPIError, User } from '@/utils/types';
 import { manageProjectUsersFormSchema } from '@/utils/zodSchemas';
 
-import { ButtonSpinner } from '.';
+import { SpinnerButton } from '.';
 import { useToast } from './ui/use-toast';
 
 interface Users {
@@ -43,7 +43,7 @@ const searchState = {
     searchTerm: '',
 };
 
-const ManageProjectUsers = () => {
+const ProjectUsersButton = () => {
     const { toast } = useToast();
     const { project_id } = useParams();
     const [open, setOpen] = useState(false);
@@ -129,7 +129,7 @@ const ManageProjectUsers = () => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger className='bg-primary text-white transition-colors w-fit h-10 px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark'>
+            <DialogTrigger className='bg-neutral-700 text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-neutral-800'>
                 Manage Users
             </DialogTrigger>
             <DialogContent>
@@ -250,7 +250,7 @@ const ManageProjectUsers = () => {
                         </Command>
                         <div className='grid mt-4'>
                             <Button type='submit' className='w-full xs-550:w-32 justify-self-end'>
-                                {isLoading ? <ButtonSpinner /> : 'Update Users'}
+                                {isLoading ? <SpinnerButton /> : 'Update Users'}
                             </Button>
                         </div>
                     </form>
@@ -260,4 +260,4 @@ const ManageProjectUsers = () => {
     );
 };
 
-export default ManageProjectUsers;
+export default ProjectUsersButton;

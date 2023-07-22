@@ -1,4 +1,4 @@
-import { UserButton } from '.';
+import { NavbarUserButton } from '.';
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }: { isSidebarOpen: boolean; setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     return (
@@ -38,7 +38,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }: { isSidebarOpen: boolean; s
                         <input type='text' name='search' id='search' placeholder='Search...' className='w-full text-sm focus:outline-none' />
                     </div>
                 </div>
-                <UserButton />
+                <NavbarUserButton />
             </div>
         </nav>
     );
