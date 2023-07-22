@@ -48,8 +48,8 @@ const ProjectCreateButton = () => {
         defaultValues: {
             title: '',
             description: '',
-            start_date: moment.utc().toDate(),
-            end_date: moment.utc().toDate(),
+            start_date: null,
+            end_date: null,
         },
     });
 
