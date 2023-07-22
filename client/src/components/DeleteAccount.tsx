@@ -10,7 +10,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+} from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
 import { useDeleteUserMutation, useLogoutMutation } from '@/features/api/apiSlice';
 import { DefaultAPIError } from '@/utils/types';
@@ -36,7 +36,7 @@ const DeleteAccount = () => {
     };
 
     return (
-        <form>
+        <form className='shadow-project-card p-4 grid gap-4 my-4 rounded-md bg-white'>
             <h1 className='mb-1 text-2xl font-semibold'>Delete account</h1>
             <p className='text-sm text-gray-600 mb-4 max-w-sm'>
                 No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this

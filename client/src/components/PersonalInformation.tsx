@@ -73,7 +73,7 @@ const PersonalInformation = () => {
         }
     };
     return (
-        <>
+        <div className='shadow-project-card p-4 grid gap-4 my-4 rounded-md bg-white'>
             <div>
                 <h1 className='mb-1 text-2xl font-semibold flex items-center gap-2'>
                     Personal Information
@@ -89,7 +89,7 @@ const PersonalInformation = () => {
             </div>
             <ChangeAvatar />
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(submitForm)} className='grid max-w-xl space-y-4 w-full' noValidate>
+                <form onSubmit={form.handleSubmit(submitForm)} className='grid max-w-xl space-y-4 w-full mt-2' noValidate>
                     <div className='grid grid-cols-2 gap-4'>
                         <FormField
                             name='first_name'
@@ -157,7 +157,7 @@ const PersonalInformation = () => {
                     </Button>
                 </form>
             </Form>
-        </>
+        </div>
     );
 };
 

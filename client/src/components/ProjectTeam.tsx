@@ -3,7 +3,7 @@ import { ProjectAPIResponse, User } from '@/utils/types';
 
 const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
     return (
-        <div className='shadow-project-card p-4 grid gap-4 my-4 rounded-md max-w-xl'>
+        <div className='shadow-project-card p-4 grid gap-4 my-4 rounded-md max-w-xl bg-white'>
             <h1 className='text-2xl md:text-4xl font-semibold'>Project Team</h1>
             <hr />
             <section>

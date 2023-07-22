@@ -61,7 +61,7 @@ const ChangePassword = () => {
         }
     };
     return (
-        <>
+        <div className='shadow-project-card p-4 grid gap-4 my-4 rounded-md bg-white'>
             <Form {...form}>
                 <div>
                     <h1 className='mb-1 text-2xl font-semibold'>Change password</h1>
@@ -109,7 +109,7 @@ const ChangePassword = () => {
                     </Button>
                 </form>
             </Form>
-        </>
+        </div>
     );
 };
 

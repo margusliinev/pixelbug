@@ -1,14 +1,14 @@
 import moment from 'moment';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { ManageProjectUsers, PageSpinner, ProjectEditModal, ProjectTeam } from '@/components';
+import { ManageProjectUsers, PageSpinner, ProjectSettingsModal, ProjectTeam } from '@/components';
 import { useGetSingleProjectQuery } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
 
 const ProjectPage = () => {
-    const { user } = useAppSelector((store) => store.user);
     const navigate = useNavigate();
     const { project_id } = useParams();
+    const { user } = useAppSelector((store) => store.user);
     const { data, isLoading } = useGetSingleProjectQuery(project_id || '');
 
     if (isLoading) {
@@ -31,8 +31,8 @@ const ProjectPage = () => {
     }
 
     return (
-        <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-min-h-screen-minus-nav-minus-nav'>
-            <div className='flex items-center justify-between'>
+        <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-min-h-screen-minus-nav-minus-nav bg-emerald-50'>
+            <div className='grid gap-4 xs-550:flex items-end justify-between'>
                 <Link to={'/app/projects'} className='flex items-center gap-2 text-2xl font-medium text-primary-hover-dark group w-fit'>
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -48,10 +48,10 @@ const ProjectPage = () => {
                 </Link>
                 {user?.user_id === data.project.manager.user_id && <ManageProjectUsers />}
             </div>
-            <div className='shadow-project-card grid gap-4 my-4 p-4 rounded-md w-full'>
-                <header className='relative flex justify-between'>
+            <div className='bg-white shadow-project-card grid gap-4 my-4 p-4 rounded-md w-full'>
+                <header className='flex justify-between'>
                     <h1 className='text-2xl md:text-4xl font-semibold'>{data.project.title}</h1>
-                    <ProjectEditModal />
+                    <ProjectSettingsModal data={data} />
                 </header>
                 <hr />
                 <section className='my-2'>
