@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';

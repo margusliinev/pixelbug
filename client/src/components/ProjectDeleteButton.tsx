@@ -1,3 +1,5 @@
+import { useNavigate, useParams } from 'react-router-dom';
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -9,10 +11,40 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui';
+import { useToast } from '@/components/ui/use-toast';
+import { useDeleteProjectMutation } from '@/features/api/apiSlice';
+import { logoutUser } from '@/features/user/userSlice';
+import { useAppDispatch } from '@/utils/hooks';
+import { DefaultAPIError } from '@/utils/types';
 
 const ProjectDeleteButton = () => {
-    const handleDeleteProject = () => {
-        console.log('delete project');
+    const { toast } = useToast();
+    const { project_id } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const [deleteProject] = useDeleteProjectMutation();
+
+    const handleDeleteProject = async () => {
+        await deleteProject(project_id || '')
+            .unwrap()
+            .then(() => {
+                navigate('/app/projects');
+                toast({
+                    title: 'Project was successfully deleted',
+                });
+            })
+            .catch(async (error: DefaultAPIError) => {
+                if (error.status === 401) {
+                    await dispatch(logoutUser());
+                    navigate('/');
+                } else if (error.status === 403) {
+                    toast({
+                        title: 'You are not authorized to delete this project',
+                        variant: 'destructive',
+                    });
+                    navigate('/app/projects');
+                }
+            });
     };
 
     return (

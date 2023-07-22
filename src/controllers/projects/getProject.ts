@@ -5,7 +5,7 @@ import { db } from '../../db';
 import { projects, projects_users, users } from '../../db/schema';
 import { AuthenticatedRequest, UnauthenticatedError, UnauthorizedError } from '../../utils';
 
-export const getSingleProject = async (req: AuthenticatedRequest, res: Response) => {
+export const getProject = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
 
     const { project_id } = req.params;

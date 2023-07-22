@@ -105,6 +105,13 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['Project'],
         }),
+        deleteProject: builder.mutation<DefaultAPIResponse, string>({
+            query: (project_id) => ({
+                url: `/projects/${project_id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['Projects'],
+        }),
     }),
 });
 
@@ -120,4 +127,5 @@ export const {
     useGetProjectUsersQuery,
     useUpdateProjectUsersMutation,
     useUpdateProjectMutation,
+    useDeleteProjectMutation,
 } = apiSlice;
