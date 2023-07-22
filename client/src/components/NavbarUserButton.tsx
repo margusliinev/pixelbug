@@ -2,17 +2,17 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useLogoutMutation } from '@/features/api/apiSlice';
-import { useAppSelector } from '@/utils/hooks';
+import { logoutUser } from '@/features/user/userSlice';
+import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 
 const NavbarUserButton = () => {
-    const [logout] = useLogoutMutation();
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const { user } = useAppSelector((store) => store.user);
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { user } = useAppSelector((store) => store.user);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const handleLogout = async () => {
-        await logout(undefined);
+        await dispatch(logoutUser());
         navigate('/');
     };
 

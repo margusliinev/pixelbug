@@ -6,18 +6,17 @@ import z from 'zod';
 import { SpinnerButton } from '@/components';
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
-import { useLogoutMutation, useUpdateUserPasswordMutation } from '@/features/api/apiSlice';
-import { setUser } from '@/features/user/userSlice';
+import { useUpdateUserPasswordMutation } from '@/features/api/apiSlice';
+import { logoutUser, setUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
 import { updatePasswordFormSchema } from '@/utils/zodSchemas';
 
 const ProfilePassword = () => {
-    const { toast } = useToast();
-    const navigate = useNavigate();
     const [updateUserPassword, { isLoading }] = useUpdateUserPasswordMutation();
-    const [logout] = useLogoutMutation();
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const { toast } = useToast();
 
     const form = useForm<z.infer<typeof updatePasswordFormSchema>>({
         resolver: zodResolver(updatePasswordFormSchema),
@@ -41,11 +40,10 @@ const ProfilePassword = () => {
                         });
                     }
                 })
-                .catch((error: DefaultAPIError) => {
+                .catch(async (error: DefaultAPIError) => {
                     if (error.status === 401) {
-                        logout(undefined).finally(() => {
-                            navigate('/');
-                        });
+                        await dispatch(logoutUser());
+                        navigate('/');
                     }
                     if (error.data.type === 'password') {
                         form.setError('password', { message: error.data.msg });

@@ -8,7 +8,7 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
             <hr />
             <section>
                 <h2 className='text-xl md:text-2xl font-semibold mb-2'>Manager:</h2>
-                <div className='flex items-center gap-4 py-2'>
+                <div className='flex items-center gap-2 py-2'>
                     <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                         <AvatarImage src={data.project.manager.profile_picture} />
                         <AvatarFallback className='text-2xl bg-neutral-200'>{data.project.manager.username.charAt(0)}</AvatarFallback>

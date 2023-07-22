@@ -7,8 +7,8 @@ import z from 'zod';
 import { SpinnerButton } from '@/components';
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
-import { useLogoutMutation, useUpdateUserProfileMutation } from '@/features/api/apiSlice';
-import { setUser } from '@/features/user/userSlice';
+import { useUpdateUserProfileMutation } from '@/features/api/apiSlice';
+import { logoutUser, setUser } from '@/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 import { profileFormSchema } from '@/utils/zodSchemas';
@@ -20,7 +20,6 @@ const ProfileInfo = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [updateUserProfile, { isLoading }] = useUpdateUserProfileMutation();
-    const [logout] = useLogoutMutation();
     const { user } = useAppSelector((store) => store.user);
     const { first_name, last_name, username, email, job_title } = user as User;
 
@@ -50,11 +49,10 @@ const ProfileInfo = () => {
                         });
                     }
                 })
-                .catch((error: DefaultAPIError) => {
+                .catch(async (error: DefaultAPIError) => {
                     if (error.status === 401) {
-                        logout(undefined).finally(() => {
-                            navigate('/');
-                        });
+                        await dispatch(logoutUser());
+                        navigate('/');
                     }
                     if (error.data.type === 'username') {
                         form.setError('username', { message: error.data.msg });

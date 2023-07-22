@@ -16,6 +16,7 @@ export const getAllProjects = async (req: AuthenticatedRequest, res: Response) =
         .where(eq(projects_users.user_id, req.user.user_id));
 
     const userProjects = result.map((project) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { manager_id, ...projectData } = project.projects; // Extract project data excluding manager_id
         const manager = project.users; // Access the joined users table to get manager info
         return { ...projectData, manager }; // Merge project data and manager info

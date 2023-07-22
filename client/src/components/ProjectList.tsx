@@ -2,7 +2,7 @@ import { useGetAllProjectsQuery } from '@/features/api/apiSlice';
 
 import { Project } from '.';
 
-const ProjectsList = () => {
+const ProjectList = () => {
     const { data } = useGetAllProjectsQuery(undefined);
 
     return (
@@ -15,4 +15,4 @@ const ProjectsList = () => {
     );
 };
 
-export default ProjectsList;
+export default ProjectList;

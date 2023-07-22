@@ -6,10 +6,10 @@ import { useGetSingleProjectQuery } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
 
 const ProjectPage = () => {
-    const navigate = useNavigate();
     const { project_id } = useParams();
-    const { user } = useAppSelector((store) => store.user);
     const { data, isLoading } = useGetSingleProjectQuery(project_id || '');
+    const { user } = useAppSelector((store) => store.user);
+    const navigate = useNavigate();
 
     if (isLoading) {
         return (

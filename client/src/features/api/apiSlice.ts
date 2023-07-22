@@ -36,12 +36,6 @@ export const apiSlice = createApi({
                 body: user,
             }),
         }),
-        logout: builder.mutation<DefaultAPIResponse, undefined>({
-            query: () => ({
-                url: '/auth/logout',
-                method: 'POST',
-            }),
-        }),
         // User
         updateUserPicture: builder.mutation<UserAPIResponse, FormData>({
             query: (profile) => ({
@@ -63,12 +57,6 @@ export const apiSlice = createApi({
                 url: '/users/me',
                 method: 'PUT',
                 body: passwords,
-            }),
-        }),
-        deleteUser: builder.mutation({
-            query: () => ({
-                url: '/users/me',
-                method: 'DELETE',
             }),
         }),
         // Projects
@@ -99,6 +87,7 @@ export const apiSlice = createApi({
                 url: `/projects/${project_id}/users`,
                 method: 'GET',
             }),
+            providesTags: ['Project'],
         }),
         updateProjectUsers: builder.mutation<DefaultAPIResponse, UpdateProjectUsers>({
             query: ({ updated_users, project_id }) => ({
@@ -122,10 +111,8 @@ export const apiSlice = createApi({
 export const {
     useRegisterMutation,
     useLoginMutation,
-    useLogoutMutation,
     useUpdateUserProfileMutation,
     useUpdateUserPasswordMutation,
-    useDeleteUserMutation,
     useUpdateUserPictureMutation,
     useCreateProjectMutation,
     useGetAllProjectsQuery,

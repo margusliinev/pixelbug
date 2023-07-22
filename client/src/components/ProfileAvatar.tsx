@@ -3,22 +3,21 @@ import { useNavigate } from 'react-router-dom';
 
 import { Avatar, AvatarFallback, AvatarImage, Button, Input } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
-import { useLogoutMutation, useUpdateUserPictureMutation } from '@/features/api/apiSlice';
-import { setUser } from '@/features/user/userSlice';
+import { useUpdateUserPictureMutation } from '@/features/api/apiSlice';
+import { logoutUser, setUser } from '@/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 
 import { SpinnerButton } from '.';
 
 const ProfileAvatar = () => {
+    const [updateUserPicture, { isLoading }] = useUpdateUserPictureMutation();
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { toast } = useToast();
     const { user } = useAppSelector((store) => store.user);
-    const [logout] = useLogoutMutation();
-    const [updateUserPicture, { isLoading }] = useUpdateUserPictureMutation();
-    const dispatch = useAppDispatch();
     const { profile_picture, username } = user as User;
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0] || null;
@@ -41,11 +40,10 @@ const ProfileAvatar = () => {
                         });
                     }
                 })
-                .catch((error: DefaultAPIError) => {
+                .catch(async (error: DefaultAPIError) => {
                     if (error.status === 401) {
-                        logout(undefined).finally(() => {
-                            navigate('/');
-                        });
+                        await dispatch(logoutUser());
+                        navigate('/login');
                     } else {
                         toast({
                             title: 'Failed to update profile picture',

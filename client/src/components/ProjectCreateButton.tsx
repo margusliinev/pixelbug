@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
@@ -28,19 +27,21 @@ import {
     PopoverTrigger,
     Textarea,
 } from '@/components/ui';
-import { useCreateProjectMutation, useLogoutMutation } from '@/features/api/apiSlice';
+import { useCreateProjectMutation } from '@/features/api/apiSlice';
+import { logoutUser } from '@/features/user/userSlice';
+import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
 import { createProjectFormSchema } from '@/utils/zodSchemas';
 
 import { SpinnerButton } from '.';
 import { useToast } from './ui/use-toast';
 
-const NewProject = () => {
+const ProjectCreateButton = () => {
+    const [createProject, { isLoading }] = useCreateProjectMutation();
     const [open, setOpen] = useState(false);
-    const [logout] = useLogoutMutation();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { toast } = useToast();
-    const [createProject, { isLoading }] = useCreateProjectMutation();
 
     const form = useForm<z.infer<typeof createProjectFormSchema>>({
         resolver: zodResolver(createProjectFormSchema),
@@ -54,7 +55,6 @@ const NewProject = () => {
 
     const submitForm = async (values: z.infer<typeof createProjectFormSchema>) => {
         if (createProjectFormSchema.safeParse(values).success) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             await createProject({ title: values.title, description: values.description, start_date: values.start_date, end_date: values.end_date })
                 .unwrap()
                 .then((res) => {
@@ -62,16 +62,14 @@ const NewProject = () => {
                         form.reset();
                         toast({
                             title: 'Project created successfully',
-                            description: 'You can now add users to the project',
                         });
                         setOpen(false);
                     }
                 })
-                .catch((error: DefaultAPIError) => {
+                .catch(async (error: DefaultAPIError) => {
                     if (error.status === 401) {
-                        logout(undefined).finally(() => {
-                            navigate('/');
-                        });
+                        await dispatch(logoutUser());
+                        navigate('/');
                     }
                     toast({
                         title: 'Failed to create the project',
@@ -136,7 +134,6 @@ const NewProject = () => {
                                                     </FormControl>
                                                 </PopoverTrigger>
                                                 <PopoverContent className='w-auto p-0' align='start'>
-                                                    {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
                                                     <Calendar mode='single' selected={field.value} onSelect={field.onChange} initialFocus />
                                                 </PopoverContent>
                                             </Popover>
@@ -160,7 +157,6 @@ const NewProject = () => {
                                                     </FormControl>
                                                 </PopoverTrigger>
                                                 <PopoverContent className='w-auto p-0' align='start'>
-                                                    {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
                                                     <Calendar mode='single' selected={field.value} onSelect={field.onChange} initialFocus />
                                                 </PopoverContent>
                                             </Popover>
@@ -180,4 +176,4 @@ const NewProject = () => {
     );
 };
 
-export default NewProject;
+export default ProjectCreateButton;

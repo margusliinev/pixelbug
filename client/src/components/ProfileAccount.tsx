@@ -12,26 +12,30 @@ import {
     AlertDialogTrigger,
 } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
-import { useDeleteUserMutation, useLogoutMutation } from '@/features/api/apiSlice';
+import { deleteUser, logoutUser } from '@/features/user/userSlice';
+import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
 
 const ProfileAccount = () => {
-    const { toast } = useToast();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const [deleteUser] = useDeleteUserMutation();
-    const [logout] = useLogoutMutation();
+    const { toast } = useToast();
 
     const handleDeleteUser = async () => {
-        await deleteUser(undefined).catch((error: DefaultAPIError) => {
-            if (error.status === 401) {
-                logout(undefined).finally(() => {
-                    return;
-                });
-            }
-        });
-        toast({
-            title: 'Account Successfully Deleted!',
-        });
+        await dispatch(deleteUser())
+            .unwrap()
+            .then((res) => {
+                if (res.success) {
+                    toast({
+                        title: 'Your account was successfully deleted',
+                    });
+                }
+            })
+            .catch(async (error: DefaultAPIError) => {
+                if (error.status === 401) {
+                    await dispatch(logoutUser());
+                }
+            });
         navigate('/');
     };
 

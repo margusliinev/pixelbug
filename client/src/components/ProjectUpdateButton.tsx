@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
@@ -28,7 +27,9 @@ import {
     PopoverTrigger,
     Textarea,
 } from '@/components/ui';
-import { useLogoutMutation, useUpdateProjectMutation } from '@/features/api/apiSlice';
+import { useUpdateProjectMutation } from '@/features/api/apiSlice';
+import { logoutUser } from '@/features/user/userSlice';
+import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError, ProjectAPIResponse } from '@/utils/types';
 import { createProjectFormSchema } from '@/utils/zodSchemas';
 
@@ -37,11 +38,11 @@ import { useToast } from './ui/use-toast';
 
 const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
     const [updateProject, { isLoading }] = useUpdateProjectMutation();
-    const [logout] = useLogoutMutation();
+    const [open, setOpen] = useState(false);
+    const { project_id } = useParams();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { toast } = useToast();
-    const { project_id } = useParams();
-    const [open, setOpen] = useState(false);
 
     const form = useForm<z.infer<typeof createProjectFormSchema>>({
         resolver: zodResolver(createProjectFormSchema),
@@ -55,7 +56,6 @@ const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
 
     const submitForm = async (values: z.infer<typeof createProjectFormSchema>) => {
         if (createProjectFormSchema.safeParse(values).success) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             await updateProject({ values, project_id: project_id || '' })
                 .unwrap()
                 .then((res) => {
@@ -67,11 +67,10 @@ const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
                         setOpen(false);
                     }
                 })
-                .catch((error: DefaultAPIError) => {
+                .catch(async (error: DefaultAPIError) => {
                     if (error.status === 401) {
-                        logout(undefined).finally(() => {
-                            navigate('/');
-                        });
+                        await dispatch(logoutUser());
+                        navigate('/');
                     }
                     toast({
                         title: 'Failed to updated the project',
@@ -136,7 +135,6 @@ const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
                                                     </FormControl>
                                                 </PopoverTrigger>
                                                 <PopoverContent className='w-auto p-0' align='start'>
-                                                    {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
                                                     <Calendar mode='single' selected={field.value} onSelect={field.onChange} initialFocus />
                                                 </PopoverContent>
                                             </Popover>
@@ -160,7 +158,6 @@ const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
                                                     </FormControl>
                                                 </PopoverTrigger>
                                                 <PopoverContent className='w-auto p-0' align='start'>
-                                                    {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
                                                     <Calendar mode='single' selected={field.value} onSelect={field.onChange} initialFocus />
                                                 </PopoverContent>
                                             </Popover>

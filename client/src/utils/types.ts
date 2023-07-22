@@ -38,6 +38,13 @@ export interface User {
     updated_at: Date;
 }
 
+export interface UserAPIResponse {
+    success: boolean;
+    isAuth: boolean;
+    user: User;
+    msg: string;
+}
+
 export interface UpdateUserProfile {
     first_name: string;
     last_name: string;
@@ -50,13 +57,6 @@ export interface UpdateUserPassword {
     password: string;
     newPassword: string;
     confirmNewPassword: string;
-}
-
-export interface UserAPIResponse {
-    success: boolean;
-    isAuth: boolean;
-    user: User;
-    msg: string;
 }
 
 export interface Project {

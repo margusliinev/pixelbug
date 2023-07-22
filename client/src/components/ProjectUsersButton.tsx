@@ -22,7 +22,9 @@ import {
     DialogTrigger,
     Form,
 } from '@/components/ui';
-import { useGetProjectUsersQuery, useLogoutMutation, useUpdateProjectUsersMutation } from '@/features/api/apiSlice';
+import { useGetProjectUsersQuery, useUpdateProjectUsersMutation } from '@/features/api/apiSlice';
+import { logoutUser } from '@/features/user/userSlice';
+import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 import { manageProjectUsersFormSchema } from '@/utils/zodSchemas';
 
@@ -44,15 +46,15 @@ const searchState = {
 };
 
 const ProjectUsersButton = () => {
-    const { toast } = useToast();
     const { project_id } = useParams();
-    const [open, setOpen] = useState(false);
-    const [users, setUsers] = useState(usersState);
-    const [search, setSearch] = useState(searchState);
-    const { data } = useGetProjectUsersQuery(project_id || '');
-    const [updateProjectUsers, { isLoading }] = useUpdateProjectUsersMutation();
-    const [logout] = useLogoutMutation();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { toast } = useToast();
+    const [updateProjectUsers, { isLoading }] = useUpdateProjectUsersMutation();
+    const { data } = useGetProjectUsersQuery(project_id || '');
+    const [search, setSearch] = useState(searchState);
+    const [users, setUsers] = useState(usersState);
+    const [open, setOpen] = useState(false);
 
     const filteredUsers = users.other_users.filter((user) => {
         const searchTerm = search.searchTerm.toLowerCase();
@@ -113,11 +115,10 @@ const ProjectUsersButton = () => {
                     setOpen(false);
                 }
             })
-            .catch((error: DefaultAPIError) => {
+            .catch(async (error: DefaultAPIError) => {
                 if (error.status === 401) {
-                    logout(undefined).finally(() => {
-                        navigate('/');
-                    });
+                    await dispatch(logoutUser());
+                    navigate('/');
                 }
                 toast({
                     title: 'Failed to update the users',

@@ -12,8 +12,6 @@ export const updateProject = async (req: AuthenticatedRequest, res: Response) =>
     const { project_id } = req.params;
     const { title, description, start_date, end_date } = req.body as Project;
 
-    console.log(project_id);
-
     const start_date_utc = moment(start_date).utc().toDate();
     const end_date_utc = moment(end_date).utc().toDate();
 

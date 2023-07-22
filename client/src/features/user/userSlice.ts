@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { User, UserAPIResponse } from '@/utils/types';
+import { DefaultAPIResponse, User, UserAPIResponse } from '@/utils/types';
 
 interface UserState {
     user: User | null;
@@ -19,6 +19,26 @@ const initialState: UserState = {
 const getUser = createAsyncThunk<UserAPIResponse>('user/getUser', async () => {
     const response = await fetch('/api/v1/users/me', {
         method: 'GET',
+    });
+    const data = response.json();
+    return data;
+});
+
+// Remove user from state, delete user from database and reset token
+
+const deleteUser = createAsyncThunk<DefaultAPIResponse>('user/deleteUser', async () => {
+    const response = await fetch('/api/v1/users/me', {
+        method: 'DELETE',
+    });
+    const data = response.json();
+    return data;
+});
+
+// Remove user from state and reset token
+
+const logoutUser = createAsyncThunk<DefaultAPIResponse>('user/logoutUser', async () => {
+    const response = await fetch('/api/v1/auth/logout', {
+        method: 'POST',
     });
     const data = response.json();
     return data;
@@ -52,6 +72,6 @@ const userSlice = createSlice({
     },
 });
 
-export { getUser };
+export { deleteUser, getUser, logoutUser };
 export const { setUser } = userSlice.actions;
 export default userSlice.reducer;
