@@ -1,20 +1,13 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui';
-import { useAppSelector } from '@/utils/hooks';
 import { ProjectAPIResponse, User } from '@/utils/types';
 
-import { ManageProjectUsers } from '../components';
-
 const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
-    const { user } = useAppSelector((store) => store.user);
     return (
         <div className='shadow-project-card p-4 grid gap-4 my-4 rounded-md max-w-xl'>
-            <div className='flex justify-between'>
-                <h1 className='text-4xl font-semibold'>Project Team</h1>
-                {user?.user_id === data.project.manager.user_id && <ManageProjectUsers />}
-            </div>
+            <h1 className='text-2xl md:text-4xl font-semibold'>Project Team</h1>
             <hr />
             <section>
-                <h2 className='font-semibold text-xl'>Manager:</h2>
+                <h2 className='text-xl md:text-2xl font-semibold mb-2'>Manager:</h2>
                 <div className='flex items-center gap-4 py-2'>
                     <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                         <AvatarImage src={data.project.manager.profile_picture} />
@@ -26,7 +19,7 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
             <section>
                 {data.project.users.length < 1 ? null : (
                     <>
-                        <h2 className='font-semibold text-xl'>Developers:</h2>
+                        <h2 className='text-xl md:text-2xl font-semibold mb-2'>Developers:</h2>
                         <div className='grid gap-4'>
                             {data.project.users.map((user: User) => {
                                 return (

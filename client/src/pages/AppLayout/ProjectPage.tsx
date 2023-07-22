@@ -1,65 +1,15 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import z from 'zod';
 
-import { ButtonSpinner, PageSpinner, ProjectTeam } from '@/components';
-import {
-    Button,
-    Calendar,
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-    Input,
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-    Textarea,
-} from '@/components/ui';
+import { ManageProjectUsers, PageSpinner, ProjectEditModal, ProjectTeam } from '@/components';
 import { useGetSingleProjectQuery } from '@/features/api/apiSlice';
-import { createProjectFormSchema } from '@/utils/zodSchemas';
+import { useAppSelector } from '@/utils/hooks';
 
 const ProjectPage = () => {
+    const { user } = useAppSelector((store) => store.user);
     const navigate = useNavigate();
     const { project_id } = useParams();
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [enableEditing, setEnableEditing] = useState(false);
     const { data, isLoading } = useGetSingleProjectQuery(project_id || '');
-
-    const form = useForm<z.infer<typeof createProjectFormSchema>>({
-        resolver: zodResolver(createProjectFormSchema),
-        defaultValues: {
-            title: '',
-            description: '',
-            start_date: moment.utc().toDate(),
-            end_date: moment.utc().toDate(),
-        },
-    });
-
-    useEffect(() => {
-        if (data) {
-            form.reset({
-                title: data.project.title,
-                description: data.project.description,
-                start_date: moment(data.project.start_date).toDate(),
-                end_date: moment(data.project.end_date).toDate(),
-            });
-        }
-    }, [data, form]);
-
-    const submitForm = (values: z.infer<typeof createProjectFormSchema>) => {
-        if (createProjectFormSchema.safeParse(values).success) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            console.log(values);
-        }
-    };
 
     if (isLoading) {
         return (
@@ -82,146 +32,74 @@ const ProjectPage = () => {
 
     return (
         <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-min-h-screen-minus-nav-minus-nav'>
-            <Link to={'/app/projects'} className='flex items-center gap-2 text-2xl font-medium text-primary-hover-dark group'>
-                <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth='2'
-                    stroke='currentColor'
-                    className='w-6 h-6 transition-colors group-hover:text-primary-hover-light'
-                >
-                    <path strokeLinecap='round' strokeLinejoin='round' d='M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z' />
-                </svg>
-                <span>All Projects</span>
-            </Link>
-            <div className='shadow-project-card p-4 grid gap-4 my-4 rounded-md relative'>
-                <div className='relative'>
-                    <button className='absolute right-4 top-6 cursor-pointer z-50' onClick={() => setShowEditModal(!showEditModal)}>
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            fill='none'
-                            viewBox='0 0 24 24'
-                            strokeWidth='1'
-                            stroke='currentColor'
-                            className='w-8 h-8'
-                        >
-                            <path
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                                d='M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z'
-                            />
-                        </svg>
-                    </button>
-                    {showEditModal && !enableEditing && (
-                        <div className='absolute right-10 top-6 h-8 w-16 rounded-md border bg-background shadow-sm transition-opacity grid'>
-                            <button
-                                className='rounded-md transition-colors hover:bg-accent z-50'
-                                onClick={() => {
-                                    setShowEditModal(false);
-                                    setEnableEditing(true);
-                                }}
+            <div className='flex items-center justify-between'>
+                <Link to={'/app/projects'} className='flex items-center gap-2 text-2xl font-medium text-primary-hover-dark group w-fit'>
+                    <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        strokeWidth='2'
+                        stroke='currentColor'
+                        className='w-6 h-6 transition-colors group-hover:text-primary-hover-light'
+                    >
+                        <path strokeLinecap='round' strokeLinejoin='round' d='M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z' />
+                    </svg>
+                    <span>All Projects</span>
+                </Link>
+                {user?.user_id === data.project.manager.user_id && <ManageProjectUsers />}
+            </div>
+            <div className='shadow-project-card grid gap-4 my-4 p-4 rounded-md w-full'>
+                <header className='relative flex justify-between'>
+                    <h1 className='text-2xl md:text-4xl font-semibold'>{data.project.title}</h1>
+                    <ProjectEditModal />
+                </header>
+                <hr />
+                <section className='my-2'>
+                    <p className='text-xl md:text-2xl font-semibold mb-2'>Project Description:</p>
+                    <p className='text-sm md:text-base text-neutral-700 whitespace-pre-wrap mt-2'>{data.project.description}</p>
+                </section>
+                <section className='grid gap-4 xs-550:flex items-center xs-550:gap-10 my-2'>
+                    <div>
+                        <p className='tracking-tight font-medium mb-2'>Start Date:</p>
+                        <div className='flex items-center gap-4 ring-1 ring-border py-2 px-3 rounded-md max-w-[200px] justify-between'>
+                            <span className='text-sm whitespace-nowrap sm:text-base'>{moment(data.project.start_date).format('Do MMMM YYYY')}</span>
+                            <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                fill='none'
+                                viewBox='0 0 24 24'
+                                strokeWidth='1.5'
+                                stroke='currentColor'
+                                className='w-5 h-5'
                             >
-                                Edit
-                            </button>
+                                <path
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                    d='M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5'
+                                />
+                            </svg>
                         </div>
-                    )}
-                    {showEditModal && enableEditing && (
-                        <div className='absolute right-10 top-6 h-8 w-16 rounded-md border bg-background shadow-sm transition-opacity grid'>
-                            <button
-                                className='rounded-md transition-colors hover:bg-accent z-50'
-                                onClick={() => {
-                                    setShowEditModal(false);
-                                    setEnableEditing(false);
-                                }}
+                    </div>
+                    <div>
+                        <p className='tracking-tight font-medium mb-2'>Deadline:</p>
+                        <div className='flex items-center gap-4 ring-1 ring-border py-2 px-3 rounded-md max-w-[200px] justify-between'>
+                            <span className='text-sm whitespace-nowrap sm:text-base'>{moment(data.project.end_date).format('Do MMMM YYYY')}</span>
+                            <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                fill='none'
+                                viewBox='0 0 24 24'
+                                strokeWidth='1.5'
+                                stroke='currentColor'
+                                className='w-5 h-5'
                             >
-                                Cancel
-                            </button>
-                        </div>
-                    )}
-                </div>
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(submitForm)} className='grid space-y-6' noValidate>
-                        <FormField
-                            name='title'
-                            render={({ field }) => (
-                                <FormItem className='px-1'>
-                                    <FormControl>
-                                        <Input type='text' {...field} className='text-4xl h-fit font-semibold' disabled={!enableEditing} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        ></FormField>
-                        <FormField
-                            control={form.control}
-                            name='description'
-                            render={({ field }) => (
-                                <FormItem className='px-1'>
-                                    <FormControl>
-                                        <Textarea className='h-96 text-md' {...field} disabled={!enableEditing} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <div className='gap-4 items-end xs-550:flex xs-550:justify-between'>
-                            <div className='grid items-end gap-4 md:flex'>
-                                <FormField
-                                    control={form.control}
-                                    name='start_date'
-                                    render={({ field }) => (
-                                        <FormItem className='flex flex-col px-1 w-fit'>
-                                            <FormLabel>Start Date</FormLabel>
-                                            <Popover>
-                                                <PopoverTrigger asChild>
-                                                    <FormControl>
-                                                        <Button variant={'outline'} className='w-52 sm:max-w-xs' disabled={!enableEditing}>
-                                                            {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
-                                                            <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                                                        </Button>
-                                                    </FormControl>
-                                                </PopoverTrigger>
-                                                <PopoverContent className='w-auto p-0' align='start'>
-                                                    {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-                                                    <Calendar mode='single' selected={field.value} onSelect={field.onChange} initialFocus />
-                                                </PopoverContent>
-                                            </Popover>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
+                                <path
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                    d='M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5'
                                 />
-                                <FormField
-                                    control={form.control}
-                                    name='end_date'
-                                    render={({ field }) => (
-                                        <FormItem className='flex flex-col px-1 w-fit'>
-                                            <FormLabel>Deadline</FormLabel>
-                                            <Popover>
-                                                <PopoverTrigger asChild>
-                                                    <FormControl>
-                                                        <Button variant={'outline'} className='w-52 sm:max-w-xs' disabled={!enableEditing}>
-                                                            {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
-                                                            <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                                                        </Button>
-                                                    </FormControl>
-                                                </PopoverTrigger>
-                                                <PopoverContent className='w-auto p-0' align='start'>
-                                                    {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-                                                    <Calendar mode='single' selected={field.value} onSelect={field.onChange} initialFocus />
-                                                </PopoverContent>
-                                            </Popover>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-                            <Button type='submit' className='mt-4 w-full xs-550:w-36'>
-                                {isLoading ? <ButtonSpinner /> : 'Update Project'}
-                            </Button>
+                            </svg>
                         </div>
-                    </form>
-                </Form>
+                    </div>
+                </section>
             </div>
             <ProjectTeam data={data} />
         </main>

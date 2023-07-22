@@ -10,6 +10,7 @@ import NewProject from './NewProject';
 import PageSpinner from './PageSpinner';
 import PersonalInformation from './PersonalInformation';
 import Project from './Project';
+import ProjectEditModal from './ProjectEditModal';
 import ProjectsList from './ProjectsList';
 import ProjectTeam from './ProjectTeam';
 import SidebarLinks from './SidebarLinks';
@@ -28,6 +29,7 @@ export {
     PageSpinner,
     PersonalInformation,
     Project,
+    ProjectEditModal,
     ProjectsList,
     ProjectTeam,
     SidebarLinks,
