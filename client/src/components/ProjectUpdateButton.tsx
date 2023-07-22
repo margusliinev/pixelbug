@@ -31,7 +31,7 @@ import { useUpdateProjectMutation } from '@/features/api/apiSlice';
 import { logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError, ProjectAPIResponse } from '@/utils/types';
-import { createProjectFormSchema } from '@/utils/zodSchemas';
+import { updateProjectFormSchema } from '@/utils/zodSchemas';
 
 import { SpinnerButton } from '.';
 import { useToast } from './ui/use-toast';
@@ -44,8 +44,8 @@ const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
     const navigate = useNavigate();
     const { toast } = useToast();
 
-    const form = useForm<z.infer<typeof createProjectFormSchema>>({
-        resolver: zodResolver(createProjectFormSchema),
+    const form = useForm<z.infer<typeof updateProjectFormSchema>>({
+        resolver: zodResolver(updateProjectFormSchema),
         defaultValues: {
             title: data.project.title,
             description: data.project.description,
@@ -54,8 +54,8 @@ const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
         },
     });
 
-    const submitForm = async (values: z.infer<typeof createProjectFormSchema>) => {
-        if (createProjectFormSchema.safeParse(values).success) {
+    const submitForm = async (values: z.infer<typeof updateProjectFormSchema>) => {
+        if (updateProjectFormSchema.safeParse(values).success) {
             await updateProject({ values, project_id: project_id || '' })
                 .unwrap()
                 .then((res) => {
