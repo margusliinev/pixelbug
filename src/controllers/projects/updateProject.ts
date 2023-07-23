@@ -4,13 +4,17 @@ import moment from 'moment';
 
 import { db } from '../../db/index';
 import { Project, projects } from '../../db/schema';
-import { AuthenticatedRequest, UnauthenticatedError, UnauthorizedError } from '../../utils';
+import { AuthenticatedRequest, BadRequestError, UnauthenticatedError, UnauthorizedError } from '../../utils';
 
 export const updateProject = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
 
     const { project_id } = req.params;
     const { title, description, start_date, end_date } = req.body as Project;
+
+    if (!title || !description || !start_date || !end_date) {
+        throw new BadRequestError('form', 'Please fill out all fields');
+    }
 
     const start_date_utc = moment(start_date).utc().toDate();
     const end_date_utc = moment(end_date).utc().toDate();

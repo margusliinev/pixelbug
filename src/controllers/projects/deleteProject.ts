@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { db } from '../../db/index';
 import { projects } from '../../db/schema';
-import { AuthenticatedRequest, UnauthenticatedError, UnauthorizedError } from '../../utils';
+import { AuthenticatedRequest, NotFoundError, UnauthenticatedError, UnauthorizedError } from '../../utils';
 
 export const deleteProject = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
@@ -14,6 +14,11 @@ export const deleteProject = async (req: AuthenticatedRequest, res: Response) =>
         .select()
         .from(projects)
         .where(eq(projects.project_id, Number(project_id)));
+
+    if (project.length < 1) {
+        throw new NotFoundError('Project not found');
+    }
+
     const projectManagerID = project[0].manager_id;
 
     if (projectManagerID !== req.user.user_id) throw new UnauthorizedError('Only project manager can delete the project');

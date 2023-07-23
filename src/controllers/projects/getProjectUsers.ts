@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { and, eq, ne } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db';
-import { projects, projects_users, users } from '../../db/schema';
+import { projects, projects_users, User, users } from '../../db/schema';
 import { AuthenticatedRequest, UnauthenticatedError } from '../../utils';
 
 export const getProjectUsers = async (req: AuthenticatedRequest, res: Response) => {
@@ -26,12 +27,20 @@ export const getProjectUsers = async (req: AuthenticatedRequest, res: Response) 
 
     const allUsers = await db.select().from(users);
 
-    const projectUsers = projectUsersQuery.map((user) => user.users);
+    const projectUsers = projectUsersQuery.map((user) => {
+        const { password, ...userNoPassword } = user.users as User; // Exclude password from user data
+        return userNoPassword;
+    });
 
     // Array to compare user ID-s to get the users that are not in the project (other users)
     const projectUsersID = projectUsersQuery.map((user) => user.users?.user_id);
 
-    const otherUsers = allUsers.filter((user) => !projectUsersID.includes(user.user_id) && user.user_id !== manager_id);
+    const otherUsers = allUsers
+        .filter((user) => !projectUsersID.includes(user.user_id) && user.user_id !== manager_id)
+        .map((user) => {
+            const { password, ...userNoPassword } = user as User; // Exclude password from user data
+            return userNoPassword;
+        });
 
     res.status(200).json({ success: true, projectUsers, otherUsers });
 };

@@ -23,7 +23,9 @@ export const updateProjectUsers = async (req: AuthenticatedRequest, res: Respons
     await db
         .delete(projects_users)
         .where(and(eq(projects_users.project_id, Number(project_id)), ne(projects_users.user_id, manager_id)))
-        .returning();
+        .catch(() => {
+            throw new Error('Failed to update project users');
+        });
 
     if (updated_users.length >= 1) {
         const update_users_result = await db

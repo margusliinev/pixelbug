@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { eq } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db';
-import { projects, projects_users, users } from '../../db/schema';
+import { projects, projects_users, User, users } from '../../db/schema';
 import { AuthenticatedRequest, UnauthenticatedError } from '../../utils';
 
 export const getAllProjects = async (req: AuthenticatedRequest, res: Response) => {
@@ -16,9 +17,8 @@ export const getAllProjects = async (req: AuthenticatedRequest, res: Response) =
         .where(eq(projects_users.user_id, req.user.user_id));
 
     const userProjects = result.map((project) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { manager_id, ...projectData } = project.projects; // Extract project data excluding manager_id
-        const manager = project.users; // Access the joined users table to get manager info
+        const { password, ...manager } = project.users as User; // Extract manager info excluding password
         return { ...projectData, manager }; // Merge project data and manager info
     });
 

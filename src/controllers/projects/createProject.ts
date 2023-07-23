@@ -3,12 +3,16 @@ import moment from 'moment';
 
 import { db } from '../../db/index';
 import { Project, projects, projects_users } from '../../db/schema';
-import { AuthenticatedRequest, UnauthenticatedError } from '../../utils';
+import { AuthenticatedRequest, BadRequestError, UnauthenticatedError } from '../../utils';
 
 export const createProject = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
 
     const { title, description, start_date, end_date } = req.body as Project;
+
+    if (!title || !description || !start_date || !end_date) {
+        throw new BadRequestError('form', 'Please fill out all fields');
+    }
 
     const manager_id = req.user.user_id;
 
