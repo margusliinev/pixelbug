@@ -35,7 +35,9 @@ const ProjectCard = ({
                         <AvatarImage src={manager.profile_picture} />
                         <AvatarFallback className='text-2xl bg-neutral-200'>{manager.username.charAt(0)}</AvatarFallback>
                     </Avatar>
-                    <p className='font-medium'>{`${manager.first_name} ${manager.last_name}`}</p>
+                    <p className='font-medium'>
+                        {manager.first_name && manager.last_name ? `${manager.first_name} ${manager.last_name}` : manager.username}
+                    </p>
                 </div>
             </section>
             <hr className='my-4' />
