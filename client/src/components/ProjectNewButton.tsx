@@ -37,7 +37,7 @@ import { createProjectFormSchema } from '@/utils/zodSchemas';
 import { SpinnerButton } from '.';
 import { useToast } from './ui/use-toast';
 
-const ProjectCreateButton = () => {
+const ProjectNewButton = () => {
     const [createProject, { isLoading }] = useCreateProjectMutation();
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch();
@@ -84,11 +84,11 @@ const ProjectCreateButton = () => {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger className='bg-primary text-white transition-colors w-fit h-10 px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark'>
-                Create Project
+                New Project
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Create Project</DialogTitle>
+                    <DialogTitle>New Project</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(submitForm)} className='grid space-y-6' noValidate>
@@ -177,4 +177,4 @@ const ProjectCreateButton = () => {
     );
 };
 
-export default ProjectCreateButton;
+export default ProjectNewButton;

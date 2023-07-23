@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui';
 import { User } from '@/utils/types';
 
-const Project = ({
+const ProjectCard = ({
     project_id,
     title,
     start_date,
@@ -53,4 +53,4 @@ const Project = ({
     );
 };
 
-export default Project;
+export default ProjectCard;

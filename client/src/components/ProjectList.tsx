@@ -1,15 +1,13 @@
-import { useGetAllProjectsQuery } from '@/features/api/apiSlice';
+import { AllProjectsAPIResponse } from '@/utils/types';
 
-import { Project } from '.';
+import { ProjectCard } from '.';
 
-const ProjectList = () => {
-    const { data } = useGetAllProjectsQuery(undefined);
-
+const ProjectList = ({ data }: { data: AllProjectsAPIResponse | undefined }) => {
     return (
         <div className='grid md:grid-cols-2 2xl:grid-cols-3 w-full my-4 gap-4'>
             {data &&
                 data.projects.map((project) => {
-                    return <Project {...project} key={project.project_id} />;
+                    return <ProjectCard {...project} key={project.project_id} />;
                 })}
         </div>
     );

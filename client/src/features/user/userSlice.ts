@@ -29,6 +29,9 @@ const getUser = createAsyncThunk<UserAPIResponse>('user/getUser', async () => {
 const deleteUser = createAsyncThunk<DefaultAPIResponse>('user/deleteUser', async () => {
     const response = await fetch('/api/v1/users/me', {
         method: 'DELETE',
+        headers: {
+            'Clear-Site-Data': '"cache", "cookies", "storage", "executionContexts"',
+        },
     });
     const data = response.json();
     return data;
@@ -39,6 +42,9 @@ const deleteUser = createAsyncThunk<DefaultAPIResponse>('user/deleteUser', async
 const logoutUser = createAsyncThunk<DefaultAPIResponse>('user/logoutUser', async () => {
     const response = await fetch('/api/v1/auth/logout', {
         method: 'POST',
+        headers: {
+            'Clear-Site-Data': '"cache", "cookies", "storage", "executionContexts"',
+        },
     });
     const data = response.json();
     return data;

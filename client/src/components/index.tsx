@@ -4,13 +4,14 @@ import NavbarMobileMenu from './NavbarMobileMenu';
 import NavbarSearch from './NavbarSearch';
 import NavbarUserButton from './NavbarUserButton';
 import ProfileAccount from './ProfileAccount';
+import ProfileAvatar from './ProfileAvatar';
 import ProfileInfo from './ProfileInfo';
 import ProfilePassword from './ProfilePassword';
-import Project from './Project';
-import ProjectCreateButton from './ProjectCreateButton';
-import DeleteProjectButton from './ProjectDeleteButton';
+import ProjectCard from './ProjectCard';
+import ProjectDeleteButton from './ProjectDeleteButton';
 import ProjectList from './ProjectList';
 import ProjectManagementButtons from './ProjectManagementButtons';
+import ProjectNewButton from './ProjectNewButton';
 import ProjectTeam from './ProjectTeam';
 import ProjectUpdateButton from './ProjectUpdateButton';
 import ProjectUsersButton from './ProjectUsersButton';
@@ -21,19 +22,20 @@ import SpinnerButton from './SpinnerButton';
 import SpinnerPage from './SpinnerPage';
 
 export {
-    DeleteProjectButton,
     MemberCheck,
     Navbar,
     NavbarMobileMenu,
     NavbarSearch,
     NavbarUserButton,
     ProfileAccount,
+    ProfileAvatar,
     ProfileInfo,
     ProfilePassword,
-    Project,
-    ProjectCreateButton,
+    ProjectCard,
+    ProjectDeleteButton,
     ProjectList,
     ProjectManagementButtons,
+    ProjectNewButton,
     ProjectTeam,
     ProjectUpdateButton,
     ProjectUsersButton,

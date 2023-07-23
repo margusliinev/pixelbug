@@ -1,6 +1,6 @@
 import { ProjectAPIResponse } from '@/utils/types';
 
-import { DeleteProjectButton, ProjectUpdateButton, ProjectUsersButton } from '.';
+import { ProjectDeleteButton, ProjectUpdateButton, ProjectUsersButton } from '.';
 
 const ProjectManagementButtons = ({ data }: { data: ProjectAPIResponse }) => {
     return (
@@ -12,7 +12,7 @@ const ProjectManagementButtons = ({ data }: { data: ProjectAPIResponse }) => {
                 <ProjectUpdateButton data={data} />
             </li>
             <li>
-                <DeleteProjectButton />
+                <ProjectDeleteButton />
             </li>
         </ul>
     );
