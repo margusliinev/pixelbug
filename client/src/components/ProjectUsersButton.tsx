@@ -173,7 +173,7 @@ const ProjectUsersButton = () => {
                                                                         <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                                                                             <AvatarImage src={user.profile_picture} />
                                                                             <AvatarFallback className='text-2xl bg-neutral-200'>
-                                                                                {user.username.charAt(0)}
+                                                                                {user.username.charAt(0).toUpperCase()}
                                                                             </AvatarFallback>
                                                                         </Avatar>
                                                                         <div>
@@ -217,7 +217,7 @@ const ProjectUsersButton = () => {
                                                                         <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                                                                             <AvatarImage src={user.profile_picture} />
                                                                             <AvatarFallback className='text-2xl bg-neutral-200'>
-                                                                                {user.username.charAt(0)}
+                                                                                {user.username.charAt(0).toUpperCase()}
                                                                             </AvatarFallback>
                                                                         </Avatar>
                                                                         <div>

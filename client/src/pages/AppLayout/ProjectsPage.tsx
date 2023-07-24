@@ -2,7 +2,7 @@ import { ProjectList, ProjectNewButton, SpinnerPage } from '@/components';
 import { useGetAllProjectsQuery } from '@/features/api/apiSlice';
 
 const ProjectsPage = () => {
-    const { data, isLoading } = useGetAllProjectsQuery(undefined);
+    const { data, isLoading } = useGetAllProjectsQuery(undefined, { refetchOnMountOrArgChange: true });
 
     if (isLoading) {
         return (

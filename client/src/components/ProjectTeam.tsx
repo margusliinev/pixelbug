@@ -8,12 +8,19 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
             <hr />
             <section>
                 <h2 className='text-xl md:text-2xl font-semibold mb-2'>Manager:</h2>
-                <div className='flex items-center gap-2 py-2'>
+                <div className='flex items-center gap-2'>
                     <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                         <AvatarImage src={data.project.manager.profile_picture} />
-                        <AvatarFallback className='text-2xl bg-neutral-200'>{data.project.manager.username.charAt(0)}</AvatarFallback>
+                        <AvatarFallback className='text-2xl bg-neutral-200'>{data.project.manager.username.charAt(0).toUpperCase()}</AvatarFallback>
                     </Avatar>
-                    <p className='font-medium'>{`${data.project.manager.first_name} ${data.project.manager.last_name}`}</p>
+                    <div>
+                        <p className='font-medium'>
+                            {data.project.manager.first_name && data.project.manager.last_name
+                                ? `${data.project.manager.first_name} ${data.project.manager.last_name}`
+                                : data.project.manager.username}
+                        </p>
+                        <div className='hidden xs-500:block'>{data.project.manager.email}</div>
+                    </div>
                 </div>
             </section>
             <section>
@@ -28,7 +35,9 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
                                             <div className='flex items-center gap-2'>
                                                 <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                                                     <AvatarImage src={user.profile_picture} />
-                                                    <AvatarFallback className='text-2xl bg-neutral-200'>{user.username.charAt(0)}</AvatarFallback>
+                                                    <AvatarFallback className='text-2xl bg-neutral-200'>
+                                                        {user.username.charAt(0).toUpperCase()}
+                                                    </AvatarFallback>
                                                 </Avatar>
                                                 <div>
                                                     <div className='font-medium mb-1'>

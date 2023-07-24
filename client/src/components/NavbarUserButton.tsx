@@ -29,9 +29,11 @@ const NavbarUserButton = () => {
             >
                 <Avatar className='rounded-full'>
                     <AvatarImage src={user?.profile_picture} />
-                    <AvatarFallback className='bg-neutral-200'>{user?.username.charAt(0)}</AvatarFallback>
+                    <AvatarFallback className='bg-neutral-200'>{user?.username.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
-                <p className='hidden whitespace-nowrap text-sm font-medium md:block capitalize'>{user?.username}</p>
+                <p className='hidden whitespace-nowrap text-sm font-medium md:block'>
+                    {user?.first_name && user.last_name ? `${user.first_name} ${user.last_name}` : user?.username}
+                </p>
                 {isDropdownOpen ? (
                     <svg
                         xmlns='http://www.w3.org/2000/svg'

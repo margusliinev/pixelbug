@@ -7,7 +7,7 @@ import { useAppSelector } from '@/utils/hooks';
 
 const ProjectPage = () => {
     const { project_id } = useParams();
-    const { data, isLoading } = useGetSingleProjectQuery(project_id || '');
+    const { data, isLoading } = useGetSingleProjectQuery(project_id || '', { refetchOnMountOrArgChange: true });
     const { user } = useAppSelector((store) => store.user);
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const ProjectPage = () => {
 
     return (
         <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-emerald-50'>
-            <div className='grid gap-4 xs-550:flex items-end justify-between'>
+            <div className='grid gap-4 sm:flex items-end justify-between'>
                 <Link to={'/app/projects'} className='flex items-center gap-2 text-2xl font-medium text-primary-hover-dark group w-fit'>
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -54,21 +54,19 @@ const ProjectPage = () => {
                 </header>
                 <hr />
                 <section className='my-2'>
-                    <p className='text-xl md:text-2xl font-semibold mb-2'>Project Description:</p>
-                    <p className='text-sm md:text-base text-neutral-700 whitespace-pre-wrap mt-2'>{data.project.description}</p>
+                    <p className='text-sm md:text-base text-neutral-700 whitespace-pre-wrap'>{data.project.description}</p>
                 </section>
-                <section className='grid gap-4 xs-550:flex items-center xs-550:gap-10 my-2'>
-                    <div>
-                        <p className='tracking-tight font-medium mb-2'>Start Date:</p>
-                        <div className='flex items-center gap-4 ring-1 ring-border py-2 px-3 rounded-md max-w-[200px] justify-between'>
-                            <span className='text-sm whitespace-nowrap sm:text-base'>{moment(data.project.start_date).format('Do MMMM YYYY')}</span>
+                <hr />
+                <section className='grid gap-4 sm:flex items-center sm:gap-10 my-2'>
+                    <div className='flex items-center gap-2'>
+                        <div className='flex items-center gap-2'>
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 fill='none'
                                 viewBox='0 0 24 24'
                                 strokeWidth='1.5'
                                 stroke='currentColor'
-                                className='w-5 h-5'
+                                className='w-6 h-6'
                             >
                                 <path
                                     strokeLinecap='round'
@@ -76,19 +74,21 @@ const ProjectPage = () => {
                                     d='M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5'
                                 />
                             </svg>
+                            <p className='tracking-tight font-medium'>Start Date:</p>
                         </div>
+                        <span className='text-sm whitespace-nowrap sm:text-base tracking-tight'>
+                            {moment(data.project.start_date).format('Do MMMM YYYY')}
+                        </span>
                     </div>
-                    <div>
-                        <p className='tracking-tight font-medium mb-2'>Deadline:</p>
-                        <div className='flex items-center gap-4 ring-1 ring-border py-2 px-3 rounded-md max-w-[200px] justify-between'>
-                            <span className='text-sm whitespace-nowrap sm:text-base'>{moment(data.project.end_date).format('Do MMMM YYYY')}</span>
+                    <div className='flex items-center gap-2'>
+                        <div className='flex items-center gap-2'>
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 fill='none'
                                 viewBox='0 0 24 24'
                                 strokeWidth='1.5'
                                 stroke='currentColor'
-                                className='w-5 h-5'
+                                className='w-6 h-6'
                             >
                                 <path
                                     strokeLinecap='round'
@@ -96,7 +96,11 @@ const ProjectPage = () => {
                                     d='M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5'
                                 />
                             </svg>
+                            <p className='tracking-tight font-medium'>Deadline:</p>
                         </div>
+                        <span className='text-sm whitespace-nowrap sm:text-base tracking-tight'>
+                            {moment(data.project.end_date).format('Do MMMM YYYY')}
+                        </span>
                     </div>
                 </section>
             </div>

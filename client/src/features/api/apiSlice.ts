@@ -64,7 +64,12 @@ export const apiSlice = createApi({
             query: () => ({
                 url: '/projects',
                 method: 'GET',
+                cache: 'no-cache',
+                headers: {
+                    'Cache-Control': 'no-cache',
+                },
             }),
+            keepUnusedDataFor: 0,
             providesTags: ['Projects'],
         }),
         createProject: builder.mutation<CreateProjectAPIResponse, CreateProject>({
@@ -79,7 +84,12 @@ export const apiSlice = createApi({
             query: (project_id) => ({
                 url: `/projects/${project_id}`,
                 method: 'GET',
+                cache: 'no-cache',
+                headers: {
+                    'Cache-Control': 'no-cache',
+                },
             }),
+            keepUnusedDataFor: 0,
             providesTags: ['Project'],
         }),
         getProjectUsers: builder.query<ProjectUsersAPIResponse, string>({

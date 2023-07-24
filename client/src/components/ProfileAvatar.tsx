@@ -59,7 +59,7 @@ const ProfileAvatar = () => {
         <form className='grid items-center gap-6 sm:flex' onSubmit={handleSubmit}>
             <Avatar className='w-24 h-24'>
                 <AvatarImage src={profile_picture} />
-                <AvatarFallback className='text-2xl bg-neutral-200'>{username.charAt(0)}</AvatarFallback>
+                <AvatarFallback className='text-2xl bg-neutral-200'>{username.charAt(0).toUpperCase()}</AvatarFallback>
             </Avatar>
             <div>
                 <p className='tracking-tight text-sm mb-2 text-neutral-600'>JPG or PNG. 0.5 MB max.</p>
