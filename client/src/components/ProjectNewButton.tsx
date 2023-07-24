@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
+import moment from 'moment';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -56,7 +57,12 @@ const ProjectNewButton = () => {
 
     const submitForm = async (values: z.infer<typeof createProjectFormSchema>) => {
         if (createProjectFormSchema.safeParse(values).success) {
-            await createProject({ title: values.title, description: values.description, start_date: values.start_date, end_date: values.end_date })
+            await createProject({
+                title: values.title,
+                description: values.description,
+                start_date: values.start_date,
+                end_date: values.end_date,
+            })
                 .unwrap()
                 .then((res) => {
                     if (res.success) {
@@ -135,7 +141,16 @@ const ProjectNewButton = () => {
                                                     </FormControl>
                                                 </PopoverTrigger>
                                                 <PopoverContent className='w-auto p-0' align='start'>
-                                                    <Calendar mode='single' selected={field.value} onSelect={field.onChange} initialFocus />
+                                                    <Calendar
+                                                        mode='single'
+                                                        selected={field.value}
+                                                        onSelect={field.onChange}
+                                                        initialFocus
+                                                        disabled={(date) =>
+                                                            date < new Date(Date.now() - 86400000) ||
+                                                            (date > form.getValues('end_date') && form.getValues('end_date') !== null)
+                                                        }
+                                                    />
                                                 </PopoverContent>
                                             </Popover>
                                             <FormMessage />
@@ -158,7 +173,15 @@ const ProjectNewButton = () => {
                                                     </FormControl>
                                                 </PopoverTrigger>
                                                 <PopoverContent className='w-auto p-0' align='start'>
-                                                    <Calendar mode='single' selected={field.value} onSelect={field.onChange} initialFocus />
+                                                    <Calendar
+                                                        mode='single'
+                                                        selected={field.value}
+                                                        onSelect={field.onChange}
+                                                        initialFocus
+                                                        disabled={(date) =>
+                                                            date < form.getValues('start_date') || form.getValues('start_date') === null
+                                                        }
+                                                    />
                                                 </PopoverContent>
                                             </Popover>
                                             <FormMessage />

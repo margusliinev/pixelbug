@@ -64,9 +64,6 @@ export const apiSlice = createApi({
             query: () => ({
                 url: '/projects',
                 method: 'GET',
-                headers: {
-                    'Cache-Control': 'no-cache',
-                },
             }),
             providesTags: ['Projects'],
         }),
@@ -82,9 +79,6 @@ export const apiSlice = createApi({
             query: (project_id) => ({
                 url: `/projects/${project_id}`,
                 method: 'GET',
-                headers: {
-                    'Cache-Control': 'no-cache',
-                },
             }),
             providesTags: ['Project'],
         }),
