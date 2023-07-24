@@ -21,8 +21,7 @@ const ProfileInfo = () => {
     const { user } = useAppSelector((store) => store.user);
     const { first_name, last_name, username, email, job_title } = user as User;
 
-    const date = user?.updated_at.toLocaleString('en-EU', { timeZone: 'gmt' });
-    const formattedDate = moment(date).format('Do MMMM');
+    const formattedDate = moment(user?.updated_at).local().format('Do MMMM');
 
     const form = useForm<z.infer<typeof profileFormSchema>>({
         resolver: zodResolver(profileFormSchema),
@@ -77,7 +76,7 @@ const ProfileInfo = () => {
                         <span className='text-sm text-destructive font-medium mt-1 whitespace-nowrap hidden sm:block'>(Profile not complete)</span>
                     ) : (
                         <span className='text-sm text-neutral-500 font-normal mt-1 whitespace-nowrap hidden sm:block'>
-                            Last update: {formattedDate}
+                            Last updated: {formattedDate}
                         </span>
                     )}
                 </h1>
@@ -93,7 +92,7 @@ const ProfileInfo = () => {
                                 <FormItem>
                                     <FormLabel>First Name</FormLabel>
                                     <FormControl>
-                                        <Input type='text' {...field} className='capitalize' />
+                                        <Input type='text' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -105,7 +104,7 @@ const ProfileInfo = () => {
                                 <FormItem>
                                     <FormLabel>Last Name</FormLabel>
                                     <FormControl>
-                                        <Input type='text' {...field} className='capitalize' />
+                                        <Input type='text' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

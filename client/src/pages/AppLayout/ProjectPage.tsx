@@ -13,7 +13,7 @@ const ProjectPage = () => {
 
     if (isLoading) {
         return (
-            <main className='w-full min-h-screen-minus-nav grid place-items-center'>
+            <main className='w-full min-h-screen-minus-nav grid place-items-center bg-emerald-50'>
                 <SpinnerPage />
             </main>
         );
@@ -24,7 +24,7 @@ const ProjectPage = () => {
             navigate('/app/projects');
         }, 500);
         return (
-            <main className='w-full min-h-screen-minus-nav grid place-items-center'>
+            <main className='w-full min-h-screen-minus-nav grid place-items-center bg-emerald-50'>
                 <SpinnerPage />
             </main>
         );

@@ -6,7 +6,7 @@ const ProjectsPage = () => {
 
     if (isLoading) {
         return (
-            <main className='w-full min-h-screen-minus-nav grid place-items-center'>
+            <main className='w-full min-h-screen-minus-nav grid place-items-center bg-emerald-50'>
                 <SpinnerPage />
             </main>
         );
