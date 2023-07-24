@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 
 import {
+    AdminPage,
     AppLayout,
     DashboardPage,
     ErrorPage,
@@ -12,7 +13,6 @@ import {
     ProjectsPage,
     RegisterPage,
     TicketsPage,
-    UsersPage,
 } from './pages';
 
 function App() {
@@ -64,8 +64,8 @@ function App() {
                             element: <ProfilePage />,
                         },
                         {
-                            path: 'users',
-                            element: <UsersPage />,
+                            path: 'admin',
+                            element: <AdminPage />,
                         },
                     ],
                 },
