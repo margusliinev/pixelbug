@@ -17,8 +17,8 @@ const ProjectCard = ({
     end_date: Date;
     manager: User;
 }) => {
-    const start = moment.utc(start_date).format('Do MMMM YYYY ');
-    const end = moment.utc(end_date).format(' Do MMMM YYYY');
+    const start = moment(start_date).format('Do MMMM YYYY ');
+    const end = moment(end_date).format('Do MMMM YYYY');
     return (
         <Link
             to={`/app/projects/${project_id}`}

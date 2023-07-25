@@ -1,6 +1,5 @@
 import { eq } from 'drizzle-orm';
 import { Response } from 'express';
-import moment from 'moment';
 
 import { db } from '../../db/index';
 import { Project, projects } from '../../db/schema';
@@ -16,8 +15,8 @@ export const updateProject = async (req: AuthenticatedRequest, res: Response) =>
         throw new BadRequestError('form', 'Please fill out all fields');
     }
 
-    const start_date_utc = moment.utc(start_date).toDate();
-    const end_date_utc = moment.utc(end_date).toDate();
+    const start_date_utc = new Date(start_date);
+    const end_date_utc = new Date(end_date);
 
     const project = await db
         .select()

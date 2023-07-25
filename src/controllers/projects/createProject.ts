@@ -1,5 +1,4 @@
 import { Response } from 'express';
-import moment from 'moment';
 
 import { db } from '../../db/index';
 import { Project, projects, projects_users } from '../../db/schema';
@@ -16,8 +15,8 @@ export const createProject = async (req: AuthenticatedRequest, res: Response) =>
 
     const manager_id = req.user.user_id;
 
-    const start_date_utc = moment.utc(start_date).toDate();
-    const end_date_utc = moment.utc(end_date).toDate();
+    const start_date_utc = new Date(start_date);
+    const end_date_utc = new Date(end_date);
 
     const result = await db
         .insert(projects)
