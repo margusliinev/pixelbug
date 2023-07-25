@@ -1,8 +1,9 @@
 import { Response } from 'express';
+import moment from 'moment';
 
 import { db } from '../../db/index';
 import { Project, projects, projects_users } from '../../db/schema';
-import { AuthenticatedRequest, BadRequestError, dateToUTC, UnauthenticatedError } from '../../utils';
+import { AuthenticatedRequest, BadRequestError, UnauthenticatedError } from '../../utils';
 
 export const createProject = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
@@ -15,8 +16,8 @@ export const createProject = async (req: AuthenticatedRequest, res: Response) =>
 
     const manager_id = req.user.user_id;
 
-    const start_date_utc = dateToUTC(start_date);
-    const end_date_utc = dateToUTC(end_date);
+    const start_date_utc = moment.utc(start_date).toDate();
+    const end_date_utc = moment.utc(end_date).toDate();
 
     const result = await db
         .insert(projects)

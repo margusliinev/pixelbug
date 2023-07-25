@@ -1,9 +1,10 @@
 import { eq } from 'drizzle-orm';
 import { Response } from 'express';
+import moment from 'moment';
 
 import { db } from '../../db/index';
 import { Project, projects } from '../../db/schema';
-import { AuthenticatedRequest, BadRequestError, dateToUTC, UnauthenticatedError, UnauthorizedError } from '../../utils';
+import { AuthenticatedRequest, BadRequestError, UnauthenticatedError, UnauthorizedError } from '../../utils';
 
 export const updateProject = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
@@ -15,8 +16,8 @@ export const updateProject = async (req: AuthenticatedRequest, res: Response) =>
         throw new BadRequestError('form', 'Please fill out all fields');
     }
 
-    const start_date_utc = dateToUTC(start_date);
-    const end_date_utc = dateToUTC(end_date);
+    const start_date_utc = moment.utc(start_date).toDate();
+    const end_date_utc = moment.utc(end_date).toDate();
 
     const project = await db
         .select()
