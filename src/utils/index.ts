@@ -1,6 +1,5 @@
 import { comparePassword, hashPassword } from './bcrypt';
 import { createCookie } from './cookie';
-import { dateToUTC } from './dates';
 import { BadRequestError, NotFoundError, UnauthenticatedError, UnauthorizedError } from './errors';
 import { limiter } from './limiter';
 import { createToken, verifyToken } from './token';
@@ -23,7 +22,6 @@ export {
     comparePassword,
     createCookie,
     createToken,
-    dateToUTC,
     hashPassword,
     isEmailUnique,
     isUpdatedEmailUnique,

@@ -7,7 +7,7 @@ import { SpinnerButton } from '@/components';
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
 import { useUpdateUserPasswordMutation } from '@/features/api/apiSlice';
-import { logoutUser, setUser } from '@/features/user/userSlice';
+import { logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
 import { updatePasswordFormSchema } from '@/utils/zodSchemas';
@@ -34,7 +34,6 @@ const ProfilePassword = () => {
                 .then((res) => {
                     if (res.success) {
                         form.reset();
-                        dispatch(setUser(res.user));
                         toast({
                             title: 'Password Successfully Updated!',
                         });

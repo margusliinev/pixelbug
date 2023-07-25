@@ -52,7 +52,7 @@ export const apiSlice = createApi({
                 body: profile,
             }),
         }),
-        updateUserPassword: builder.mutation<UserAPIResponse, UpdateUserPassword>({
+        updateUserPassword: builder.mutation<DefaultAPIResponse, UpdateUserPassword>({
             query: (passwords) => ({
                 url: '/users/me',
                 method: 'PUT',

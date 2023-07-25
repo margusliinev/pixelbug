@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import moment from 'moment';
+import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
@@ -19,9 +19,10 @@ const ProfileInfo = () => {
     const dispatch = useAppDispatch();
     const [updateUserProfile, { isLoading }] = useUpdateUserProfileMutation();
     const { user } = useAppSelector((store) => store.user);
-    const { first_name, last_name, username, email, job_title } = user as User;
+    const { first_name, last_name, username, email, job_title, updated_at } = user as User;
 
-    const formattedDate = moment(user?.updated_at).local().format('Do MMMM');
+    const date = new Date(updated_at);
+    const formattedDate = format(date, 'PPP');
 
     const form = useForm<z.infer<typeof profileFormSchema>>({
         resolver: zodResolver(profileFormSchema),
@@ -70,14 +71,12 @@ const ProfileInfo = () => {
     return (
         <div className='shadow-project-card p-4 grid gap-4 my-4 rounded-md bg-white'>
             <div>
-                <h1 className='mb-1 text-2xl font-semibold flex items-center gap-2'>
+                <h1 className='mb-1 text-2xl font-semibold flex items-baseline gap-2'>
                     Personal Information
                     {user?.created_at === user?.updated_at ? (
-                        <span className='text-sm text-destructive font-medium mt-1 whitespace-nowrap hidden sm:block'>(Profile not complete)</span>
+                        <span className='text-sm text-destructive font-medium whitespace-nowrap hidden sm:block'>(Profile not complete)</span>
                     ) : (
-                        <span className='text-sm text-neutral-500 font-normal mt-1 whitespace-nowrap hidden sm:block'>
-                            Last updated: {formattedDate}
-                        </span>
+                        <span className='text-sm text-neutral-500 font-normal whitespace-nowrap hidden sm:block'>Last updated: {formattedDate}</span>
                     )}
                 </h1>
                 <p className='text-sm text-gray-600 mb-4'>Use a permanent address where you can receive mail.</p>

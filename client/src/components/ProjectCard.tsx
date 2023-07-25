@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui';
@@ -17,8 +17,9 @@ const ProjectCard = ({
     end_date: Date;
     manager: User;
 }) => {
-    const start = moment(start_date).format('Do MMMM YYYY ');
-    const end = moment(end_date).format('Do MMMM YYYY');
+    const formatted_start_date = format(new Date(start_date), 'PPP');
+    const formatted_end_date = format(new Date(end_date), 'PPP');
+
     return (
         <Link
             to={`/app/projects/${project_id}`}
@@ -44,11 +45,11 @@ const ProjectCard = ({
             <footer className='flex justify-between my-4'>
                 <div className='grid'>
                     <p className='font-semibold text-sm'>Start Date:</p>
-                    <p className='text-sm tracking-tight'>{start}</p>
+                    <p className='text-sm tracking-tight'>{formatted_start_date}</p>
                 </div>
                 <div className='grid'>
                     <p className='font-semibold text-sm'>Deadline</p>
-                    <p className='text-sm tracking-tight'>{end}</p>
+                    <p className='text-sm tracking-tight'>{formatted_end_date}</p>
                 </div>
             </footer>
         </Link>

@@ -1,6 +1,5 @@
 import { eq } from 'drizzle-orm';
 import { Response } from 'express';
-import moment from 'moment';
 
 import { db } from '../../db';
 import { NewUser, users } from '../../db/schema';
@@ -60,8 +59,7 @@ export const updateUserProfile = async (req: AuthenticatedRequest, res: Response
         updateData.job_title = job_title.trim();
     }
 
-    updateData.updated_at = moment.utc().toDate();
-
+    updateData.updated_at = new Date(Date.now());
     const result = await db.update(users).set(updateData).where(eq(users.user_id, req.user.user_id)).returning();
 
     const user = {

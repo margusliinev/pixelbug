@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { format } from 'date-fns';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { ProjectManagementButtons, ProjectTeam, SpinnerPage } from '@/components';
@@ -77,7 +77,7 @@ const ProjectPage = () => {
                             <p className='tracking-tight font-medium'>Start Date:</p>
                         </div>
                         <span className='text-sm whitespace-nowrap sm:text-base tracking-tight'>
-                            {moment(data.project.start_date).format('Do MMMM YYYY')}
+                            {format(new Date(data.project.start_date), 'PPP')}
                         </span>
                     </div>
                     <div className='flex items-center gap-2'>
@@ -99,7 +99,7 @@ const ProjectPage = () => {
                             <p className='tracking-tight font-medium'>Deadline:</p>
                         </div>
                         <span className='text-sm whitespace-nowrap sm:text-base tracking-tight'>
-                            {moment(data.project.end_date).format('Do MMMM YYYY')}
+                            {format(new Date(data.project.end_date), 'PPP')}
                         </span>
                     </div>
                 </section>

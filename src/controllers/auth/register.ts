@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import moment from 'moment';
 
 import { db } from '../../db';
 import { NewUser, users } from '../../db/schema';
@@ -33,7 +32,7 @@ export const register = async (req: Request, res: Response) => {
 
     const hash = await hashPassword(password);
 
-    const registerTime = moment.utc().toDate();
+    const registerTime = new Date(Date.now());
 
     const result = await db
         .insert(users)
