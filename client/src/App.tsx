@@ -27,11 +27,11 @@ function App() {
                     element: <HomePage />,
                 },
                 {
-                    path: 'register',
+                    path: 'auth/register',
                     element: <RegisterPage />,
                 },
                 {
-                    path: 'login',
+                    path: 'auth/login',
                     element: <LoginPage />,
                 },
                 {

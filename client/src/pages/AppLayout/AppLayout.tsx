@@ -25,7 +25,7 @@ const AppLayout = () => {
 
     if (isAuthenticated === undefined) return null;
 
-    if (!isAuthenticated) return <Navigate to='/login' />;
+    if (!isAuthenticated) return <Navigate to='/auth/login' />;
 
     return (
         <div className='grid lg:grid-cols-sidebar-layout'>

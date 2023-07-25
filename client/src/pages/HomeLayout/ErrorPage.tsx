@@ -14,7 +14,7 @@ const ErrorPage = () => {
                     >
                         Go back home
                     </Link>
-                    <Link to='/login' className='text-sm font-semibold text-neutral-900'>
+                    <Link to='/auth/login' className='text-sm font-semibold text-neutral-900'>
                         Head to login page <span aria-hidden='true'>&rarr;</span>
                     </Link>
                 </div>

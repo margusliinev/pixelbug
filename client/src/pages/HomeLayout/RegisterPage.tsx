@@ -99,7 +99,7 @@ const RegisterPage = () => {
                         <Button type='submit' size={'sm'} disabled={isLoading}>
                             {isLoading ? <SpinnerButton /> : 'Sign Up'}
                         </Button>
-                        <MemberCheck to='/login' question='Already have an account?' text='Login' />
+                        <MemberCheck to='/auth/login' question='Already have an account?' text='Login' />
                     </form>
                 </Form>
             </div>

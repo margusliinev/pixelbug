@@ -8,12 +8,9 @@ import { AuthenticatedRequest, NotFoundError, UnauthenticatedError, Unauthorized
 export const deleteProject = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
 
-    const { project_id } = req.params;
+    const { project_id } = req.body as { project_id: number };
 
-    const project = await db
-        .select()
-        .from(projects)
-        .where(eq(projects.project_id, Number(project_id)));
+    const project = await db.select().from(projects).where(eq(projects.project_id, project_id));
 
     if (project.length < 1) {
         throw new NotFoundError('Project not found');
@@ -23,10 +20,7 @@ export const deleteProject = async (req: AuthenticatedRequest, res: Response) =>
 
     if (projectManagerID !== req.user.user_id) throw new UnauthorizedError('Only project manager can delete the project');
 
-    const result = await db
-        .delete(projects)
-        .where(eq(projects.project_id, Number(project_id)))
-        .returning();
+    const result = await db.delete(projects).where(eq(projects.project_id, project_id)).returning();
     if (!result) throw new Error('Failed to delete the project');
 
     res.status(204).json({ success: true, msg: 'Project was successfully deleted' });

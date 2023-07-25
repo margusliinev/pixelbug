@@ -5,6 +5,7 @@ import {
     CreateProject,
     CreateProjectAPIResponse,
     DefaultAPIResponse,
+    DeleteProject,
     Login,
     ProjectAPIResponse,
     ProjectUsersAPIResponse,
@@ -72,14 +73,6 @@ export const apiSlice = createApi({
             keepUnusedDataFor: 0,
             providesTags: ['Projects'],
         }),
-        createProject: builder.mutation<CreateProjectAPIResponse, CreateProject>({
-            query: (projectData) => ({
-                url: '/projects',
-                method: 'POST',
-                body: projectData,
-            }),
-            invalidatesTags: ['Projects'],
-        }),
         getSingleProject: builder.query<ProjectAPIResponse, string>({
             query: (project_id) => ({
                 url: `/projects/${project_id}`,
@@ -99,13 +92,13 @@ export const apiSlice = createApi({
             }),
             providesTags: ['Project'],
         }),
-        updateProjectUsers: builder.mutation<DefaultAPIResponse, UpdateProjectUsers>({
-            query: ({ updated_users, project_id }) => ({
-                url: `/projects/${project_id}/users`,
-                method: 'PUT',
-                body: updated_users,
+        createProject: builder.mutation<CreateProjectAPIResponse, CreateProject>({
+            query: (projectData) => ({
+                url: '/projects',
+                method: 'POST',
+                body: projectData,
             }),
-            invalidatesTags: ['Project'],
+            invalidatesTags: ['Projects'],
         }),
         updateProject: builder.mutation<DefaultAPIResponse, UpdateProject>({
             query: ({ values, project_id }) => ({
@@ -115,10 +108,26 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['Project'],
         }),
-        deleteProject: builder.mutation<DefaultAPIResponse, string>({
+        updateProjectUsers: builder.mutation<DefaultAPIResponse, UpdateProjectUsers>({
+            query: ({ updated_users, project_id }) => ({
+                url: `/projects/${project_id}/users`,
+                method: 'PUT',
+                body: updated_users,
+            }),
+            invalidatesTags: ['Project'],
+        }),
+        leaveProject: builder.mutation<DefaultAPIResponse, string>({
             query: (project_id) => ({
                 url: `/projects/${project_id}`,
                 method: 'DELETE',
+            }),
+            invalidatesTags: ['Projects'],
+        }),
+        deleteProject: builder.mutation<DefaultAPIResponse, DeleteProject>({
+            query: (project_id) => ({
+                url: `/projects`,
+                method: 'DELETE',
+                body: project_id,
             }),
             invalidatesTags: ['Projects'],
         }),
@@ -138,4 +147,5 @@ export const {
     useUpdateProjectUsersMutation,
     useUpdateProjectMutation,
     useDeleteProjectMutation,
+    useLeaveProjectMutation,
 } = apiSlice;

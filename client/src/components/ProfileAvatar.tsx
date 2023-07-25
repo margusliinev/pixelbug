@@ -43,7 +43,7 @@ const ProfileAvatar = () => {
                 .catch(async (error: DefaultAPIError) => {
                     if (error.status === 401) {
                         await dispatch(logoutUser());
-                        navigate('/login');
+                        navigate('/auth/login');
                     } else {
                         toast({
                             title: 'Failed to update profile picture',

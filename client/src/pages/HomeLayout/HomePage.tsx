@@ -6,13 +6,13 @@ const HomePage = () => {
             <h1 className='justify-self-center text-center text-2xl font-medium md:text-4xl'>Welcome to PixelBug!</h1>
             <div className='mt-4 flex gap-4 justify-self-center'>
                 <Link
-                    to={'/login'}
+                    to={'/auth/login'}
                     className='rounded-md bg-primary p-2 text-xl text-primary-foreground transition-colors hover:bg-primary-hover-dark'
                 >
                     Login
                 </Link>
                 <Link
-                    to={'/register'}
+                    to={'/auth/register'}
                     className='rounded-md bg-primary p-2 text-xl text-primary-foreground transition-colors hover:bg-primary-hover-dark'
                 >
                     Register

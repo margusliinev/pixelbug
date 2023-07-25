@@ -132,3 +132,7 @@ export interface UpdateProject {
     };
     project_id: string;
 }
+
+export interface DeleteProject {
+    project_id: number;
+}

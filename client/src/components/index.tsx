@@ -9,6 +9,7 @@ import ProfileInfo from './ProfileInfo';
 import ProfilePassword from './ProfilePassword';
 import ProjectCard from './ProjectCard';
 import ProjectDeleteButton from './ProjectDeleteButton';
+import ProjectLeaveButton from './ProjectLeaveButton';
 import ProjectList from './ProjectList';
 import ProjectManagementButtons from './ProjectManagementButtons';
 import ProjectNewButton from './ProjectNewButton';
@@ -33,6 +34,7 @@ export {
     ProfilePassword,
     ProjectCard,
     ProjectDeleteButton,
+    ProjectLeaveButton,
     ProjectList,
     ProjectManagementButtons,
     ProjectNewButton,
