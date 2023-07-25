@@ -77,7 +77,7 @@ const ProjectPage = () => {
                             <p className='tracking-tight font-medium'>Start Date:</p>
                         </div>
                         <span className='text-sm whitespace-nowrap sm:text-base tracking-tight'>
-                            {moment(data.project.start_date).format('Do MMMM YYYY')}
+                            {moment(data.project.start_date).local().format('Do MMMM YYYY')}
                         </span>
                     </div>
                     <div className='flex items-center gap-2'>
@@ -99,7 +99,7 @@ const ProjectPage = () => {
                             <p className='tracking-tight font-medium'>Deadline:</p>
                         </div>
                         <span className='text-sm whitespace-nowrap sm:text-base tracking-tight'>
-                            {moment(data.project.end_date).format('Do MMMM YYYY')}
+                            {moment(data.project.end_date).local().format('Do MMMM YYYY')}
                         </span>
                     </div>
                 </section>

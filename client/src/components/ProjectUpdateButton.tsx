@@ -51,8 +51,8 @@ const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
         defaultValues: {
             title: data.project.title,
             description: data.project.description,
-            start_date: moment.utc(data.project.start_date).toDate(),
-            end_date: moment.utc(data.project.end_date).toDate(),
+            start_date: moment(data.project.start_date).local().toDate(),
+            end_date: moment(data.project.end_date).local().toDate(),
         },
     });
 
@@ -90,8 +90,8 @@ const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
             form.reset({
                 title: data.project.title,
                 description: data.project.description,
-                start_date: moment.utc(data.project.start_date).toDate(),
-                end_date: moment.utc(data.project.end_date).toDate(),
+                start_date: moment(data.project.start_date).local().toDate(),
+                end_date: moment(data.project.end_date).local().toDate(),
             });
         }
     }, [data, form]);
