@@ -3,10 +3,10 @@ import { Pool } from 'pg';
 
 const pool = new Pool({
     host: process.env.PGHOST,
-    port: Number(process.env.PGDATABASE),
-    user: process.env.PGPORT,
-    password: process.env.PGUSER,
-    database: process.env.PGPASSWORD,
+    port: Number(process.env.PGPORT),
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    database: process.env.PGDATABASE,
 });
 
 export const db = drizzle(pool);
