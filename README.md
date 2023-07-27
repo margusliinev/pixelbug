@@ -2,9 +2,9 @@
 
 PixelBug is your ultimate companion for bug-free software development. With its robust tracking and comprehensive management tools, PixelBug helps you track and analyze bugs at every stage of your project. Say goodbye to software glitches and deliver flawless experiences to your users.
 
-For detailed information on the API endpoints, please refer to our [API Documentation](https://margusliinev.github.io/techportal/). This documentation provides comprehensive guidance on making API requests and understanding the response formats.
+For detailed information on the API endpoints, please refer to our [API Documentation](https://margusliinev.github.io/pixelbug/). This documentation provides comprehensive guidance on making API requests and understanding the response formats.
 
-Site is live at [https://techportal.up.railway.app](https://techportal.up.railway.app)
+Site is live at [https://pixelbug.up.railway.app](https://pixelbug.up.railway.app)
 
 ## Table of Contents
 
