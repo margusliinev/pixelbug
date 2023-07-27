@@ -34,7 +34,11 @@ const ProjectCard = ({
                 <div className='flex items-center gap-4 py-2'>
                     <Avatar className='w-16 h-16 rounded-full shadow-project-card'>
                         <AvatarImage src={manager.profile_picture} />
-                        <AvatarFallback className='text-2xl bg-neutral-200'>{manager.username.charAt(0).toUpperCase()}</AvatarFallback>
+                        <AvatarFallback className='text-2xl bg-neutral-200'>
+                            {manager.first_name && manager.last_name
+                                ? manager.first_name.charAt(0).toUpperCase()
+                                : manager.username.charAt(0).toUpperCase()}
+                        </AvatarFallback>
                     </Avatar>
                     <p className='font-medium'>
                         {manager.first_name && manager.last_name ? `${manager.first_name} ${manager.last_name}` : manager.username}

@@ -12,6 +12,7 @@ import path from 'path';
 import { globalErrorHandler, notFoundHandler } from './middleware/errorHandlerMiddleware';
 import authRoutes from './routes/auth';
 import projectsRoutes from './routes/projects';
+import ticketsRoutes from './routes/tickets';
 import userRoutes from './routes/user';
 import { limiter } from './utils/limiter';
 
@@ -40,6 +41,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users/me', userRoutes);
 app.use('/api/v1/projects', projectsRoutes);
+app.use('/api/v1/tickets', ticketsRoutes);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, '../client/dist')));

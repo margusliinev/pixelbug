@@ -11,7 +11,11 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
                 <div className='flex items-center gap-2'>
                     <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                         <AvatarImage src={data.project.manager.profile_picture} />
-                        <AvatarFallback className='text-2xl bg-neutral-200'>{data.project.manager.username.charAt(0).toUpperCase()}</AvatarFallback>
+                        <AvatarFallback className='text-2xl bg-neutral-200'>
+                            {data.project.manager.first_name && data.project.manager.last_name
+                                ? data.project.manager.first_name.charAt(0).toUpperCase()
+                                : data.project.manager.username.charAt(0).toUpperCase()}
+                        </AvatarFallback>
                     </Avatar>
                     <div>
                         <p className='font-medium'>
@@ -36,7 +40,9 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
                                                 <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                                                     <AvatarImage src={user.profile_picture} />
                                                     <AvatarFallback className='text-2xl bg-neutral-200'>
-                                                        {user.username.charAt(0).toUpperCase()}
+                                                        {user.first_name && user.last_name
+                                                            ? user.first_name.charAt(0).toUpperCase()
+                                                            : user.username.charAt(0).toUpperCase()}
                                                     </AvatarFallback>
                                                 </Avatar>
                                                 <div>

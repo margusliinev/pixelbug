@@ -112,10 +112,16 @@ export const manageProjectUsersFormSchema = z.object({
 // const StatusEnum = ['unassigned', 'assigned', 'in development', 'on hold', 'resolved'] as const;
 
 export const createTicketFormSchema = z.object({
-    project: z.string(),
+    project_id: z
+        .string()
+        .optional()
+        .refine((project) => project !== undefined, { message: 'Please select a project' }),
     title: z.string().trim().min(1, { message: 'Please enter ticket title' }),
     description: z.string().trim().min(1, { message: 'Please enter ticket description' }),
-    priority: z.enum(['low', 'medium', 'high', 'critical']),
+    priority: z
+        .enum(['low', 'medium', 'high', 'critical'])
+        .optional()
+        .refine((value) => value !== undefined, { message: 'Please select ticket priority' }),
 });
 
 // export const updateTicketFormSchema = z.object({

@@ -145,7 +145,8 @@ export enum PriorityEnum {
 }
 
 export interface CreateTicket {
+    project_id: number | undefined;
     title: string;
     description: string;
-    priority: 'low' | 'medium' | 'high' | 'critical';
+    priority: 'low' | 'medium' | 'high' | 'critical' | undefined;
 }

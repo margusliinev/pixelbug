@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ChangeEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -54,8 +52,8 @@ const TicketNewButton = () => {
 
     const submitForm = async (values: z.infer<typeof createTicketFormSchema>) => {
         if (createTicketFormSchema.safeParse(values).success) {
-            console.log(values);
             await createTicket({
+                project_id: Number(values.project_id),
                 title: values.title,
                 description: values.description,
                 priority: values.priority,
@@ -97,7 +95,7 @@ const TicketNewButton = () => {
                     <form onSubmit={form.handleSubmit(submitForm)} className='grid space-y-6' noValidate>
                         <FormField
                             control={form.control}
-                            name='project'
+                            name='project_id'
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Project</FormLabel>

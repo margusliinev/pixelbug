@@ -17,7 +17,7 @@ const ProfileAvatar = () => {
     const navigate = useNavigate();
     const { toast } = useToast();
     const { user } = useAppSelector((store) => store.user);
-    const { profile_picture, username } = user as User;
+    const { profile_picture, username, first_name, last_name } = user as User;
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0] || null;
@@ -59,7 +59,9 @@ const ProfileAvatar = () => {
         <form className='grid items-center gap-6 sm:flex' onSubmit={handleSubmit}>
             <Avatar className='w-24 h-24'>
                 <AvatarImage src={profile_picture} />
-                <AvatarFallback className='text-2xl bg-neutral-200'>{username.charAt(0).toUpperCase()}</AvatarFallback>
+                <AvatarFallback className='text-2xl bg-neutral-200'>
+                    {first_name && last_name ? first_name.charAt(0).toUpperCase() : username.charAt(0).toUpperCase()}
+                </AvatarFallback>
             </Avatar>
             <div>
                 <p className='tracking-tight text-sm mb-2 text-neutral-600'>JPG or PNG. 0.5 MB max.</p>

@@ -128,6 +128,10 @@ const ProjectUsersButton = () => {
             });
     };
 
+    if (!data) {
+        return <main>No data</main>;
+    }
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger className='bg-neutral-700 text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-neutral-800'>
@@ -173,7 +177,9 @@ const ProjectUsersButton = () => {
                                                                         <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                                                                             <AvatarImage src={user.profile_picture} />
                                                                             <AvatarFallback className='text-2xl bg-neutral-200'>
-                                                                                {user.username.charAt(0).toUpperCase()}
+                                                                                {user.first_name && user.last_name
+                                                                                    ? user.first_name.charAt(0).toUpperCase()
+                                                                                    : user.username.charAt(0).toUpperCase()}
                                                                             </AvatarFallback>
                                                                         </Avatar>
                                                                         <div>
@@ -202,7 +208,7 @@ const ProjectUsersButton = () => {
                                             )}
                                         </CommandGroup>
                                         <CommandGroup heading='Available Users' className='px-3'>
-                                            {filteredUsers.length < 1 ? (
+                                            {filteredUsers && filteredUsers.length < 1 ? (
                                                 <h2 className='text-sm text-center font-normal text-muted-foreground my-1 px-2'>No users found</h2>
                                             ) : (
                                                 filteredUsers.map((user) => {
@@ -217,7 +223,9 @@ const ProjectUsersButton = () => {
                                                                         <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                                                                             <AvatarImage src={user.profile_picture} />
                                                                             <AvatarFallback className='text-2xl bg-neutral-200'>
-                                                                                {user.username.charAt(0).toUpperCase()}
+                                                                                {user.first_name && user.last_name
+                                                                                    ? user.first_name.charAt(0).toUpperCase()
+                                                                                    : user.username.charAt(0).toUpperCase()}
                                                                             </AvatarFallback>
                                                                         </Avatar>
                                                                         <div>

@@ -36,7 +36,17 @@ export const register = async (req: Request, res: Response) => {
 
     const result = await db
         .insert(users)
-        .values({ username: username, email: normalizedEmail, password: hash, created_at: registerTime, updated_at: registerTime })
+        .values({
+            username: username,
+            email: normalizedEmail,
+            password: hash,
+            created_at: registerTime,
+            updated_at: registerTime,
+            first_name: '',
+            last_name: '',
+            job_title: '',
+            profile_picture: '',
+        })
         .returning();
 
     const newUser = result[0];
