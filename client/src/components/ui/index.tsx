@@ -31,7 +31,7 @@ import { Button } from './button';
 import { Calendar } from './calendar';
 import { Textarea } from './textarea';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from './dialog';
-
+import { Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectLabel, SelectItem, SelectSeparator } from './select';
 export {
     AlertDialog,
     AlertDialogTrigger,
@@ -77,4 +77,12 @@ export {
     PopoverTrigger,
     PopoverContent,
     Textarea,
+    Select,
+    SelectGroup,
+    SelectValue,
+    SelectTrigger,
+    SelectContent,
+    SelectLabel,
+    SelectItem,
+    SelectSeparator,
 };

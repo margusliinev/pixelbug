@@ -4,6 +4,7 @@ import {
     AllProjectsAPIResponse,
     CreateProject,
     CreateProjectAPIResponse,
+    CreateTicket,
     DefaultAPIResponse,
     DeleteProject,
     Login,
@@ -131,6 +132,14 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['Projects'],
         }),
+        // Tickets
+        createTicket: builder.mutation<DefaultAPIResponse, CreateTicket>({
+            query: (ticketData) => ({
+                url: '/tickets',
+                method: 'POST',
+                body: ticketData,
+            }),
+        }),
     }),
 });
 
@@ -148,4 +157,5 @@ export const {
     useUpdateProjectMutation,
     useDeleteProjectMutation,
     useLeaveProjectMutation,
+    useCreateTicketMutation,
 } = apiSlice;

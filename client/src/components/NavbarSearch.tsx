@@ -1,7 +1,7 @@
 const NavbarSearch = () => {
     return (
-        <div className='flex w-full gap-2 ring-1 ring-border p-2 rounded-md'>
-            <label htmlFor='search' className='text-gray-600  hidden xs:block'>
+        <div className='flex w-full gap-2 ring-1 ring-border py-2 px-3 sm:py-2 sm:px-2 rounded-full'>
+            <label htmlFor='search' className='text-gray-500  hidden xs:block'>
                 <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='2' stroke='currentColor' className='h-5 w-5'>
                     <path
                         strokeLinecap='round'

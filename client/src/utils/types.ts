@@ -136,3 +136,16 @@ export interface UpdateProject {
 export interface DeleteProject {
     project_id: number;
 }
+
+export enum PriorityEnum {
+    low = 'low',
+    medium = 'medium',
+    high = 'high',
+    critical = 'critical',
+}
+
+export interface CreateTicket {
+    title: string;
+    description: string;
+    priority: 'low' | 'medium' | 'high' | 'critical';
+}

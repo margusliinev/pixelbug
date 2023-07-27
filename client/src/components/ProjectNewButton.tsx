@@ -100,7 +100,7 @@ const ProjectNewButton = () => {
                         <FormField
                             name='title'
                             render={({ field }) => (
-                                <FormItem className='px-1'>
+                                <FormItem>
                                     <FormLabel>Project Name</FormLabel>
                                     <FormControl>
                                         <Input type='text' {...field} />
@@ -113,7 +113,7 @@ const ProjectNewButton = () => {
                             control={form.control}
                             name='description'
                             render={({ field }) => (
-                                <FormItem className='px-1'>
+                                <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
                                         <Textarea className='h-32' {...field} />
@@ -128,7 +128,7 @@ const ProjectNewButton = () => {
                                     control={form.control}
                                     name='start_date'
                                     render={({ field }) => (
-                                        <FormItem className='flex flex-col px-1 w-fit'>
+                                        <FormItem className='flex flex-col w-fit'>
                                             <FormLabel>Start Date</FormLabel>
                                             <Popover>
                                                 <PopoverTrigger asChild>
