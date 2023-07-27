@@ -144,9 +144,51 @@ export enum PriorityEnum {
     critical = 'critical',
 }
 
+export enum StatusEnum {
+    unassigned = 'unassigned',
+    assigned = 'assigned',
+    in_development = 'in_development',
+    on_hold = 'on_hold',
+    resolved = 'resolved',
+}
+
+export interface Ticket {
+    ticket_id: number;
+    project_id: number;
+    title: string;
+    description: string;
+    assigned_user_id: number;
+    reported_user_id: number;
+    priority: PriorityEnum;
+    status: StatusEnum;
+    start_date: Date;
+    end_date: Date;
+    completed_date: Date;
+}
+
+export interface TicketWithDeveloper {
+    ticket_id: number;
+    project_id: number;
+    title: string;
+    description: string;
+    assigned_user_id: number;
+    reported_user_id: number;
+    priority: PriorityEnum;
+    status: StatusEnum;
+    start_date: Date;
+    end_date: Date;
+    completed_date: Date;
+    developer: User;
+}
+
 export interface CreateTicket {
     project_id: number | undefined;
     title: string;
     description: string;
     priority: 'low' | 'medium' | 'high' | 'critical' | undefined;
+}
+
+export interface AllTicketsAPIResponse {
+    success: boolean;
+    tickets: Ticket[];
 }

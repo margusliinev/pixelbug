@@ -21,7 +21,9 @@ import SidebarLinks from './SidebarLinks';
 import SidebarMobile from './SidebarMobile';
 import SpinnerButton from './SpinnerButton';
 import SpinnerPage from './SpinnerPage';
+import TicketColumn from './TicketColumn';
 import TicketNewButton from './TicketNewButton';
+import TicketTable from './TicketTable';
 
 export {
     MemberCheck,
@@ -47,5 +49,7 @@ export {
     SidebarMobile,
     SpinnerButton,
     SpinnerPage,
+    TicketColumn,
     TicketNewButton,
+    TicketTable,
 };

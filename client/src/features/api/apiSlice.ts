@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import {
     AllProjectsAPIResponse,
+    AllTicketsAPIResponse,
     CreateProject,
     CreateProjectAPIResponse,
     CreateTicket,
@@ -133,6 +134,12 @@ export const apiSlice = createApi({
             invalidatesTags: ['Projects'],
         }),
         // Tickets
+        getAllTickets: builder.query<AllTicketsAPIResponse, undefined>({
+            query: () => ({
+                url: '/tickets',
+                method: 'GET',
+            }),
+        }),
         createTicket: builder.mutation<DefaultAPIResponse, CreateTicket>({
             query: (ticketData) => ({
                 url: '/tickets',
@@ -158,4 +165,5 @@ export const {
     useDeleteProjectMutation,
     useLeaveProjectMutation,
     useCreateTicketMutation,
+    useGetAllTicketsQuery,
 } = apiSlice;
