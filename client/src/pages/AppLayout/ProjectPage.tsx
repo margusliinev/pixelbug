@@ -6,13 +6,14 @@ import { TicketTable } from '@/components/Project/ProjectTicketTable';
 import { useGetSingleProjectQuery } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
 
-import { columns } from '../../components/Project/ProjectTicketColumns';
+import { columnsDesktop, columnsMobile } from '../../components/Project/ProjectTicketColumns';
 
 const ProjectPage = () => {
     const { project_id } = useParams();
     const { data, isLoading } = useGetSingleProjectQuery(project_id || '', { refetchOnMountOrArgChange: true });
     const { user } = useAppSelector((store) => store.user);
     const navigate = useNavigate();
+    const isMobile = window.innerWidth < 768;
 
     if (isLoading) {
         return (
@@ -32,8 +33,6 @@ const ProjectPage = () => {
             </main>
         );
     }
-
-    console.log(data.project.tickets);
 
     return (
         <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-emerald-50'>
@@ -112,8 +111,12 @@ const ProjectPage = () => {
             </div>
             {data.project.tickets.length < 1 ? null : (
                 <div className='rounded-md border p-4 bg-white shadow-project-card my-4'>
-                    <h1 className='text-2xl md:text-3xl font-semibold mb-6 mt-2'>Project Tickets</h1>
-                    <TicketTable columns={columns} data={data.project.tickets} />
+                    <h1 className='text-2xl md:text-3xl font-semibold mb-6 mt-2'>Tickets</h1>
+                    {isMobile ? (
+                        <TicketTable columns={columnsMobile} data={data.project.tickets} />
+                    ) : (
+                        <TicketTable columns={columnsDesktop} data={data.project.tickets} />
+                    )}
                 </div>
             )}
             <ProjectTeam data={data} />

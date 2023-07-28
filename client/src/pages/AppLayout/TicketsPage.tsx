@@ -2,10 +2,11 @@ import { SpinnerPage, TicketNewButton } from '@/components';
 import { TicketTable } from '@/components/Ticket/TicketTable';
 import { useGetAllTicketsQuery } from '@/features/api/apiSlice';
 
-import { columns } from '../../components/Ticket/TicketColumns';
+import { columnsDesktop, columnsMobile } from '../../components/Ticket/TicketColumns';
 
 const TicketsPage = () => {
     const { data, isLoading } = useGetAllTicketsQuery(undefined);
+    const isMobile = window.innerWidth < 768;
 
     if (isLoading) {
         return (
@@ -19,7 +20,7 @@ const TicketsPage = () => {
         return (
             <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-emerald-50 grid place-items-center'>
                 <div className='grid items-center justify-items-center  gap-4'>
-                    <TicketNewButton />
+                    <TicketNewButton size='lg' />
                     <div className='text-center'>
                         <h1 className='text-2xl mb-2 font-medium'>Looks like there are no tickets assigned to you</h1>
                         <h2 className='text-lg'>
@@ -33,10 +34,16 @@ const TicketsPage = () => {
 
     return (
         <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-emerald-50'>
-            <TicketNewButton />
+            <div className='block xs-550:hidden'>
+                <TicketNewButton size='lg' />
+            </div>
             <div className='rounded-md border p-4 bg-white shadow-project-card my-4'>
-                <h1 className='text-2xl md:text-3xl font-semibold mb-6 mt-2'>Tickets Assigned to you</h1>
-                <TicketTable columns={columns} data={data.tickets} />
+                <h1 className='text-2xl font-semibold mb-6 mt-2'>Tickets Assigned to you</h1>
+                {isMobile ? (
+                    <TicketTable columns={columnsMobile} data={data.tickets} />
+                ) : (
+                    <TicketTable columns={columnsDesktop} data={data.tickets} />
+                )}
             </div>
         </main>
     );

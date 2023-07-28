@@ -1,4 +1,4 @@
-import { NavbarMobileMenu, NavbarSearch, NavbarUserButton } from '..';
+import { NavbarMobileMenu, NavbarSearch, NavbarUserButton, TicketNewButton } from '../../components';
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }: { isSidebarOpen: boolean; setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     return (
@@ -9,7 +9,13 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }: { isSidebarOpen: boolean; s
                     <div className='h-6 w-px bg-neutral-300 lg:hidden'></div>
                     <NavbarSearch />
                 </div>
-                <NavbarUserButton />
+                <div className='flex items-center gap-4'>
+                    <div className='hidden xs-550:flex'>
+                        <TicketNewButton size='sm' />
+                    </div>
+                    <div className='h-6 w-px bg-neutral-300 hidden xs-550:flex'></div>
+                    <NavbarUserButton />
+                </div>
             </div>
         </nav>
     );

@@ -34,7 +34,7 @@ import { createTicketFormSchema } from '@/utils/zodSchemas';
 import { SpinnerButton } from '../../components';
 import { useToast } from '../ui/use-toast';
 
-const TicketNewButton = () => {
+const TicketNewButton = ({ size }: { size: string }) => {
     const [createTicket, { isLoading }] = useCreateTicketMutation();
     const { data } = useGetAllProjectsQuery(undefined);
     const [open, setOpen] = useState(false);
@@ -84,7 +84,13 @@ const TicketNewButton = () => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger className='bg-primary text-white transition-colors w-fit h-10 px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark'>
+            <DialogTrigger
+                className={
+                    size === 'sm'
+                        ? 'bg-primary text-white transition-colors w-fit h-9 px-3 py-2 rounded-sm text-sm font-medium hover:bg-primary-hover-dark whitespace-nowrap'
+                        : 'bg-primary text-white transition-colors w-fit h-10 px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark whitespace-nowrap'
+                }
+            >
                 New Ticket
             </DialogTrigger>
             <DialogContent>
@@ -99,20 +105,25 @@ const TicketNewButton = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Project</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value} disabled={data && data?.projects.length < 1}>
                                         <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue placeholder='Choose a project' />
+                                                <SelectValue
+                                                    placeholder={
+                                                        data && data.projects.length < 1 ? "You don't have any projects" : 'Choose a project'
+                                                    }
+                                                />
                                             </SelectTrigger>
                                         </FormControl>
-                                        <SelectContent>
-                                            {data?.projects.map((project) => {
-                                                return (
-                                                    <SelectItem key={project.project_id} value={`${project.project_id}`} className='capitalize'>
-                                                        {project.title}
-                                                    </SelectItem>
-                                                );
-                                            })}
+                                        <SelectContent className='max-h-40 overflow-y-auto'>
+                                            {data &&
+                                                data.projects.map((project) => {
+                                                    return (
+                                                        <SelectItem key={project.project_id} value={`${project.project_id}`} className='capitalize'>
+                                                            {project.title}
+                                                        </SelectItem>
+                                                    );
+                                                })}
                                         </SelectContent>
                                     </Select>
                                     <FormMessage />
@@ -125,7 +136,7 @@ const TicketNewButton = () => {
                                 <FormItem>
                                     <FormLabel>Title</FormLabel>
                                     <FormControl>
-                                        <Input type='text' {...field} />
+                                        <Input type='text' {...field} disabled={data && data?.projects.length < 1} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -138,7 +149,7 @@ const TicketNewButton = () => {
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea className='h-32' {...field} />
+                                        <Textarea className='h-32' {...field} disabled={data && data?.projects.length < 1} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -155,7 +166,7 @@ const TicketNewButton = () => {
                                         defaultValue={field.value}
                                     >
                                         <FormControl>
-                                            <SelectTrigger>
+                                            <SelectTrigger disabled={data && data?.projects.length < 1}>
                                                 <SelectValue placeholder='Choose ticket priority level' />
                                             </SelectTrigger>
                                         </FormControl>

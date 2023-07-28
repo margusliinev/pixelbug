@@ -16,7 +16,7 @@ export const getProject = async (req: AuthenticatedRequest, res: Response) => {
     const reporter_users = alias(users, 'reporter_user');
 
     const projectQuery = await db
-        .selectDistinctOn([projects.project_id])
+        .select()
         .from(projects)
         .leftJoin(tickets, eq(projects.project_id, tickets.project_id))
         .leftJoin(assigned_users, eq(assigned_users.user_id, tickets.assigned_user_id))
@@ -50,14 +50,14 @@ export const getProject = async (req: AuthenticatedRequest, res: Response) => {
         throw new UnauthorizedError('You are not authorized to view this project');
     }
 
-    const projectTickets = projectQuery.map((ticket) => {
-        const assignee = ticket.assigned_user as User;
-        const reporter = ticket.reporter_user as User;
-        if (!reporter || !assignee) {
+    const projectTickets = projectQuery.map((project) => {
+        if (!project.tickets) {
             return null;
         }
+        const assignee = project.assigned_user as User;
+        const reporter = project.reporter_user as User;
         return {
-            ...ticket.tickets,
+            ...project.tickets,
             assigned_user: assignee
                 ? assignee.first_name && assignee.last_name
                     ? `${assignee.first_name} ${assignee.last_name}`

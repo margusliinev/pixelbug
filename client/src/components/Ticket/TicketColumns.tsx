@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 
 import { TicketWithReporterAndTitle } from '@/utils/types';
 
-export const columns: ColumnDef<TicketWithReporterAndTitle>[] = [
+export const columnsDesktop: ColumnDef<TicketWithReporterAndTitle>[] = [
     {
         accessorKey: 'title',
         header: 'Ticket Title',
@@ -16,6 +16,21 @@ export const columns: ColumnDef<TicketWithReporterAndTitle>[] = [
     {
         accessorKey: 'reporter_user',
         header: 'Reported By',
+    },
+    {
+        accessorKey: 'status',
+        header: 'Ticket Status',
+    },
+    {
+        accessorKey: 'priority',
+        header: 'Ticket Priority',
+    },
+];
+
+export const columnsMobile: ColumnDef<TicketWithReporterAndTitle>[] = [
+    {
+        accessorKey: 'title',
+        header: 'Ticket Title',
     },
     {
         accessorKey: 'status',

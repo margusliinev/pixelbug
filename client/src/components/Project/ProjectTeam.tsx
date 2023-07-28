@@ -4,10 +4,10 @@ import { ProjectAPIResponse, User } from '@/utils/types';
 const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
     return (
         <div className='shadow-project-card p-4 grid gap-4 my-4 rounded-md max-w-xl bg-white'>
-            <h1 className='text-2xl md:text-3xl font-semibold'>Project Team</h1>
+            <h1 className='text-2xl md:text-3xl font-semibold'>Team</h1>
             <hr />
             <section>
-                <h2 className='text-xl md:text-2xl font-semibold mb-2'>Manager:</h2>
+                <h2 className='text-xl font-semibold mb-2'>Manager:</h2>
                 <div className='flex items-center gap-2'>
                     <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                         <AvatarImage src={data.project.manager.profile_picture} />
@@ -30,7 +30,7 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
             <section>
                 {data.project.users.length < 1 ? null : (
                     <>
-                        <h2 className='text-xl md:text-2xl font-semibold mb-2'>Developers:</h2>
+                        <h2 className='text-xl font-semibold mb-2'>Developers:</h2>
                         <div className='grid gap-4'>
                             {data.project.users.map((user: User) => {
                                 return (
