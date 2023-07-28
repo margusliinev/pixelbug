@@ -1,23 +1,21 @@
 import { ColumnDef } from '@tanstack/react-table';
+import { format } from 'date-fns';
 
-import { Ticket } from '@/utils/types';
+import { TicketWithDeveloper } from '@/utils/types';
 
-export const columns: ColumnDef<Ticket>[] = [
+export const columns: ColumnDef<TicketWithDeveloper>[] = [
     {
         accessorKey: 'title',
         header: 'Ticket Title',
     },
     {
         accessorKey: 'start_date',
-        header: 'Created',
+        header: 'Reported Date',
+        cell: (ticket) => format(new Date(ticket.row.original.start_date), 'PPP'),
     },
     {
-        accessorKey: 'project_title',
-        header: 'Project Title',
-    },
-    {
-        accessorKey: 'assigned_user.username',
-        header: 'Assigned User',
+        accessorKey: 'reporter_user',
+        header: 'Reported By',
     },
     {
         accessorKey: 'status',
@@ -26,5 +24,9 @@ export const columns: ColumnDef<Ticket>[] = [
     {
         accessorKey: 'priority',
         header: 'Ticket Priority',
+    },
+    {
+        accessorKey: 'assigned_user',
+        header: 'Assigned To',
     },
 ];

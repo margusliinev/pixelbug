@@ -79,7 +79,7 @@ export interface ProjectWithManager {
     manager: User;
 }
 
-export interface ProjectWithManagerAndUsers {
+export interface ProjectWithManagerAndUsersAndTickets {
     project_id: number;
     title: string;
     description: string;
@@ -88,6 +88,7 @@ export interface ProjectWithManagerAndUsers {
     completed_date: Date;
     manager: User;
     users: User[];
+    tickets: TicketWithDeveloper[];
 }
 
 export interface ProjectUsersAPIResponse {
@@ -115,7 +116,7 @@ export interface CreateProject {
 
 export interface ProjectAPIResponse {
     success: boolean;
-    project: ProjectWithManagerAndUsers;
+    project: ProjectWithManagerAndUsersAndTickets;
 }
 
 export interface UpdateProjectUsers {

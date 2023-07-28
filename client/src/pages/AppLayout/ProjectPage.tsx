@@ -2,8 +2,11 @@ import { format } from 'date-fns';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { ProjectLeaveButton, ProjectManagementButtons, ProjectTeam, SpinnerPage } from '@/components';
+import { TicketTable } from '@/components/TicketTable';
 import { useGetSingleProjectQuery } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
+
+import { columns } from '../../components/TicketColumn';
 
 const ProjectPage = () => {
     const { project_id } = useParams();
@@ -106,6 +109,7 @@ const ProjectPage = () => {
                 </section>
             </div>
             <ProjectTeam data={data} />
+            <TicketTable columns={columns} data={data.project.tickets} />
         </main>
     );
 };

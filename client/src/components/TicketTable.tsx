@@ -1,13 +1,16 @@
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { useNavigate } from 'react-router-dom';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { TicketWithDeveloper } from '@/utils/types';
 
-interface DataTableProps<TData, TValue> {
-    columns: ColumnDef<TData, TValue>[];
-    data: TData[];
+interface DataTableProps<TicketWithDeveloper, TValue> {
+    columns: ColumnDef<TicketWithDeveloper, TValue>[];
+    data: TicketWithDeveloper[];
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function TicketTable<TValue>({ columns, data }: DataTableProps<TicketWithDeveloper, TValue>) {
+    const navigate = useNavigate();
     const table = useReactTable({
         data,
         columns,
@@ -33,7 +36,12 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 <TableBody>
                     {table.getRowModel().rows?.length ? (
                         table.getRowModel().rows.map((row) => (
-                            <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                            <TableRow
+                                key={row.id}
+                                data-state={row.getIsSelected() && 'selected'}
+                                onClick={() => navigate(`/tickets/${row.original.ticket_id}`)}
+                                className='cursor-pointer capitalize'
+                            >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                                 ))}
