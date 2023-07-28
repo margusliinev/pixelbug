@@ -12,6 +12,7 @@ import {
     ProjectPage,
     ProjectsPage,
     RegisterPage,
+    TicketPage,
     TicketsPage,
 } from './pages';
 
@@ -58,6 +59,11 @@ function App() {
                         {
                             path: 'tickets',
                             element: <TicketsPage />,
+                        },
+                        {
+                            path: 'tickets/:ticket_id',
+                            element: <TicketPage />,
+                            errorElement: <Navigate to='/app/tickets' />,
                         },
                         {
                             path: 'profile',

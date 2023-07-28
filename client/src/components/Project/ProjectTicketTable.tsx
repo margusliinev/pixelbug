@@ -18,7 +18,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<TicketWith
     });
 
     return (
-        <div className='rounded-md border my-2 bg-white shadow-project-card'>
+        <div className='rounded-md border my-2'>
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -39,7 +39,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<TicketWith
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && 'selected'}
-                                onClick={() => navigate(`/tickets/${row.original.ticket_id}`)}
+                                onClick={() => navigate(`/app/tickets/${row.original.ticket_id}`)}
                                 className='cursor-pointer capitalize'
                             >
                                 {row.getVisibleCells().map((cell) => (

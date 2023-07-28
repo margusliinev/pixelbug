@@ -4,6 +4,7 @@ import DashboardPage from './AppLayout/DashboardPage';
 import ProfilePage from './AppLayout/ProfilePage';
 import ProjectPage from './AppLayout/ProjectPage';
 import ProjectsPage from './AppLayout/ProjectsPage';
+import TicketPage from './AppLayout/TicketPage';
 import TicketsPage from './AppLayout/TicketsPage';
 import ErrorPage from './HomeLayout/ErrorPage';
 import HomeLayout from './HomeLayout/HomeLayout';
@@ -23,5 +24,6 @@ export {
     ProjectPage,
     ProjectsPage,
     RegisterPage,
+    TicketPage,
     TicketsPage,
 };
