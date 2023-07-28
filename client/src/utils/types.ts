@@ -65,6 +65,12 @@ export interface Ticket {
     completed_date: Date;
 }
 
+export interface TicketWithReporterAndAssigneeAndTitle extends Ticket {
+    project_title: string;
+    assigned_user: string;
+    reporter_user: string;
+}
+
 export interface TicketWithReporterAndTitle extends Ticket {
     project_title: string;
     reporter_user: string;
@@ -85,6 +91,11 @@ export interface CreateTicket {
 export interface AllTicketsAPIResponse {
     success: boolean;
     tickets: TicketWithReporterAndTitle[];
+}
+
+export interface TicketAPIResponse {
+    success: boolean;
+    ticket: TicketWithReporterAndAssigneeAndTitle;
 }
 
 // PROJECT TYPES

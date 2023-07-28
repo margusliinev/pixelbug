@@ -19,8 +19,8 @@ export const getTicket = async (req: AuthenticatedRequest, res: Response) => {
         throw new NotFoundError('Ticket not found');
     }
 
-    const assigned_user = await db.select().from(users).where(eq(users.user_id, tickets.assigned_user_id));
-    const reporter_user = await db.select().from(users).where(eq(users.user_id, tickets.reporter_user_id));
+    const assigned_user = result[0].assigned_user_id ? await db.select().from(users).where(eq(users.user_id, result[0].assigned_user_id)) : null;
+    const reporter_user = result[0].reporter_user_id ? await db.select().from(users).where(eq(users.user_id, result[0].reporter_user_id)) : null;
 
     const assigned_user_name = assigned_user
         ? assigned_user[0].first_name && assigned_user[0].last_name
@@ -28,13 +28,14 @@ export const getTicket = async (req: AuthenticatedRequest, res: Response) => {
             : assigned_user[0].username
         : 'Unassigned';
 
-    const reporter_user_name =
-        reporter_user[0].first_name && reporter_user[0].last_name
+    const reporter_user_name = reporter_user
+        ? reporter_user[0].first_name && reporter_user[0].last_name
             ? reporter_user[0].first_name + ' ' + reporter_user[0].last_name
-            : reporter_user[0].username;
+            : reporter_user[0].username
+        : 'Unassigned';
 
-    const ticketProject = await db.select().from(projects).where(eq(projects.project_id, tickets.project_id));
-    const ticketProject_title = ticketProject[0].title;
+    const ticketProject = result[0].project_id ? await db.select().from(projects).where(eq(projects.project_id, result[0].project_id)) : null;
+    const ticketProject_title = ticketProject ? ticketProject[0].title : 'Deleted Project';
 
     const ticket = { ...result[0], assigned_user: assigned_user_name, reporter_user: reporter_user_name, project_title: ticketProject_title };
 

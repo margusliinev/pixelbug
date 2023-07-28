@@ -12,6 +12,7 @@ import {
     ProjectAPIResponse,
     ProjectUsersAPIResponse,
     Register,
+    TicketAPIResponse,
     UpdateProject,
     UpdateProjectUsers,
     UpdateUserPassword,
@@ -139,7 +140,12 @@ export const apiSlice = createApi({
                 url: '/tickets',
                 method: 'GET',
             }),
-            providesTags: ['Tickets'],
+        }),
+        getTicket: builder.query<TicketAPIResponse, string>({
+            query: (ticket_id) => ({
+                url: `/tickets/${ticket_id}`,
+                method: 'GET',
+            }),
         }),
         createTicket: builder.mutation<DefaultAPIResponse, CreateTicket>({
             query: (ticketData) => ({
@@ -147,7 +153,6 @@ export const apiSlice = createApi({
                 method: 'POST',
                 body: ticketData,
             }),
-            invalidatesTags: ['Tickets'],
         }),
     }),
 });
@@ -168,4 +173,5 @@ export const {
     useLeaveProjectMutation,
     useCreateTicketMutation,
     useGetAllTicketsQuery,
+    useGetTicketQuery,
 } = apiSlice;
