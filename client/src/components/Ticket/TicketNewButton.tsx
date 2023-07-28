@@ -31,8 +31,8 @@ import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError, PriorityEnum } from '@/utils/types';
 import { createTicketFormSchema } from '@/utils/zodSchemas';
 
-import { SpinnerButton } from '.';
-import { useToast } from './ui/use-toast';
+import { SpinnerButton } from '../../components';
+import { useToast } from '../ui/use-toast';
 
 const TicketNewButton = () => {
     const [createTicket, { isLoading }] = useCreateTicketMutation();

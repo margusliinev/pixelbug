@@ -1,6 +1,6 @@
 import { ProjectAPIResponse } from '@/utils/types';
 
-import { ProjectDeleteButton, ProjectUpdateButton, ProjectUsersButton } from '.';
+import { ProjectDeleteButton, ProjectUpdateButton, ProjectUsersButton } from '../../components';
 
 const ProjectManagementButtons = ({ data }: { data: ProjectAPIResponse }) => {
     return (

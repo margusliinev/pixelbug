@@ -1,9 +1,9 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 
-import { TicketWithDeveloper } from '@/utils/types';
+import { TicketWithReporterAndTitle } from '@/utils/types';
 
-export const columns: ColumnDef<TicketWithDeveloper>[] = [
+export const columns: ColumnDef<TicketWithReporterAndTitle>[] = [
     {
         accessorKey: 'title',
         header: 'Ticket Title',
@@ -24,9 +24,5 @@ export const columns: ColumnDef<TicketWithDeveloper>[] = [
     {
         accessorKey: 'priority',
         header: 'Ticket Priority',
-    },
-    {
-        accessorKey: 'assigned_user',
-        header: 'Assigned To',
     },
 ];

@@ -1,7 +1,8 @@
 import { SpinnerPage, TicketNewButton } from '@/components';
-// import { columns } from '@/components/TicketColumn';
-// import { TicketTable } from '@/components/TicketTable';
+import { TicketTable } from '@/components/Ticket/TicketTable';
 import { useGetAllTicketsQuery } from '@/features/api/apiSlice';
+
+import { columns } from '../../components/Ticket/TicketColumns';
 
 const TicketsPage = () => {
     const { data, isLoading } = useGetAllTicketsQuery(undefined);
@@ -33,7 +34,10 @@ const TicketsPage = () => {
     return (
         <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-emerald-50'>
             <TicketNewButton />
-            {/* <TicketTable columns={columns} data={data.tickets} /> */}
+            <div className='rounded-md border p-4 bg-white shadow-project-card my-4'>
+                <h1 className='text-2xl md:text-3xl font-semibold mb-6 mt-2'>Tickets Assigned to you</h1>
+                <TicketTable columns={columns} data={data.tickets} />
+            </div>
         </main>
     );
 };

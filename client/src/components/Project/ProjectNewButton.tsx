@@ -34,8 +34,8 @@ import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
 import { createProjectFormSchema } from '@/utils/zodSchemas';
 
-import { SpinnerButton } from '.';
-import { useToast } from './ui/use-toast';
+import { SpinnerButton } from '../../components';
+import { useToast } from '../ui/use-toast';
 
 const ProjectNewButton = () => {
     const [createProject, { isLoading }] = useCreateProjectMutation();

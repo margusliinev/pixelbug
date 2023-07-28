@@ -1,16 +1,4 @@
-export interface DefaultAPIResponse {
-    success: boolean;
-    msg: string;
-}
-
-export interface DefaultAPIError {
-    data: {
-        success: boolean;
-        msg: string;
-        type?: string;
-    };
-    status: number;
-}
+// AUTHENTICATION TYPES
 
 export interface Register {
     username: string;
@@ -22,6 +10,8 @@ export interface Login {
     email: string;
     password: string;
 }
+
+// USER TYPES
 
 export interface User {
     user_id: number;
@@ -59,6 +49,46 @@ export interface UpdateUserPassword {
     confirmNewPassword: string;
 }
 
+// TICKET TYPES
+
+export interface Ticket {
+    ticket_id: number;
+    project_id: number;
+    title: string;
+    description: string;
+    assigned_user_id: number;
+    reported_user_id: number;
+    priority: PriorityEnum;
+    status: StatusEnum;
+    start_date: Date;
+    end_date: Date;
+    completed_date: Date;
+}
+
+export interface TicketWithReporterAndTitle extends Ticket {
+    project_title: string;
+    reporter_user: string;
+}
+
+export interface TicketWithReporterAndAssignee extends Ticket {
+    assigned_user: string;
+    reporter_user: string;
+}
+
+export interface CreateTicket {
+    project_id: number | undefined;
+    title: string;
+    description: string;
+    priority: 'low' | 'medium' | 'high' | 'critical' | undefined;
+}
+
+export interface AllTicketsAPIResponse {
+    success: boolean;
+    tickets: TicketWithReporterAndTitle[];
+}
+
+// PROJECT TYPES
+
 export interface Project {
     project_id: number;
     title: string;
@@ -67,28 +97,18 @@ export interface Project {
     start_date: Date;
     end_date: Date;
     completed_date: Date;
-}
-
-export interface ProjectWithManager {
-    project_id: number;
-    title: string;
-    description: string;
-    start_date: Date;
-    end_date: Date;
-    completed_date: Date;
-    manager: User;
-}
-
-export interface ProjectWithManagerAndUsersAndTickets {
-    project_id: number;
-    title: string;
-    description: string;
-    start_date: Date;
-    end_date: Date;
-    completed_date: Date;
     manager: User;
     users: User[];
-    tickets: TicketWithDeveloper[];
+    tickets: TicketWithReporterAndAssignee[];
+}
+
+export interface ProjectWithManager extends Project {
+    manager: User;
+}
+
+export interface ProjectAPIResponse {
+    success: boolean;
+    project: Project;
 }
 
 export interface ProjectUsersAPIResponse {
@@ -102,11 +122,6 @@ export interface AllProjectsAPIResponse {
     projects: ProjectWithManager[];
 }
 
-export interface CreateProjectAPIResponse {
-    success: boolean;
-    project: Project;
-}
-
 export interface CreateProject {
     title: string;
     description: string;
@@ -114,9 +129,9 @@ export interface CreateProject {
     end_date: Date;
 }
 
-export interface ProjectAPIResponse {
+export interface CreateProjectAPIResponse {
     success: boolean;
-    project: ProjectWithManagerAndUsersAndTickets;
+    project: Project;
 }
 
 export interface UpdateProjectUsers {
@@ -138,6 +153,8 @@ export interface DeleteProject {
     project_id: number;
 }
 
+// ENUMS
+
 export enum PriorityEnum {
     low = 'low',
     medium = 'medium',
@@ -153,43 +170,18 @@ export enum StatusEnum {
     resolved = 'resolved',
 }
 
-export interface Ticket {
-    ticket_id: number;
-    project_id: number;
-    title: string;
-    description: string;
-    assigned_user_id: number;
-    reported_user_id: number;
-    priority: PriorityEnum;
-    status: StatusEnum;
-    start_date: Date;
-    end_date: Date;
-    completed_date: Date;
-}
+// DEFAULT RESPONSE TYPES
 
-export interface TicketWithDeveloper {
-    ticket_id: number;
-    project_id: number;
-    title: string;
-    description: string;
-    assigned_user_id: number;
-    reported_user_id: number;
-    priority: PriorityEnum;
-    status: StatusEnum;
-    start_date: Date;
-    end_date: Date;
-    completed_date: Date;
-    developer: User;
-}
-
-export interface CreateTicket {
-    project_id: number | undefined;
-    title: string;
-    description: string;
-    priority: 'low' | 'medium' | 'high' | 'critical' | undefined;
-}
-
-export interface AllTicketsAPIResponse {
+export interface DefaultAPIResponse {
     success: boolean;
-    tickets: Ticket[];
+    msg: string;
+}
+
+export interface DefaultAPIError {
+    data: {
+        success: boolean;
+        msg: string;
+        type?: string;
+    };
+    status: number;
 }

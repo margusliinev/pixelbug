@@ -1,4 +1,4 @@
-import { NavbarMobileMenu, NavbarSearch, NavbarUserButton } from '.';
+import { NavbarMobileMenu, NavbarSearch, NavbarUserButton } from '..';
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }: { isSidebarOpen: boolean; setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     return (

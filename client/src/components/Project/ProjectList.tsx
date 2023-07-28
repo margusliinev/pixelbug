@@ -1,6 +1,6 @@
 import { AllProjectsAPIResponse } from '@/utils/types';
 
-import { ProjectCard } from '.';
+import { ProjectCard } from '../../components';
 
 const ProjectList = ({ data }: { data: AllProjectsAPIResponse | undefined }) => {
     return (

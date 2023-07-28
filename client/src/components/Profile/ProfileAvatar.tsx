@@ -8,7 +8,7 @@ import { logoutUser, setUser } from '@/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 
-import { SpinnerButton } from '.';
+import { SpinnerButton } from '../../components';
 
 const ProfileAvatar = () => {
     const [updateUserPicture, { isLoading }] = useUpdateUserPictureMutation();

@@ -17,10 +17,14 @@ export const getAllTickets = async (req: AuthenticatedRequest, res: Response) =>
         .where(eq(tickets.assigned_user_id, req.user.user_id));
 
     const userTickets = result.map((ticket) => {
-        const { ...ticketData } = ticket.tickets; // Extract ticket data
+        const { ...ticketData } = ticket.tickets;
         const { title } = ticket.projects as Project;
-        const { password, user_id, profile_picture, created_at, updated_at, role, verified, ...user } = ticket.users as User; // Remove unneeded user data and extract rest
-        return { ...ticketData, assigned_user: user, project_title: title }; // Merge ticket data and user info
+        const { ...user } = ticket.users as User;
+        return {
+            ...ticketData,
+            reporter_user: user.first_name && user.last_name ? `${user.first_name} ${user.last_name}` : user.username,
+            project_title: title,
+        };
     });
 
     res.status(200).json({ success: true, tickets: userTickets });

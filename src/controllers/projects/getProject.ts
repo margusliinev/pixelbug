@@ -14,6 +14,7 @@ export const getProject = async (req: AuthenticatedRequest, res: Response) => {
 
     const assigned_users = alias(users, 'assigned_user');
     const reporter_users = alias(users, 'reporter_user');
+
     const projectQuery = await db
         .selectDistinctOn([projects.project_id])
         .from(projects)
@@ -26,23 +27,6 @@ export const getProject = async (req: AuthenticatedRequest, res: Response) => {
     if (projectQuery.length < 1) {
         throw new NotFoundError('Project not found');
     }
-
-    const projectTickets = projectQuery.map((ticket) => {
-        const assigned_user = ticket.assigned_user as User;
-        const reporter_user = ticket.reporter_user as User;
-        return {
-            ...ticket.tickets,
-            assigned_user: assigned_user
-                ? assigned_user.first_name && assigned_user.last_name
-                    ? `${assigned_user.first_name} ${assigned_user.last_name}`
-                    : assigned_user
-                : 'Unassigned',
-            reporter_user:
-                reporter_user.first_name && reporter_user.last_name
-                    ? `${reporter_user.first_name} ${reporter_user.last_name}`
-                    : reporter_user.username,
-        };
-    });
 
     const projectManagerId = projectQuery[0].projects.manager_id;
     const manager = await db.select().from(users).where(eq(users.user_id, projectManagerId));
@@ -66,7 +50,30 @@ export const getProject = async (req: AuthenticatedRequest, res: Response) => {
         throw new UnauthorizedError('You are not authorized to view this project');
     }
 
-    const project = { ...projectData, tickets: projectTickets, manager: managerNoPassword, users: projectUsers };
+    const projectTickets = projectQuery.map((ticket) => {
+        const assignee = ticket.assigned_user as User;
+        const reporter = ticket.reporter_user as User;
+        if (!reporter || !assignee) {
+            return null;
+        }
+        return {
+            ...ticket.tickets,
+            assigned_user: assignee
+                ? assignee.first_name && assignee.last_name
+                    ? `${assignee.first_name} ${assignee.last_name}`
+                    : assignee.username
+                : 'Unassigned',
+            reporter_user: reporter.first_name && reporter.last_name ? `${reporter.first_name} ${reporter.last_name}` : reporter.username,
+        };
+    });
 
-    res.status(200).json({ success: true, project: project });
+    if (projectTickets[0] === null) {
+        const project = { ...projectData, tickets: [], manager: managerNoPassword, users: projectUsers };
+
+        res.status(200).json({ success: true, project: project });
+    } else {
+        const project = { ...projectData, tickets: projectTickets, manager: managerNoPassword, users: projectUsers };
+
+        res.status(200).json({ success: true, project: project });
+    }
 };

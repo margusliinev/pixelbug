@@ -28,8 +28,8 @@ import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 import { manageProjectUsersFormSchema } from '@/utils/zodSchemas';
 
-import { SpinnerButton } from '.';
-import { useToast } from './ui/use-toast';
+import { SpinnerButton } from '../../components';
+import { useToast } from '../ui/use-toast';
 
 interface Users {
     project_users: User[];

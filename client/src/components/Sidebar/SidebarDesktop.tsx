@@ -1,5 +1,5 @@
-import logo from '../assets/logo.svg';
-import { SidebarLinks } from '.';
+import logo from '../../assets/logo.svg';
+import { SidebarLinks } from '../../components';
 
 const SidebarDesktop = ({
     isSidebarOpen,

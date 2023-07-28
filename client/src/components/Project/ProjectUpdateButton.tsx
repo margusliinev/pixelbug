@@ -34,8 +34,8 @@ import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError, ProjectAPIResponse } from '@/utils/types';
 import { updateProjectFormSchema } from '@/utils/zodSchemas';
 
-import { SpinnerButton } from '.';
-import { useToast } from './ui/use-toast';
+import { SpinnerButton } from '../../components';
+import { useToast } from '../ui/use-toast';
 
 const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
     const [updateProject, { isLoading }] = useUpdateProjectMutation();
