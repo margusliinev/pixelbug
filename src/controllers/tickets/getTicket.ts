@@ -35,9 +35,16 @@ export const getTicket = async (req: AuthenticatedRequest, res: Response) => {
         : 'Unassigned';
 
     const ticketProject = result[0].project_id ? await db.select().from(projects).where(eq(projects.project_id, result[0].project_id)) : null;
+    const manager_id = ticketProject ? ticketProject[0].manager_id : 1;
     const ticketProject_title = ticketProject ? ticketProject[0].title : 'Deleted Project';
 
-    const ticket = { ...result[0], assigned_user: assigned_user_name, reporter_user: reporter_user_name, project_title: ticketProject_title };
+    const ticket = {
+        ...result[0],
+        project_manager_id: manager_id,
+        assigned_user: assigned_user_name,
+        reporter_user: reporter_user_name,
+        project_title: ticketProject_title,
+    };
 
     res.status(200).json({ success: true, ticket: ticket });
 };

@@ -108,8 +108,8 @@ export const manageProjectUsersFormSchema = z.object({
     users: z.array(z.number()),
 });
 
-// const PriorityEnum = ['low', 'medium', 'high', 'critical'] as const;
-// const StatusEnum = ['unassigned', 'assigned', 'in development', 'on hold', 'resolved'] as const;
+const PriorityEnum = ['low', 'medium', 'high', 'critical'] as const;
+const StatusEnum = ['unassigned', 'assigned', 'in_development', 'on_hold', 'resolved'] as const;
 
 export const createTicketFormSchema = z.object({
     project_id: z
@@ -124,11 +124,9 @@ export const createTicketFormSchema = z.object({
         .refine((value) => value !== undefined, { message: 'Please select ticket priority' }),
 });
 
-// export const updateTicketFormSchema = z.object({
-//     title: z.string().trim().min(1, { message: 'Please enter ticket title' }),
-//     description: z.string().trim().min(1, { message: 'Please enter ticket description' }),
-//     priority: z.enum(PriorityEnum).refine((value) => PriorityEnum.includes(value), { message: 'Please select ticket priority' }),
-//     status: z.enum(StatusEnum).refine((value) => StatusEnum.includes(value), { message: 'Please select ticket status' }),
-//     start_date: z.any().refine((date) => date !== null, { message: 'Please choose a start date' }),
-//     end_date: z.any().refine((date) => date !== null, { message: 'Please choose a end date' }),
-// });
+export const updateTicketFormSchema = z.object({
+    title: z.string().trim().min(1, { message: 'Please enter ticket title' }),
+    description: z.string().trim().min(1, { message: 'Please enter ticket description' }),
+    priority: z.enum(PriorityEnum).refine((value) => PriorityEnum.includes(value), { message: 'Please select ticket priority' }),
+    status: z.enum(StatusEnum).refine((value) => StatusEnum.includes(value), { message: 'Please select ticket status' }),
+});

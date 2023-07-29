@@ -1,18 +1,18 @@
 import { format } from 'date-fns';
 
-import { TicketWithReporterAndAssigneeAndTitle } from '@/utils/types';
+import { TicketPage } from '@/utils/types';
 
 import { TicketPriority, TicketStatus } from '..';
 
-const TicketDetails = ({ ticket }: { ticket: TicketWithReporterAndAssigneeAndTitle }) => {
+const TicketDetails = ({ ticket }: { ticket: TicketPage }) => {
     return (
         <>
             <div className='grid grid-cols-[120px_1fr]'>
-                <span className='font-semibold text-md'>Project:</span>
+                <span className='font-semibold text-md'>Project Name:</span>
                 <p className='text-sm capitalize'>{ticket.project_title}</p>
             </div>
             <div className='grid grid-cols-[120px_1fr]'>
-                <span className='font-semibold text-md'>Title:</span>
+                <span className='font-semibold text-md'>Ticket Title:</span>
                 <p className='text-sm'>{ticket.title}</p>
             </div>
             <div className='grid grid-cols-[120px_1fr]'>

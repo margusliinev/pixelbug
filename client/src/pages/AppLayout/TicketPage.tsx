@@ -1,5 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
+import { TicketManagementButtons } from '@/components';
 import { SpinnerPage, TicketDetails } from '@/components';
 import { useGetTicketQuery } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
@@ -18,7 +19,7 @@ const TicketPage = () => {
         );
     }
 
-    if (!data) {
+    if (!data || !user) {
         setTimeout(() => {
             navigate('/app/tickets');
         }, 500);
@@ -48,7 +49,7 @@ const TicketPage = () => {
                     </svg>
                     <span>{project_id ? 'Back to Project' : 'All Tickets'}</span>
                 </Link>
-                {user?.user_id === (data.ticket.assigned_user_id || data.ticket.reported_user_id) ? <button>TicketManagementButton</button> : null}
+                {user.user_id === data.ticket.project_manager_id && <TicketManagementButtons ticket={data.ticket} />}
             </div>
             <div className='grid gap-6 rounded-md border p-4 bg-white shadow-project-card my-4'>
                 <TicketDetails ticket={data.ticket} />

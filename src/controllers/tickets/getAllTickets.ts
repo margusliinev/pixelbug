@@ -12,7 +12,7 @@ export const getAllTickets = async (req: AuthenticatedRequest, res: Response) =>
     const result = await db
         .select()
         .from(tickets)
-        .leftJoin(users, eq(users.user_id, tickets.assigned_user_id))
+        .leftJoin(users, eq(users.user_id, tickets.reporter_user_id))
         .leftJoin(projects, eq(projects.project_id, tickets.project_id))
         .where(eq(tickets.assigned_user_id, req.user.user_id));
 

@@ -13,7 +13,7 @@ const ProjectPage = () => {
     const { data, isLoading } = useGetSingleProjectQuery(project_id || '', { refetchOnMountOrArgChange: true });
     const { user } = useAppSelector((store) => store.user);
     const navigate = useNavigate();
-    const isMobile = window.innerWidth < 768;
+    const isMobile = window.innerWidth < 640;
 
     if (isLoading) {
         return (
