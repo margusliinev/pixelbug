@@ -66,6 +66,11 @@ function App() {
                             errorElement: <Navigate to='/app/tickets' />,
                         },
                         {
+                            path: 'projects/:project_id/ticket/:ticket_id',
+                            element: <TicketPage />,
+                            errorElement: <Navigate to='/app/projects/:project_id' />,
+                        },
+                        {
                             path: 'profile',
                             element: <ProfilePage />,
                         },
