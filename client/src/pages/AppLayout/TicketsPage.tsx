@@ -34,9 +34,7 @@ const TicketsPage = () => {
 
     return (
         <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-emerald-50'>
-            <div className='block xs-550:hidden'>
-                <TicketNewButton size='lg' />
-            </div>
+            <TicketNewButton size='lg' />
             <div className='rounded-md border p-4 bg-white shadow-project-card my-4'>
                 <h1 className='text-2xl font-semibold mb-6 mt-2'>Tickets Assigned to you</h1>
                 {isMobile ? (

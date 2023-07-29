@@ -3,10 +3,12 @@ import { ProjectAPIResponse, User } from '@/utils/types';
 
 const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
     return (
-        <div className='shadow-project-card p-4 grid gap-4 my-4 rounded-md max-w-xl bg-white'>
-            <h1 className='text-2xl md:text-3xl font-semibold'>Team</h1>
-            <hr />
-            <section>
+        <section className='grid gap-4 mb-10'>
+            <header>
+                <h1 className='text-2xl md:text-3xl font-semibold my-2'>Team</h1>
+                <hr />
+            </header>
+            <section className='my-2'>
                 <h2 className='text-xl font-semibold mb-2'>Manager:</h2>
                 <div className='flex items-center gap-2'>
                     <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
@@ -31,28 +33,25 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
                 {data.project.users.length < 1 ? null : (
                     <>
                         <h2 className='text-xl font-semibold mb-2'>Developers:</h2>
-                        <div className='grid gap-4'>
+                        <div className='grid md:grid-cols-2 2xl:grid-cols-3 gap-4'>
                             {data.project.users.map((user: User) => {
                                 return (
                                     <article key={user.user_id}>
-                                        <div className='flex gap-2 xs:gap-4 items-center justify-between'>
-                                            <div className='flex items-center gap-2'>
-                                                <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
-                                                    <AvatarImage src={user.profile_picture} />
-                                                    <AvatarFallback className='text-2xl bg-neutral-200'>
-                                                        {user.first_name && user.last_name
-                                                            ? user.first_name.charAt(0).toUpperCase()
-                                                            : user.username.charAt(0).toUpperCase()}
-                                                    </AvatarFallback>
-                                                </Avatar>
-                                                <div>
-                                                    <div className='font-medium mb-1'>
-                                                        {user.first_name && user.last_name ? `${user.first_name} ${user.last_name}` : user.username}
-                                                    </div>
-                                                    <div className='hidden xs-500:block'>{user.email}</div>
+                                        <div className='flex items-center gap-2'>
+                                            <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
+                                                <AvatarImage src={user.profile_picture} />
+                                                <AvatarFallback className='text-2xl bg-neutral-200'>
+                                                    {user.first_name && user.last_name
+                                                        ? user.first_name.charAt(0).toUpperCase()
+                                                        : user.username.charAt(0).toUpperCase()}
+                                                </AvatarFallback>
+                                            </Avatar>
+                                            <div>
+                                                <div className='font-medium mb-1'>
+                                                    {user.first_name && user.last_name ? `${user.first_name} ${user.last_name}` : user.username}
                                                 </div>
+                                                <div className='hidden xs-500:block'>{user.email}</div>
                                             </div>
-                                            <div className='hidden sm:block'>{user.job_title}</div>
                                         </div>
                                     </article>
                                 );
@@ -61,7 +60,7 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
                     </>
                 )}
             </section>
-        </div>
+        </section>
     );
 };
 
