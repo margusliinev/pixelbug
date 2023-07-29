@@ -23,7 +23,7 @@ import {
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
-    tagTypes: ['Projects', 'Project', 'Tickets'],
+    tagTypes: ['Projects', 'Project', 'Tickets', 'Ticket'],
     endpoints: (builder) => ({
         // Auth
         register: builder.mutation<DefaultAPIResponse, Register>({
@@ -86,7 +86,7 @@ export const apiSlice = createApi({
                 },
             }),
             keepUnusedDataFor: 0,
-            providesTags: ['Project'],
+            providesTags: ['Project', 'Ticket'],
         }),
         getProjectUsers: builder.query<ProjectUsersAPIResponse, string>({
             query: (project_id) => ({
@@ -153,6 +153,7 @@ export const apiSlice = createApi({
                 method: 'POST',
                 body: ticketData,
             }),
+            invalidatesTags: ['Ticket'],
         }),
     }),
 });

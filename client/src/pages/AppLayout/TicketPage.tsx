@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { SpinnerPage } from '@/components';
+import { SpinnerPage, TicketDetails } from '@/components';
 import { useGetTicketQuery } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
 
@@ -50,7 +50,9 @@ const TicketPage = () => {
                 </Link>
                 {user?.user_id === (data.ticket.assigned_user_id || data.ticket.reported_user_id) ? <button>TicketManagementButton</button> : null}
             </div>
-            <h1>{data.ticket.reporter_user}</h1>
+            <div className='grid gap-6 rounded-md border p-4 bg-white shadow-project-card my-4'>
+                <TicketDetails ticket={data.ticket} />
+            </div>
         </main>
     );
 };
