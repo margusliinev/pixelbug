@@ -2,7 +2,7 @@ import { and, eq } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db/index';
-import { projects, projects_users } from '../../db/schema';
+import { projects, projects_users, tickets } from '../../db/schema';
 import { AuthenticatedRequest, NotFoundError, UnauthenticatedError, UnauthorizedError } from '../../utils';
 
 export const leaveProject = async (req: AuthenticatedRequest, res: Response) => {
@@ -22,6 +22,15 @@ export const leaveProject = async (req: AuthenticatedRequest, res: Response) => 
     const projectManagerID = project[0].manager_id;
 
     if (projectManagerID === req.user.user_id) throw new UnauthorizedError('Manager cannot leave the project');
+
+    await db
+        .update(tickets)
+        .set({ assigned_user_id: null })
+        .where(eq(tickets.assigned_user_id, req.user.user_id))
+        .returning()
+        .catch((error) => {
+            console.log(error);
+        });
 
     const result = await db
         .delete(projects_users)
