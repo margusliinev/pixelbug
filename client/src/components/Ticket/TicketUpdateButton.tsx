@@ -24,11 +24,31 @@ import {
     SelectValue,
     Textarea,
 } from '@/components/ui';
+import { useGetProjectUsersQuery } from '@/features/api/apiSlice';
 import { PriorityEnum, StatusEnum, TicketPage } from '@/utils/types';
-import { updateTicketFormSchema } from '@/utils/zodSchemas';
 
 const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
     const [open, setOpen] = useState(false);
+    const { data } = useGetProjectUsersQuery(ticket.project_id.toString());
+
+    const projectUsers = data?.projectUsers.map((user) => {
+        return user.user_id.toString();
+    });
+
+    const PriorityEnum = ['low', 'medium', 'high', 'critical'] as const;
+    const StatusEnum = ['unassigned', 'assigned', 'in_development', 'on_hold', 'resolved'] as const;
+    const AssignedUserEnum = [ticket.assigned_user_id ? ticket.assigned_user_id.toString() : '', ...(projectUsers ?? '')] as const;
+
+    const updateTicketFormSchema = z.object({
+        title: z.string().trim().min(1, { message: 'Please enter ticket title' }),
+        description: z.string().trim().min(1, { message: 'Please enter ticket description' }),
+        priority: z.enum(PriorityEnum).refine((value) => PriorityEnum.includes(value), { message: 'Please select ticket priority' }),
+        status: z.enum(StatusEnum).refine((value) => StatusEnum.includes(value), { message: 'Please select ticket status' }),
+        assigned_user: z
+            .enum(AssignedUserEnum)
+            .optional()
+            .refine((value) => value !== undefined, { message: 'Please select a developer' }),
+    });
 
     const form = useForm<z.infer<typeof updateTicketFormSchema>>({
         resolver: zodResolver(updateTicketFormSchema),
@@ -37,6 +57,7 @@ const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
             description: ticket.description,
             priority: ticket.priority,
             status: ticket.status,
+            assigned_user: ticket.assigned_user_id ? ticket.assigned_user_id.toString() : undefined,
         },
     });
 
@@ -78,6 +99,45 @@ const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
                                     <FormControl>
                                         <Textarea className='h-64' {...field} />
                                     </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name='assigned_user'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Developer</FormLabel>
+                                    <Select
+                                        onValueChange={(value: string | ChangeEvent<Element>) => field.onChange(value)}
+                                        defaultValue={field.value}
+                                        disabled={data && data.projectUsers.length < 1}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue
+                                                    placeholder={
+                                                        data && data.projectUsers.length < 1
+                                                            ? 'There are no developers in your project'
+                                                            : 'Assign ticket to a developer'
+                                                    }
+                                                />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent className='max-h-40 overflow-y-auto'>
+                                            {data &&
+                                                data.projectUsers.map((user) => {
+                                                    return (
+                                                        <SelectItem key={user.user_id} value={`${user.user_id}`} className='capitalize'>
+                                                            {user.first_name && user.last_name
+                                                                ? `${user.first_name} ${user.last_name}`
+                                                                : user.username}
+                                                        </SelectItem>
+                                                    );
+                                                })}
+                                        </SelectContent>
+                                    </Select>
                                     <FormMessage />
                                 </FormItem>
                             )}
