@@ -43,5 +43,5 @@ export const updateTicket = async (req: AuthenticatedRequest, res: Response) => 
         .returning();
     if (!result) throw new Error('Failed to update project');
 
-    res.status(201).json({ success: true, msg: 'Successfully updated the project' });
+    res.status(201).json({ success: true, msg: 'Successfully updated the ticket' });
 };
