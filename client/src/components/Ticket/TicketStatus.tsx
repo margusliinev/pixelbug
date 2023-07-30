@@ -7,9 +7,9 @@ const TicketStatus = ({ status }: { status: string }) => {
         case 'in_development':
             return <span className='py-1 px-2 capitalize text-sm bg-emerald-600 text-white rounded-md w-fit'>{status.replace(/_/g, ' ')}</span>;
         case 'on_hold':
-            return <span className='py-1 px-2 capitalize text-sm bg-orange-500 text-white rounded-md w-fit'>{status.replace(/_/g, ' ')}</span>;
+            return <span className='py-1 px-2 capitalize text-sm bg-red-600 text-white rounded-md w-fit'>{status.replace(/_/g, ' ')}</span>;
         case 'resolved':
-            return <span className='py-1 px-2 capitalize text-sm bg-gray-700 text-white rounded-md w-fit'>{status}</span>;
+            return <span className='py-1 px-2 capitalize text-sm bg-neutral-700 text-white rounded-md w-fit'>{status}</span>;
         default:
             return <span className='py-1 px-2 capitalize text-sm bg-neutral-600 text-white rounded-md w-fit'>{status}</span>;
     }

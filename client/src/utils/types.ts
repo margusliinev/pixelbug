@@ -28,13 +28,6 @@ export interface User {
     updated_at: Date;
 }
 
-export interface UserAPIResponse {
-    success: boolean;
-    isAuth: boolean;
-    user: User;
-    msg: string;
-}
-
 export interface UpdateUserProfile {
     first_name: string;
     last_name: string;
@@ -47,6 +40,13 @@ export interface UpdateUserPassword {
     password: string;
     newPassword: string;
     confirmNewPassword: string;
+}
+
+export interface UserAPIResponse {
+    success: boolean;
+    isAuth: boolean;
+    user: User;
+    msg: string;
 }
 
 // TICKET TYPES
@@ -72,12 +72,12 @@ export interface TicketPage extends Ticket {
     reporter_user: string;
 }
 
-export interface TicketWithReporterAndTitle extends Ticket {
+export interface TicketTable extends Ticket {
     project_title: string;
     reporter_user: string;
 }
 
-export interface TicketWithReporterAndAssignee extends Ticket {
+export interface ProjectTicketTable extends Ticket {
     assigned_user: string;
     reporter_user: string;
 }
@@ -106,7 +106,7 @@ export interface DeleteTicket {
 
 export interface AllTicketsAPIResponse {
     success: boolean;
-    tickets: TicketWithReporterAndTitle[];
+    tickets: TicketTable[];
 }
 
 export interface TicketAPIResponse {
@@ -126,11 +126,12 @@ export interface Project {
     completed_date: Date;
     manager: User;
     users: User[];
-    tickets: TicketWithReporterAndAssignee[];
+    tickets: ProjectTicketTable[];
 }
 
-export interface ProjectWithManager extends Project {
-    manager: User;
+export interface AllProjectsAPIResponse {
+    success: boolean;
+    projects: Project[];
 }
 
 export interface ProjectAPIResponse {
@@ -144,26 +145,11 @@ export interface ProjectUsersAPIResponse {
     otherUsers: User[];
 }
 
-export interface AllProjectsAPIResponse {
-    success: boolean;
-    projects: ProjectWithManager[];
-}
-
 export interface CreateProject {
     title: string;
     description: string;
     start_date: Date;
     end_date: Date;
-}
-
-export interface CreateProjectAPIResponse {
-    success: boolean;
-    project: Project;
-}
-
-export interface UpdateProjectUsers {
-    updated_users: number[];
-    project_id: string;
 }
 
 export interface UpdateProject {
@@ -178,6 +164,11 @@ export interface UpdateProject {
 
 export interface DeleteProject {
     project_id: number;
+}
+
+export interface UpdateProjectUsers {
+    updated_users: number[];
+    project_id: string;
 }
 
 // ENUMS

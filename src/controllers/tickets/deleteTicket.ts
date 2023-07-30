@@ -8,12 +8,9 @@ import { AuthenticatedRequest, NotFoundError, UnauthenticatedError, Unauthorized
 export const deleteTicket = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
 
-    const { ticket_id } = req.body;
+    const { ticket_id } = req.body as { ticket_id: number };
 
-    const ticket = await db
-        .select()
-        .from(tickets)
-        .where(eq(tickets.ticket_id, Number(ticket_id)));
+    const ticket = await db.select().from(tickets).where(eq(tickets.ticket_id, ticket_id));
     if (!ticket[0].project_id) throw new NotFoundError('Ticket not found');
 
     const project = await db.select().from(projects).where(eq(projects.project_id, ticket[0].project_id));

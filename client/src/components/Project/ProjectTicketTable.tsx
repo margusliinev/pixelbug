@@ -2,14 +2,14 @@ import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack
 import { useNavigate } from 'react-router-dom';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { TicketWithReporterAndAssignee } from '@/utils/types';
+import { ProjectTicketTable } from '@/utils/types';
 
-interface DataTableProps<TicketWithReporterAndAssignee, TValue> {
-    columns: ColumnDef<TicketWithReporterAndAssignee, TValue>[];
-    data: TicketWithReporterAndAssignee[];
+interface DataTableProps<ProjectTicketTable, TValue> {
+    columns: ColumnDef<ProjectTicketTable, TValue>[];
+    data: ProjectTicketTable[];
 }
 
-export function TicketTable<TValue>({ columns, data }: DataTableProps<TicketWithReporterAndAssignee, TValue>) {
+export function TicketTable<TValue>({ columns, data }: DataTableProps<ProjectTicketTable, TValue>) {
     const navigate = useNavigate();
     const table = useReactTable({
         data,

@@ -4,7 +4,6 @@ import {
     AllProjectsAPIResponse,
     AllTicketsAPIResponse,
     CreateProject,
-    CreateProjectAPIResponse,
     CreateTicket,
     DefaultAPIResponse,
     DeleteProject,
@@ -97,7 +96,7 @@ export const apiSlice = createApi({
             }),
             providesTags: ['Project'],
         }),
-        createProject: builder.mutation<CreateProjectAPIResponse, CreateProject>({
+        createProject: builder.mutation<DefaultAPIResponse, CreateProject>({
             query: (projectData) => ({
                 url: '/projects',
                 method: 'POST',

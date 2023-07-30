@@ -43,5 +43,5 @@ export const createProject = async (req: AuthenticatedRequest, res: Response) =>
 
     if (!project || !project_user_result) throw new Error('Failed to create a new project');
 
-    res.status(201).json({ success: true, project: project, msg: 'Successfully created a new project' });
+    res.status(201).json({ success: true, msg: 'Successfully created a new project' });
 };
