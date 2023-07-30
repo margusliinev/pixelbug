@@ -89,6 +89,17 @@ export interface CreateTicket {
     priority: 'low' | 'medium' | 'high' | 'critical' | undefined;
 }
 
+export interface UpdateTicket {
+    values: {
+        title: string;
+        description: string;
+        assigned_user_id?: string | undefined;
+        priority: 'low' | 'medium' | 'high' | 'critical';
+        status: 'unassigned' | 'assigned' | 'in_development' | 'on_hold' | 'resolved';
+    };
+    ticket_id: string;
+}
+
 export interface AllTicketsAPIResponse {
     success: boolean;
     tickets: TicketWithReporterAndTitle[];

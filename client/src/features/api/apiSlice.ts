@@ -15,6 +15,7 @@ import {
     TicketAPIResponse,
     UpdateProject,
     UpdateProjectUsers,
+    UpdateTicket,
     UpdateUserPassword,
     UpdateUserProfile,
     UserAPIResponse,
@@ -146,12 +147,21 @@ export const apiSlice = createApi({
                 url: `/tickets/${ticket_id}`,
                 method: 'GET',
             }),
+            providesTags: ['Ticket'],
         }),
         createTicket: builder.mutation<DefaultAPIResponse, CreateTicket>({
             query: (ticketData) => ({
                 url: '/tickets',
                 method: 'POST',
                 body: ticketData,
+            }),
+            invalidatesTags: ['Ticket'],
+        }),
+        updateTicket: builder.mutation<DefaultAPIResponse, UpdateTicket>({
+            query: ({ values, ticket_id }) => ({
+                url: `/tickets/${ticket_id}`,
+                method: 'PATCH',
+                body: values,
             }),
             invalidatesTags: ['Ticket'],
         }),
@@ -175,4 +185,5 @@ export const {
     useCreateTicketMutation,
     useGetAllTicketsQuery,
     useGetTicketQuery,
+    useUpdateTicketMutation,
 } = apiSlice;

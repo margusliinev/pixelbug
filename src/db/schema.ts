@@ -3,7 +3,7 @@ import { boolean, integer, pgEnum, pgTable, serial, text, timestamp, varchar } f
 
 const roleEnum = pgEnum('role', ['user', 'admin', 'test']);
 const priorityEnum = pgEnum('priority', ['low', 'medium', 'high', 'critical']);
-const statusEnum = pgEnum('status', ['unassigned', 'assigned', 'in development', 'on hold', 'resolved']);
+const statusEnum = pgEnum('status', ['unassigned', 'assigned', 'in_development', 'on_hold', 'resolved']);
 
 export const users = pgTable('users', {
     user_id: serial('user_id').primaryKey(),

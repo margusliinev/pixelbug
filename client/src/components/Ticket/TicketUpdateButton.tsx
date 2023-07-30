@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ChangeEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
 import {
@@ -24,12 +25,21 @@ import {
     SelectValue,
     Textarea,
 } from '@/components/ui';
-import { useGetProjectUsersQuery } from '@/features/api/apiSlice';
-import { PriorityEnum, StatusEnum, TicketPage } from '@/utils/types';
+import { useGetProjectUsersQuery, useUpdateTicketMutation } from '@/features/api/apiSlice';
+import { logoutUser } from '@/features/user/userSlice';
+import { useAppDispatch } from '@/utils/hooks';
+import { DefaultAPIError, PriorityEnum, StatusEnum, TicketPage } from '@/utils/types';
+
+import { SpinnerButton } from '..';
+import { useToast } from '../ui/use-toast';
 
 const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
-    const [open, setOpen] = useState(false);
     const { data } = useGetProjectUsersQuery(ticket.project_id.toString());
+    const [updateTicket, { isLoading }] = useUpdateTicketMutation();
+    const [open, setOpen] = useState(false);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const { toast } = useToast();
 
     const projectUsers = data?.projectUsers.map((user) => {
         return user.user_id.toString();
@@ -44,10 +54,10 @@ const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
         description: z.string().trim().min(1, { message: 'Please enter ticket description' }),
         priority: z.enum(PriorityEnum).refine((value) => PriorityEnum.includes(value), { message: 'Please select ticket priority' }),
         status: z.enum(StatusEnum).refine((value) => StatusEnum.includes(value), { message: 'Please select ticket status' }),
-        assigned_user: z
+        assigned_user_id: z
             .enum(AssignedUserEnum)
             .optional()
-            .refine((value) => value !== undefined, { message: 'Please select a developer' }),
+            .refine((value) => value, { message: 'Please select a developer' }),
     });
 
     const form = useForm<z.infer<typeof updateTicketFormSchema>>({
@@ -57,13 +67,34 @@ const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
             description: ticket.description,
             priority: ticket.priority,
             status: ticket.status,
-            assigned_user: ticket.assigned_user_id ? ticket.assigned_user_id.toString() : undefined,
+            assigned_user_id: ticket.assigned_user_id ? ticket.assigned_user_id.toString() : undefined,
         },
     });
 
-    const submitForm = (values: z.infer<typeof updateTicketFormSchema>) => {
+    const submitForm = async (values: z.infer<typeof updateTicketFormSchema>) => {
         if (updateTicketFormSchema.safeParse(values).success) {
-            console.log(values);
+            await updateTicket({ values, ticket_id: ticket.ticket_id.toString() || '' })
+                .unwrap()
+                .then((res) => {
+                    if (res.success) {
+                        form.reset();
+                        toast({
+                            title: 'Successfully updated the ticket',
+                        });
+                        setOpen(false);
+                    }
+                })
+                .catch(async (error: DefaultAPIError) => {
+                    if (error.status === 401) {
+                        await dispatch(logoutUser());
+                        navigate('/');
+                    }
+                    toast({
+                        title: 'Failed to updated the ticket',
+                        description: 'Please try again later',
+                        variant: 'destructive',
+                    });
+                });
         }
     };
 
@@ -105,7 +136,7 @@ const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
                         />
                         <FormField
                             control={form.control}
-                            name='assigned_user'
+                            name='assigned_user_id'
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Developer</FormLabel>
@@ -196,7 +227,7 @@ const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
                             )}
                         />
                         <Button type='submit' className='mt-4 w-full xs-550:w-32'>
-                            Update Ticket
+                            {isLoading ? <SpinnerButton /> : 'Update Ticket'}
                         </Button>
                     </form>
                 </Form>
