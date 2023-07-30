@@ -100,6 +100,10 @@ export interface UpdateTicket {
     ticket_id: string;
 }
 
+export interface DeleteTicket {
+    ticket_id: number;
+}
+
 export interface AllTicketsAPIResponse {
     success: boolean;
     tickets: TicketWithReporterAndTitle[];

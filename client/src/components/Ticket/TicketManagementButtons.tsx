@@ -1,6 +1,6 @@
 import { TicketPage } from '@/utils/types';
 
-import { TicketUpdateButton } from '..';
+import { TicketDeleteButton, TicketUpdateButton } from '..';
 
 const TicketManagementButtons = ({ ticket }: { ticket: TicketPage }) => {
     return (
@@ -16,9 +16,7 @@ const TicketManagementButtons = ({ ticket }: { ticket: TicketPage }) => {
             </li>
 
             <li>
-                <button className='bg-destructive text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-red-600'>
-                    Delete Ticket
-                </button>
+                <TicketDeleteButton />
             </li>
         </ul>
     );

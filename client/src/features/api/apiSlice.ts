@@ -8,6 +8,7 @@ import {
     CreateTicket,
     DefaultAPIResponse,
     DeleteProject,
+    DeleteTicket,
     Login,
     ProjectAPIResponse,
     ProjectUsersAPIResponse,
@@ -165,6 +166,14 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['Ticket'],
         }),
+        deleteTicket: builder.mutation<DefaultAPIResponse, DeleteTicket>({
+            query: (ticket_id) => ({
+                url: `/tickets`,
+                method: 'DELETE',
+                body: ticket_id,
+            }),
+            invalidatesTags: ['Project'],
+        }),
     }),
 });
 
@@ -186,4 +195,5 @@ export const {
     useGetAllTicketsQuery,
     useGetTicketQuery,
     useUpdateTicketMutation,
+    useDeleteTicketMutation,
 } = apiSlice;

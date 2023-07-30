@@ -21,6 +21,7 @@ import SidebarLinks from './Sidebar/SidebarLinks';
 import SidebarMobile from './Sidebar/SidebarMobile';
 import SpinnerButton from './SpinnerButton';
 import SpinnerPage from './SpinnerPage';
+import TicketDeleteButton from './Ticket/TicketDeleteButton';
 import TicketDetails from './Ticket/TicketDetails';
 import TicketManagementButtons from './Ticket/TicketManagementButtons';
 import TicketNewButton from './Ticket/TicketNewButton';
@@ -52,6 +53,7 @@ export {
     SidebarMobile,
     SpinnerButton,
     SpinnerPage,
+    TicketDeleteButton,
     TicketDetails,
     TicketManagementButtons,
     TicketNewButton,
