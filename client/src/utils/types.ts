@@ -63,23 +63,10 @@ export interface Ticket {
     start_date: Date;
     end_date: Date;
     completed_date: Date;
-}
-
-export interface TicketPage extends Ticket {
-    project_manager_id: number;
-    project_title: string;
-    assigned_user: string;
-    reporter_user: string;
-}
-
-export interface TicketTable extends Ticket {
-    project_title: string;
-    reporter_user: string;
-}
-
-export interface ProjectTicketTable extends Ticket {
-    assigned_user: string;
-    reporter_user: string;
+    project_manager_id?: number;
+    project_title?: string;
+    assigned_user?: string;
+    reporter_user?: string;
 }
 
 export interface CreateTicket {
@@ -107,12 +94,12 @@ export interface DeleteTicket {
 
 export interface AllTicketsAPIResponse {
     success: boolean;
-    tickets: TicketTable[];
+    tickets: Ticket[];
 }
 
 export interface TicketAPIResponse {
     success: boolean;
-    ticket: TicketPage;
+    ticket: Ticket;
 }
 
 // PROJECT TYPES
@@ -127,23 +114,7 @@ export interface Project {
     completed_date: Date;
     manager: User;
     users: User[];
-    tickets: ProjectTicketTable[];
-}
-
-export interface AllProjectsAPIResponse {
-    success: boolean;
-    projects: Project[];
-}
-
-export interface ProjectAPIResponse {
-    success: boolean;
-    project: Project;
-}
-
-export interface ProjectUsersAPIResponse {
-    success: boolean;
-    projectUsers: User[];
-    otherUsers: User[];
+    tickets: Ticket[];
 }
 
 export interface CreateProject {
@@ -163,13 +134,29 @@ export interface UpdateProject {
     project_id: string;
 }
 
+export interface UpdateProjectUsers {
+    updated_users: number[];
+    project_id: string;
+}
+
 export interface DeleteProject {
     project_id: number;
 }
 
-export interface UpdateProjectUsers {
-    updated_users: number[];
-    project_id: string;
+export interface AllProjectsAPIResponse {
+    success: boolean;
+    projects: Project[];
+}
+
+export interface ProjectAPIResponse {
+    success: boolean;
+    project: Project;
+}
+
+export interface ProjectUsersAPIResponse {
+    success: boolean;
+    projectUsers: User[];
+    otherUsers: User[];
 }
 
 // ENUMS

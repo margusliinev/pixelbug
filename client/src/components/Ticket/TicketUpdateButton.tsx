@@ -28,12 +28,12 @@ import {
 import { useGetProjectUsersQuery, useUpdateTicketMutation } from '@/features/api/apiSlice';
 import { logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
-import { DefaultAPIError, PriorityEnum, StatusEnum, TicketPage } from '@/utils/types';
+import { DefaultAPIError, PriorityEnum, StatusEnum, Ticket } from '@/utils/types';
 
 import { SpinnerButton } from '..';
 import { useToast } from '../ui/use-toast';
 
-const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
+const TicketUpdateButton = ({ ticket }: { ticket: Ticket }) => {
     const { data } = useGetProjectUsersQuery(ticket.project_id.toString());
     const [updateTicket, { isLoading }] = useUpdateTicketMutation();
     const [open, setOpen] = useState(false);

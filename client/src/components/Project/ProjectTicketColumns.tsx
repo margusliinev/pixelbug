@@ -1,12 +1,17 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
+import { MoreHorizontal } from 'lucide-react';
 
-import { ProjectTicketTable } from '@/utils/types';
+import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui';
+import { Ticket } from '@/utils/types';
 
-export const columnsDesktop: ColumnDef<ProjectTicketTable>[] = [
+import { TicketStatusUpdateButton } from '..';
+
+export const columnsDesktop: ColumnDef<Ticket>[] = [
     {
         accessorKey: 'title',
         header: 'Ticket Title',
+        cell: (ticket) => ticket.row.original.title.substring(0, 25) + '...',
     },
     {
         accessorKey: 'start_date',
@@ -18,20 +23,40 @@ export const columnsDesktop: ColumnDef<ProjectTicketTable>[] = [
         header: 'Reported By',
     },
     {
-        accessorKey: 'status',
-        header: 'Ticket Status',
+        accessorKey: 'assigned_user',
+        header: 'Developer',
     },
     {
         accessorKey: 'priority',
         header: 'Ticket Priority',
     },
     {
-        accessorKey: 'assigned_user',
-        header: 'Assigned To',
+        accessorKey: 'status',
+        header: 'Ticket Status',
+    },
+    {
+        id: 'actions',
+        cell: (ticket) => {
+            return (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant='ghost' className='h-8 w-4 p-0'>
+                            <span className='sr-only'>Open menu</span>
+                            <MoreHorizontal className='h-4 w-4' />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align='end'>
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <TicketStatusUpdateButton ticket={ticket.row.original} type={'link'} />
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            );
+        },
     },
 ];
 
-export const columnsMobile: ColumnDef<ProjectTicketTable>[] = [
+export const columnsMobile: ColumnDef<Ticket>[] = [
     {
         accessorKey: 'title',
         header: 'Ticket Title',
@@ -43,5 +68,25 @@ export const columnsMobile: ColumnDef<ProjectTicketTable>[] = [
     {
         accessorKey: 'assigned_user',
         header: 'Assigned To',
+    },
+    {
+        id: 'actions',
+        cell: (ticket) => {
+            return (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant='ghost' className='h-8 w-8 p-0'>
+                            <span className='sr-only'>Open menu</span>
+                            <MoreHorizontal className='h-4 w-4' />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align='end'>
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <TicketStatusUpdateButton ticket={ticket.row.original} type={'link'} />
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            );
+        },
     },
 ];

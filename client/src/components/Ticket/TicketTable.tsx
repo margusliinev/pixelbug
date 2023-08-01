@@ -2,14 +2,14 @@ import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack
 import { useNavigate } from 'react-router-dom';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { TicketTable } from '@/utils/types';
+import { Ticket } from '@/utils/types';
 
-interface DataTableProps<TicketTable, TValue> {
-    columns: ColumnDef<TicketTable, TValue>[];
-    data: TicketTable[];
+interface DataTableProps<Ticket, TValue> {
+    columns: ColumnDef<Ticket, TValue>[];
+    data: Ticket[];
 }
 
-export function TicketTable<TValue>({ columns, data }: DataTableProps<TicketTable, TValue>) {
+export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TValue>) {
     const navigate = useNavigate();
     const table = useReactTable({
         data,
@@ -18,7 +18,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<TicketTabl
     });
 
     return (
-        <div className='border rounded-md'>
+        <div className='rounded-md border my-2'>
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -39,7 +39,15 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<TicketTabl
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && 'selected'}
-                                onClick={() => navigate(`/app/tickets/${row.original.ticket_id}`)}
+                                onClick={(e) => {
+                                    if (e.target instanceof HTMLButtonElement) {
+                                        return;
+                                    } else if (e.target instanceof HTMLTableCellElement) {
+                                        navigate(`/app/tickets/${row.original.ticket_id}`);
+                                    } else {
+                                        return;
+                                    }
+                                }}
                                 className='cursor-pointer capitalize'
                             >
                                 {row.getVisibleCells().map((cell) => (
@@ -49,9 +57,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<TicketTabl
                         ))
                     ) : (
                         <TableRow>
-                            <TableCell colSpan={columns.length} className='h-24 text-center'>
-                                No results.
-                            </TableCell>
+                            <TableCell colSpan={columns.length}>No results.</TableCell>
                         </TableRow>
                     )}
                 </TableBody>

@@ -26,12 +26,12 @@ import {
 import { useUpdateTicketMutation } from '@/features/api/apiSlice';
 import { logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
-import { DefaultAPIError, StatusEnum, TicketPage } from '@/utils/types';
+import { DefaultAPIError, StatusEnum, Ticket } from '@/utils/types';
 
 import { SpinnerButton } from '..';
 import { useToast } from '../ui/use-toast';
 
-const TicketStatusUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
+const TicketStatusUpdateButton = ({ ticket, type }: { ticket: Ticket; type: string }) => {
     const [updateTicket, { isLoading }] = useUpdateTicketMutation();
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch();
@@ -98,8 +98,14 @@ const TicketStatusUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger className='bg-primary text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark'>
-                Update Status
+            <DialogTrigger
+                className={
+                    type === 'link'
+                        ? 'bg-white text-primary transition-colors px-2 py-2 text-sm hover:bg-secondary w-full text-left rounded-md font-medium outline-none focus:outline-none'
+                        : 'bg-primary text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark outline-none focus:outline-none'
+                }
+            >
+                Set Status
             </DialogTrigger>
             <DialogContent className='max-w-lg'>
                 <DialogHeader>

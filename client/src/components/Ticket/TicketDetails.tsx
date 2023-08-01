@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
 
-import { TicketPage } from '@/utils/types';
+import { Ticket } from '@/utils/types';
 
 import { TicketPriority, TicketStatus } from '..';
 
-const TicketDetails = ({ ticket }: { ticket: TicketPage }) => {
+const TicketDetails = ({ ticket }: { ticket: Ticket }) => {
     return (
         <>
             <div className='grid grid-cols-[120px_1fr]'>

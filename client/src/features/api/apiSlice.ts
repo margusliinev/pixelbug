@@ -141,6 +141,7 @@ export const apiSlice = createApi({
                 url: '/tickets',
                 method: 'GET',
             }),
+            providesTags: ['Tickets'],
         }),
         getTicket: builder.query<TicketAPIResponse, string>({
             query: (ticket_id) => ({
@@ -163,7 +164,7 @@ export const apiSlice = createApi({
                 method: 'PATCH',
                 body: values,
             }),
-            invalidatesTags: ['Ticket'],
+            invalidatesTags: ['Ticket', 'Tickets'],
         }),
         deleteTicket: builder.mutation<DefaultAPIResponse, DeleteTicket>({
             query: (ticket_id) => ({

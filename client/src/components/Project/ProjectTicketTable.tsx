@@ -2,14 +2,14 @@ import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack
 import { useNavigate } from 'react-router-dom';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { ProjectTicketTable } from '@/utils/types';
+import { Ticket } from '@/utils/types';
 
-interface DataTableProps<ProjectTicketTable, TValue> {
-    columns: ColumnDef<ProjectTicketTable, TValue>[];
-    data: ProjectTicketTable[];
+interface DataTableProps<Ticket, TValue> {
+    columns: ColumnDef<Ticket, TValue>[];
+    data: Ticket[];
 }
 
-export function TicketTable<TValue>({ columns, data }: DataTableProps<ProjectTicketTable, TValue>) {
+export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TValue>) {
     const navigate = useNavigate();
     const table = useReactTable({
         data,
@@ -39,7 +39,15 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<ProjectTic
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && 'selected'}
-                                onClick={() => navigate(`/app/projects/${row.original.project_id}/ticket/${row.original.ticket_id}`)}
+                                onClick={(e) => {
+                                    if (e.target instanceof HTMLButtonElement) {
+                                        return;
+                                    } else if (e.target instanceof HTMLTableCellElement) {
+                                        navigate(`/app/projects/${row.original.project_id}/ticket/${row.original.ticket_id}`);
+                                    } else {
+                                        return;
+                                    }
+                                }}
                                 className='cursor-pointer capitalize'
                             >
                                 {row.getVisibleCells().map((cell) => (
@@ -49,9 +57,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<ProjectTic
                         ))
                     ) : (
                         <TableRow>
-                            <TableCell colSpan={columns.length} className='h-24 text-center'>
-                                No results.
-                            </TableCell>
+                            <TableCell colSpan={columns.length}>No results.</TableCell>
                         </TableRow>
                     )}
                 </TableBody>
