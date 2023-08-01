@@ -1,10 +1,21 @@
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import {
+    ColumnDef,
+    ColumnFiltersState,
+    flexRender,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+    SortingState,
+    useReactTable,
+} from '@tanstack/react-table';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Ticket } from '@/utils/types';
 
-import { Button } from '../ui';
+import { Button, Input } from '../ui';
 
 interface DataTableProps<Ticket, TValue> {
     columns: ColumnDef<Ticket, TValue>[];
@@ -12,15 +23,44 @@ interface DataTableProps<Ticket, TValue> {
 }
 
 export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TValue>) {
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [sorting, setSorting] = useState<SortingState>([]);
     const navigate = useNavigate();
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        onSortingChange: setSorting,
+        getSortedRowModel: getSortedRowModel(),
+        onColumnFiltersChange: setColumnFilters,
+        getFilteredRowModel: getFilteredRowModel(),
+        state: {
+            sorting,
+            columnFilters,
+        },
     });
 
     return (
         <>
+            <div className='flex items-center justify-between'>
+                <div className='flex items-center py-4'>
+                    <Input
+                        placeholder='Find tickets by title...'
+                        value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+                        onChange={(event) => table.getColumn('title')?.setFilterValue(event.target.value)}
+                        className='w-96'
+                    />
+                </div>
+                <div className='hidden md:flex items-center justify-start space-x-2 py-4'>
+                    <Button variant='outline' size='sm' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+                        Previous
+                    </Button>
+                    <Button variant='outline' size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+                        Next
+                    </Button>
+                </div>
+            </div>
             <div className='rounded-md border my-2'>
                 <Table>
                     <TableHeader>
@@ -54,7 +94,9 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TV
                                     className='cursor-pointer capitalize'
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                                        <TableCell className='px-8' key={cell.id}>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </TableCell>
                                     ))}
                                 </TableRow>
                             ))
@@ -66,7 +108,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TV
                     </TableBody>
                 </Table>
             </div>
-            <div className='flex items-center justify-start space-x-2 py-4'>
+            <div className='flex md:hidden items-center justify-start space-x-2 py-4'>
                 <Button variant='outline' size='sm' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
                     Previous
                 </Button>
