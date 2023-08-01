@@ -3,12 +3,8 @@ import { ProjectAPIResponse, User } from '@/utils/types';
 
 const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
     return (
-        <section className='grid gap-4 mb-10'>
-            <header>
-                <h1 className='text-2xl md:text-3xl font-semibold my-2'>Team</h1>
-                <hr />
-            </header>
-            <section className='my-2'>
+        <section className='grid gap-4 my-2 px-2'>
+            <section className='mb-2'>
                 <h2 className='text-xl font-semibold mb-2'>Manager:</h2>
                 <div className='flex items-center gap-2'>
                     <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
@@ -33,7 +29,7 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
                 {data.project.users.length < 1 ? null : (
                     <>
                         <h2 className='text-xl font-semibold mb-2'>Developers:</h2>
-                        <div className='grid md:grid-cols-2 2xl:grid-cols-3 gap-4'>
+                        <div className='grid md:grid-cols-2 2xl:grid-cols-3 gap-6'>
                             {data.project.users.map((user: User) => {
                                 return (
                                     <article key={user.user_id}>

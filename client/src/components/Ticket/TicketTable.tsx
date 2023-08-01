@@ -60,7 +60,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TV
                     </Button>
                 </div>
             </div>
-            <div className='rounded-md border my-2'>
+            <div className='border rounded-md my-2'>
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -90,7 +90,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TV
                                             return;
                                         }
                                     }}
-                                    className='cursor-pointer capitalize'
+                                    className='cursor-pointer capitalize hover:bg-emerald-50'
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell className='px-6 last-of-type:px-0' key={cell.id}>
