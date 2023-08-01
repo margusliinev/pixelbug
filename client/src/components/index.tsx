@@ -26,8 +26,8 @@ import TicketDetails from './Ticket/TicketDetails';
 import TicketManagementButtons from './Ticket/TicketManagementButtons';
 import TicketNewButton from './Ticket/TicketNewButton';
 import TicketPriority from './Ticket/TicketPriority';
+import TicketSetStatusButton from './Ticket/TicketSetStatusButton';
 import TicketStatus from './Ticket/TicketStatus';
-import TicketStatusUpdateButton from './Ticket/TicketStatusUpdateButton';
 import TicketUpdateButton from './Ticket/TicketUpdateButton';
 
 export {
@@ -59,7 +59,7 @@ export {
     TicketManagementButtons,
     TicketNewButton,
     TicketPriority,
+    TicketSetStatusButton,
     TicketStatus,
-    TicketStatusUpdateButton,
     TicketUpdateButton,
 };

@@ -1,16 +1,12 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
-import { MoreHorizontal } from 'lucide-react';
 
-import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui';
 import { Ticket } from '@/utils/types';
-
-import { TicketStatusUpdateButton } from '..';
 
 export const columnsDesktop: ColumnDef<Ticket>[] = [
     {
         accessorKey: 'title',
-        header: 'Ticket Title',
+        header: 'Title',
         cell: (ticket) => ticket.row.original.title.substring(0, 25) + '...',
     },
     {
@@ -27,66 +23,28 @@ export const columnsDesktop: ColumnDef<Ticket>[] = [
         header: 'Developer',
     },
     {
-        accessorKey: 'priority',
-        header: 'Ticket Priority',
-    },
-    {
         accessorKey: 'status',
-        header: 'Ticket Status',
+        header: 'Status',
+        cell: (ticket) => ticket.row.original.status.replace(/_/g, ' '),
     },
     {
-        id: 'actions',
-        cell: (ticket) => {
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant='ghost' className='h-8 w-4 p-0'>
-                            <span className='sr-only'>Open menu</span>
-                            <MoreHorizontal className='h-4 w-4' />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align='end'>
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <TicketStatusUpdateButton ticket={ticket.row.original} type={'link'} />
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            );
-        },
+        accessorKey: 'priority',
+        header: 'Priority',
     },
 ];
 
 export const columnsMobile: ColumnDef<Ticket>[] = [
     {
         accessorKey: 'title',
-        header: 'Ticket Title',
-    },
-    {
-        accessorKey: 'priority',
-        header: 'Ticket Priority',
+        header: 'Title',
+        cell: (ticket) => ticket.row.original.title.substring(0, 20) + '...',
     },
     {
         accessorKey: 'assigned_user',
-        header: 'Assigned To',
+        header: 'Developer',
     },
     {
-        id: 'actions',
-        cell: (ticket) => {
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant='ghost' className='h-8 w-8 p-0'>
-                            <span className='sr-only'>Open menu</span>
-                            <MoreHorizontal className='h-4 w-4' />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align='end'>
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <TicketStatusUpdateButton ticket={ticket.row.original} type={'link'} />
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            );
-        },
+        accessorKey: 'priority',
+        header: 'Priority',
     },
 ];

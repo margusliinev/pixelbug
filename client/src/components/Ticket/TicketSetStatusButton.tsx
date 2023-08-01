@@ -31,7 +31,7 @@ import { DefaultAPIError, StatusEnum, Ticket } from '@/utils/types';
 import { SpinnerButton } from '..';
 import { useToast } from '../ui/use-toast';
 
-const TicketStatusUpdateButton = ({ ticket, type }: { ticket: Ticket; type: string }) => {
+const TicketSetStatusButton = ({ ticket, type }: { ticket: Ticket; type: string }) => {
     const [updateTicket, { isLoading }] = useUpdateTicketMutation();
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch();
@@ -58,7 +58,7 @@ const TicketStatusUpdateButton = ({ ticket, type }: { ticket: Ticket; type: stri
                 description: ticket.description,
                 priority: ticket.priority,
                 status: ticketData.status,
-                assigned_user_id: ticket.assigned_user_id.toString(),
+                assigned_user_id: ticket.assigned_user_id ? ticket.assigned_user_id.toString() : undefined,
                 completed_date: ticketData.status === 'resolved' ? new Date(Date.now()) : null,
             };
             await updateTicket({ values, ticket_id: ticket.ticket_id.toString() || '' })
@@ -101,7 +101,7 @@ const TicketStatusUpdateButton = ({ ticket, type }: { ticket: Ticket; type: stri
             <DialogTrigger
                 className={
                     type === 'link'
-                        ? 'bg-white text-primary transition-colors px-2 py-2 text-sm hover:bg-secondary w-full text-left rounded-md font-medium outline-none focus:outline-none'
+                        ? 'bg-white text-primary transition-colors px-2 py-2 text-sm hover:bg-secondary w-full text-left rounded-md outline-none focus:outline-none'
                         : 'bg-primary text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark outline-none focus:outline-none'
                 }
             >
@@ -109,7 +109,7 @@ const TicketStatusUpdateButton = ({ ticket, type }: { ticket: Ticket; type: stri
             </DialogTrigger>
             <DialogContent className='max-w-lg'>
                 <DialogHeader>
-                    <DialogTitle>Update Status</DialogTitle>
+                    <DialogTitle>Set Status</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(submitForm)} className='grid space-y-6' noValidate>
@@ -149,4 +149,4 @@ const TicketStatusUpdateButton = ({ ticket, type }: { ticket: Ticket; type: stri
     );
 };
 
-export default TicketStatusUpdateButton;
+export default TicketSetStatusButton;

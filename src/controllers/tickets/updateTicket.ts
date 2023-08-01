@@ -20,7 +20,7 @@ export const updateTicket = async (req: AuthenticatedRequest, res: Response) => 
     const { ticket_id } = req.params;
     const { title, description, assigned_user_id, priority, status, completed_date } = req.body as Ticket;
 
-    if (!title || !description || !assigned_user_id || !priority || !status) {
+    if (!title || !description || !priority || !status) {
         throw new BadRequestError('form', 'Please fill out all fields');
     }
 
@@ -36,7 +36,7 @@ export const updateTicket = async (req: AuthenticatedRequest, res: Response) => 
     if (projectManagerID !== req.user.user_id && ticket[0].assigned_user_id !== req.user.user_id)
         throw new UnauthorizedError('You are not authorized to update this ticket');
 
-    const assignedUser = Number(assigned_user_id);
+    const assignedUser = assigned_user_id ? Number(assigned_user_id) : null;
 
     const result = await db
         .update(tickets)

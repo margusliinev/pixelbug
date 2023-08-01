@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/utils/hooks';
 import { Ticket } from '@/utils/types';
 
-import { TicketDeleteButton, TicketStatusUpdateButton, TicketUpdateButton } from '..';
+import { TicketDeleteButton, TicketSetStatusButton, TicketUpdateButton } from '..';
 
 const TicketManagementButtons = ({ ticket }: { ticket: Ticket }) => {
     const { user } = useAppSelector((store) => store.user);
@@ -19,7 +19,7 @@ const TicketManagementButtons = ({ ticket }: { ticket: Ticket }) => {
             )}
             {user && user.user_id === ticket.assigned_user_id && (
                 <ul className='flex items-center gap-2'>
-                    <TicketStatusUpdateButton ticket={ticket} type='button' />
+                    <TicketSetStatusButton ticket={ticket} type='button' />
                 </ul>
             )}
         </>
