@@ -96,6 +96,7 @@ export interface UpdateTicket {
         assigned_user_id?: string | undefined;
         priority: 'low' | 'medium' | 'high' | 'critical';
         status: 'unassigned' | 'assigned' | 'in_development' | 'on_hold' | 'resolved';
+        completed_date?: Date | null;
     };
     ticket_id: string;
 }

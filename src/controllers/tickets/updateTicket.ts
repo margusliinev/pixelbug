@@ -11,13 +11,14 @@ interface Ticket {
     assigned_user_id: string;
     priority: 'low' | 'medium' | 'high' | 'critical';
     status: 'unassigned' | 'assigned' | 'in_development' | 'on_hold' | 'resolved';
+    completed_date?: Date;
 }
 
 export const updateTicket = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
 
     const { ticket_id } = req.params;
-    const { title, description, assigned_user_id, priority, status } = req.body as Ticket;
+    const { title, description, assigned_user_id, priority, status, completed_date } = req.body as Ticket;
 
     if (!title || !description || !assigned_user_id || !priority || !status) {
         throw new BadRequestError('form', 'Please fill out all fields');
@@ -32,13 +33,14 @@ export const updateTicket = async (req: AuthenticatedRequest, res: Response) => 
     const project = await db.select().from(projects).where(eq(projects.project_id, ticket[0].project_id));
     const projectManagerID = project[0].manager_id;
 
-    if (projectManagerID !== req.user.user_id) throw new UnauthorizedError('Only project manager can update tickets');
+    if (projectManagerID !== req.user.user_id && ticket[0].assigned_user_id !== req.user.user_id)
+        throw new UnauthorizedError('You are not authorized to update this ticket');
 
     const assignedUser = Number(assigned_user_id);
 
     const result = await db
         .update(tickets)
-        .set({ title, description, assigned_user_id: assignedUser, priority, status })
+        .set({ title, description, assigned_user_id: assignedUser, priority, status, completed_date: completed_date ? new Date(Date.now()) : null })
         .where(eq(tickets.ticket_id, Number(ticket_id)))
         .returning();
     if (!result) throw new Error('Failed to update project');

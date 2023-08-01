@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
@@ -58,6 +58,7 @@ const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
             .enum(AssignedUserEnum)
             .optional()
             .refine((value) => value, { message: 'Please select a developer' }),
+        completed_date: z.date().optional(),
     });
 
     const form = useForm<z.infer<typeof updateTicketFormSchema>>({
@@ -73,6 +74,9 @@ const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
 
     const submitForm = async (values: z.infer<typeof updateTicketFormSchema>) => {
         if (updateTicketFormSchema.safeParse(values).success) {
+            if (values.status === 'resolved') {
+                values.completed_date = new Date(Date.now());
+            }
             await updateTicket({ values, ticket_id: ticket.ticket_id.toString() || '' })
                 .unwrap()
                 .then((res) => {
@@ -97,6 +101,20 @@ const TicketUpdateButton = ({ ticket }: { ticket: TicketPage }) => {
                 });
         }
     };
+
+    // This useEffect is necessary to update the data in the update ticket modal after we have first updated the ticket
+
+    useEffect(() => {
+        if (ticket) {
+            form.reset({
+                title: ticket.title,
+                description: ticket.description,
+                priority: ticket.priority,
+                status: ticket.status,
+                assigned_user_id: ticket.assigned_user_id ? ticket.assigned_user_id.toString() : undefined,
+            });
+        }
+    }, [ticket, form]);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
