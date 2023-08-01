@@ -9,6 +9,10 @@ export const columnsDesktop: ColumnDef<TicketTable>[] = [
         header: 'Ticket Title',
     },
     {
+        accessorKey: 'project_title',
+        header: 'Project',
+    },
+    {
         accessorKey: 'start_date',
         header: 'Reported Date',
         cell: (ticket) => format(new Date(ticket.row.original.start_date), 'PPP'),

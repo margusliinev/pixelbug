@@ -41,7 +41,7 @@ const TicketDetails = ({ ticket }: { ticket: TicketPage }) => {
             </div>
             <div className='grid grid-cols-[120px_1fr]'>
                 <span className='font-semibold text-md'>Resolved At:</span>
-                <p className='text-sm'>{ticket.completed_date ? format(new Date(ticket.end_date), 'PPP') : 'Ticket is not yet resolved'}</p>
+                <p className='text-sm'>{ticket.completed_date ? format(new Date(ticket.completed_date), 'PPP') : 'Ticket is not yet resolved'}</p>
             </div>
         </>
     );
