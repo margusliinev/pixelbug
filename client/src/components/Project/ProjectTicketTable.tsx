@@ -94,7 +94,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TV
                                     className='cursor-pointer capitalize hover:bg-emerald-50'
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell className='px-8 py-6' key={cell.id}>
+                                        <TableCell className='px-4 py-6' key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

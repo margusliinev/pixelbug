@@ -55,11 +55,11 @@ const ProjectPage = () => {
             </div>
             <div className='rounded-md p-4 shadow-project-card bg-white my-4'>
                 <header>
-                    <h1 className='text-2xl md:text-3xl font-semibold mb-4 capitalize'>{data.project.title}</h1>
+                    <h1 className='text-2xl font-semibold mb-2 capitalize'>{data.project.title}</h1>
                     <hr />
                 </header>
-                <section className='mb-10 mt-5'>
-                    <p className='text-sm md:text-base text-neutral-700 whitespace-pre-wrap'>{data.project.description}</p>
+                <section className='mb-10 mt-6'>
+                    <p className='text-sm text-neutral-700 whitespace-pre-wrap'>{data.project.description}</p>
                 </section>
                 <section className='grid gap-4 sm:flex items-center sm:gap-10 my-2'>
                     <div className='flex items-center gap-2'>
@@ -70,7 +70,7 @@ const ProjectPage = () => {
                                 viewBox='0 0 24 24'
                                 strokeWidth='1.5'
                                 stroke='currentColor'
-                                className='w-6 h-6'
+                                className='w-5 h-5'
                             >
                                 <path
                                     strokeLinecap='round'
@@ -92,7 +92,7 @@ const ProjectPage = () => {
                                 viewBox='0 0 24 24'
                                 strokeWidth='1.5'
                                 stroke='currentColor'
-                                className='w-6 h-6'
+                                className='w-5 h-5'
                             >
                                 <path
                                     strokeLinecap='round'
@@ -109,6 +109,10 @@ const ProjectPage = () => {
                 </section>
             </div>
             <div className='rounded-md p-4 shadow-project-card bg-white my-4'>
+                <header className='mb-2'>
+                    <h1 className='text-2xl font-semibold mb-2 capitalize'>Tickets</h1>
+                    <hr />
+                </header>
                 {data.project.tickets.length < 1 ? null : (
                     <section>
                         {isMobile ? (

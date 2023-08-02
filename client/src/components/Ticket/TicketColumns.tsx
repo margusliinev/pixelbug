@@ -10,7 +10,7 @@ import { TicketSetStatusButton } from '..';
 export const columnsDesktop: ColumnDef<Ticket>[] = [
     {
         accessorKey: 'title',
-        cell: (ticket) => ticket.row.original.title.substring(0, 25) + '...',
+        cell: (ticket) => (ticket.row.original.title.length > 20 ? ticket.row.original.title.substring(0, 20) + '...' : ticket.row.original.title),
         header: ({ column }) => {
             return (
                 <Button variant='ghost' className='px-2' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -110,7 +110,7 @@ export const columnsMobile: ColumnDef<Ticket>[] = [
                 </Button>
             );
         },
-        cell: (ticket) => ticket.row.original.title.substring(0, 20) + '...',
+        cell: (ticket) => (ticket.row.original.title.length > 20 ? ticket.row.original.title.substring(0, 20) + '...' : ticket.row.original.title),
     },
     {
         accessorKey: 'status',
@@ -132,26 +132,6 @@ export const columnsMobile: ColumnDef<Ticket>[] = [
                     Priority
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>
-            );
-        },
-    },
-    {
-        id: 'actions',
-        cell: (ticket) => {
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant='ghost' className='h-8 w-8 p-0'>
-                            <span className='sr-only'>Open menu</span>
-                            <MoreHorizontal className='h-4 w-4' />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align='end'>
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <TicketSetStatusButton ticket={ticket.row.original} type={'link'} />
-                    </DropdownMenuContent>
-                </DropdownMenu>
             );
         },
     },

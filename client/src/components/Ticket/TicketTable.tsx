@@ -62,12 +62,12 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TV
             </div>
             <div className='border rounded-md my-2'>
                 <Table>
-                    <TableHeader>
+                    <TableHeader className='hover:bg-emerald-50'>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead key={header.id} className='px-2'>
                                             {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                                         </TableHead>
                                     );
@@ -93,7 +93,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TV
                                     className='cursor-pointer capitalize hover:bg-emerald-50'
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell className='px-6 last-of-type:px-0' key={cell.id}>
+                                        <TableCell className={columns.length < 4 ? 'px-4' : 'px-4 last-of-type:px-0'} key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

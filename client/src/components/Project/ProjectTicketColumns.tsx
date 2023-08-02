@@ -16,7 +16,7 @@ export const columnsDesktop: ColumnDef<Ticket>[] = [
                 </Button>
             );
         },
-        cell: (ticket) => ticket.row.original.title.substring(0, 25) + '...',
+        cell: (ticket) => (ticket.row.original.title.length > 20 ? ticket.row.original.title.substring(0, 20) + '...' : ticket.row.original.title),
     },
     {
         accessorKey: 'start_date',
@@ -88,7 +88,7 @@ export const columnsMobile: ColumnDef<Ticket>[] = [
                 </Button>
             );
         },
-        cell: (ticket) => ticket.row.original.title.substring(0, 20) + '...',
+        cell: (ticket) => (ticket.row.original.title.length > 20 ? ticket.row.original.title.substring(0, 20) + '...' : ticket.row.original.title),
     },
     {
         accessorKey: 'assigned_user',
