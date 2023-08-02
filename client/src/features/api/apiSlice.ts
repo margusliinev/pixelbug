@@ -12,6 +12,7 @@ import {
     ProjectAPIResponse,
     ProjectUsersAPIResponse,
     Register,
+    StatsAPIResponse,
     TicketAPIResponse,
     UpdateProject,
     UpdateProjectUsers,
@@ -174,6 +175,13 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['Project'],
         }),
+        // Stats
+        getStats: builder.query<StatsAPIResponse, undefined>({
+            query: () => ({
+                url: '/stats',
+                method: 'GET',
+            }),
+        }),
     }),
 });
 
@@ -196,4 +204,5 @@ export const {
     useGetTicketQuery,
     useUpdateTicketMutation,
     useDeleteTicketMutation,
+    useGetStatsQuery,
 } = apiSlice;
