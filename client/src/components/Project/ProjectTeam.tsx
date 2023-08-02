@@ -5,10 +5,10 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
     return (
         <section className='grid gap-4 my-2 px-2'>
             <header className='mb-2'>
-                <h1 className='text-2xl font-semibold mb-2 capitalize'>Project Team</h1>
+                <h1 className='text-2xl font-medium mb-2 capitalize tracking-tight'>Project Team</h1>
                 <hr />
             </header>
-            <h2 className='text-xl font-semibold mb-2'>Manager:</h2>
+            <h2 className='text-lg font-semibold'>Manager:</h2>
             <div className='flex items-center gap-2'>
                 <Avatar className='w-12 h-12 xs-550:w-16 xs-550:h-16 rounded-full'>
                     <AvatarImage src={data.project.manager.profile_picture} />
@@ -27,10 +27,10 @@ const ProjectTeam = ({ data }: { data: ProjectAPIResponse }) => {
                     <div className='hidden xs-500:block'>{data.project.manager.email}</div>
                 </div>
             </div>
-            <section>
+            <section className='mb-2'>
                 {data.project.users.length < 1 ? null : (
                     <>
-                        <h2 className='text-xl font-semibold mb-2'>Developers:</h2>
+                        <h2 className='text-lg font-semibold mb-2'>Developers:</h2>
                         <div className='grid md:grid-cols-2 2xl:grid-cols-3 gap-6'>
                             {data.project.users.map((user: User) => {
                                 return (

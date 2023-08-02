@@ -100,6 +100,7 @@ export interface AllTicketsAPIResponse {
 export interface TicketAPIResponse {
     success: boolean;
     ticket: Ticket;
+    msg: string;
 }
 
 // PROJECT TYPES

@@ -33,7 +33,7 @@ const TicketPage = () => {
             <div className='grid gap-4 sm:flex items-end justify-between'>
                 <Link
                     to={project_id ? `/app/projects/${project_id}` : `/app/tickets`}
-                    className='flex items-center gap-2 text-2xl font-medium text-primary-hover-dark group w-fit'
+                    className='flex items-center gap-2 text-emerald-800 group w-fit text-2xl font-medium leading-7 sm:truncate sm:tracking-tight'
                 >
                     <svg
                         xmlns='http://www.w3.org/2000/svg'

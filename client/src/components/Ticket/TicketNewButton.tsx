@@ -66,6 +66,7 @@ const TicketNewButton = ({ size }: { size: string }) => {
                             title: 'Successfully created the ticket',
                         });
                         setOpen(false);
+                        navigate(`/app/projects/${res.ticket.project_id}/ticket/${res.ticket.ticket_id}`);
                     }
                 })
                 .catch(async (error: DefaultAPIError) => {

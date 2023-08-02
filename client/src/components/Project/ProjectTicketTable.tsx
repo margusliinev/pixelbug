@@ -91,7 +91,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TV
                                             return;
                                         }
                                     }}
-                                    className='cursor-pointer capitalize hover:bg-emerald-50'
+                                    className='cursor-pointer capitalize'
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell className='px-4 py-6' key={cell.id}>

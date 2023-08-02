@@ -39,5 +39,5 @@ export const createTicket = async (req: AuthenticatedRequest, res: Response) => 
     const ticket = result[0];
     if (!ticket) throw new BadRequestError('form', 'Failed to create ticket');
 
-    res.status(201).json({ success: true, msg: 'Successfully created a new ticket' });
+    res.status(201).json({ success: true, ticket: ticket, msg: 'Successfully created a new ticket' });
 };

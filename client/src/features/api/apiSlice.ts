@@ -150,7 +150,7 @@ export const apiSlice = createApi({
             }),
             providesTags: ['Ticket'],
         }),
-        createTicket: builder.mutation<DefaultAPIResponse, CreateTicket>({
+        createTicket: builder.mutation<TicketAPIResponse, CreateTicket>({
             query: (ticketData) => ({
                 url: '/tickets',
                 method: 'POST',

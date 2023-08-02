@@ -37,7 +37,10 @@ const ProjectPage = () => {
     return (
         <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-emerald-50'>
             <div className='grid gap-4 sm:flex items-end justify-between'>
-                <Link to={'/app/projects'} className='flex items-center gap-2 text-2xl font-medium text-primary-hover-dark group w-fit'>
+                <Link
+                    to={'/app/projects'}
+                    className='flex items-center gap-2 text-emerald-800 group w-fit text-2xl font-medium leading-7 sm:truncate sm:tracking-tight'
+                >
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'
@@ -55,7 +58,7 @@ const ProjectPage = () => {
             </div>
             <div className='rounded-md p-4 shadow-project-card bg-white my-4'>
                 <header>
-                    <h1 className='text-2xl font-semibold mb-2 capitalize'>{data.project.title}</h1>
+                    <h1 className='text-2xl font-medium mb-2 capitalize tracking-tight'>{data.project.title}</h1>
                     <hr />
                 </header>
                 <section className='mb-10 mt-6'>
@@ -108,12 +111,13 @@ const ProjectPage = () => {
                     </div>
                 </section>
             </div>
-            <div className='rounded-md p-4 shadow-project-card bg-white my-4'>
-                <header className='mb-2'>
-                    <h1 className='text-2xl font-semibold mb-2 capitalize'>Tickets</h1>
-                    <hr />
-                </header>
-                {data.project.tickets.length < 1 ? null : (
+            {data.project.tickets.length < 1 ? null : (
+                <div className='rounded-md p-4 shadow-project-card bg-white my-4'>
+                    <header className='mb-2'>
+                        <h1 className='text-2xl font-medium mb-2 capitalize tracking-tight'>Tickets</h1>
+                        <hr />
+                    </header>
+
                     <section>
                         {isMobile ? (
                             <TicketTable columns={columnsMobile} data={data.project.tickets} />
@@ -121,8 +125,8 @@ const ProjectPage = () => {
                             <TicketTable columns={columnsDesktop} data={data.project.tickets} />
                         )}
                     </section>
-                )}
-            </div>
+                </div>
+            )}
             <div className='rounded-md p-4 shadow-project-card bg-white my-4'>
                 <ProjectTeam data={data} />
             </div>
