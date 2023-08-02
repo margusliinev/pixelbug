@@ -37,7 +37,7 @@ import { createProjectFormSchema } from '@/utils/zodSchemas';
 import { SpinnerButton } from '../../components';
 import { useToast } from '../ui/use-toast';
 
-const ProjectNewButton = () => {
+const ProjectNewButton = ({ size }: { size: string }) => {
     const [createProject, { isLoading }] = useCreateProjectMutation();
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch();
@@ -88,8 +88,34 @@ const ProjectNewButton = () => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger className='bg-primary text-white transition-colors w-fit h-10 px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark'>
-                New Project
+            <DialogTrigger
+                className={
+                    size === 'sm'
+                        ? 'bg-primary text-white transition-colors w-fit h-9 px-3 py-2 rounded-sm text-sm font-medium hover:bg-primary-hover-dark whitespace-nowrap'
+                        : size === 'md'
+                        ? 'bg-primary text-white transition-colors w-fit h-10 px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark whitespace-nowrap'
+                        : 'bg-primary text-white transition-colors w-fit h-10 px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark whitespace-nowrap flex items-center gap-1'
+                }
+            >
+                {size === 'sm' ? (
+                    'New Project'
+                ) : size === 'md' ? (
+                    'New Project'
+                ) : (
+                    <>
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth='2'
+                            stroke='currentColor'
+                            className='w-5 h-5'
+                        >
+                            <path strokeLinecap='round' strokeLinejoin='round' d='M12 4.5v15m7.5-7.5h-15' />
+                        </svg>
+                        <span className='font-medium text-sm'>New Project</span>
+                    </>
+                )}
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

@@ -49,7 +49,7 @@ const TicketPage = () => {
                 </Link>
                 <TicketManagementButtons ticket={data.ticket} />
             </div>
-            <div className='grid gap-6 rounded-md border p-4 bg-white shadow-project-card my-4'>
+            <div className='rounded-md p-6 bg-white shadow-project-card my-4'>
                 <TicketDetails ticket={data.ticket} />
             </div>
         </main>
