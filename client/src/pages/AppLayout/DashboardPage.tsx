@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { DashboardChart, SpinnerPage } from '@/components';
+import { DashboardBarChart, DashboardDonutChart, SpinnerPage } from '@/components';
 import { useGetStatsQuery } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
 import { User } from '@/utils/types';
@@ -32,7 +32,7 @@ const DashboardPage = () => {
                 }
             }, []).length || 0;
 
-    const chartData = data?.projects
+    const barChartData = data?.projects
         .map((project) => {
             return {
                 name: project.title.length < 16 ? project.title : project.title.substring(0, 16) + '...',
@@ -40,6 +40,36 @@ const DashboardPage = () => {
             };
         })
         .sort((a, b) => b.Tickets - a.Tickets);
+
+    const donutChartTickets = data?.projects
+        .map((project) => {
+            return project.tickets;
+        })
+        .flat()
+        .filter((ticket) => ticket.assigned_user_id === user?.user_id);
+    const lowPriorityTickets = donutChartTickets?.filter((ticket) => ticket.priority === 'low').length;
+    const mediumPriorityTickets = donutChartTickets?.filter((ticket) => ticket.priority === 'medium').length;
+    const highPriorityTickets = donutChartTickets?.filter((ticket) => ticket.priority === 'high').length;
+    const criticalPriorityTickets = donutChartTickets?.filter((ticket) => ticket.priority === 'critical').length;
+
+    const donutChartData = [
+        {
+            name: 'Low',
+            Tickets: lowPriorityTickets || 0,
+        },
+        {
+            name: 'Medium',
+            Tickets: mediumPriorityTickets || 0,
+        },
+        {
+            name: 'High',
+            Tickets: highPriorityTickets || 0,
+        },
+        {
+            name: 'Critical',
+            Tickets: criticalPriorityTickets || 0,
+        },
+    ];
 
     if (isLoading) {
         return (
@@ -61,7 +91,7 @@ const DashboardPage = () => {
                     <h2 className='text-base text-neutral-600'>Here&apos;s a short overview of what&apos;s happening today.</h2>
                 </div>
             </header>
-            <section className='custom-grid gap-6 my-4'>
+            <section className='custom-grid grid-cols-3 gap-6 my-4'>
                 <article className='bg-white grid-area-a p-5 rounded-md shadow-project-card flex items-center justify-between'>
                     <div className='grid gap-3'>
                         <p className='uppercase text-base text-neutral-600 font-medium'>active projects</p>
@@ -161,7 +191,8 @@ const DashboardPage = () => {
                         />
                     </svg>
                 </article>
-                <article className='grid-area-d'>{chartData && <DashboardChart chartData={chartData} />}</article>
+                <article className='grid-area-d'>{barChartData && <DashboardBarChart chartData={barChartData} />}</article>
+                <article className='grid-area-e'>{donutChartData && <DashboardDonutChart chartData={donutChartData} />}</article>
             </section>
         </main>
     );

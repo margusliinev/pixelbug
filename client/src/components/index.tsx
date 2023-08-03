@@ -1,4 +1,5 @@
-import DashboardChart from './Dashboard/DashboardChart';
+import DashboardBarChart from './Dashboard/DashboardBarChart';
+import DashboardDonutChart from './Dashboard/DashboardDonutChart';
 import MemberCheck from './MemberCheck';
 import Navbar from './Navbar/Navbar';
 import NavbarMobileMenu from './Navbar/NavbarMobileMenu';
@@ -32,7 +33,8 @@ import TicketStatus from './Ticket/TicketStatus';
 import TicketUpdateButton from './Ticket/TicketUpdateButton';
 
 export {
-    DashboardChart,
+    DashboardBarChart,
+    DashboardDonutChart,
     MemberCheck,
     Navbar,
     NavbarMobileMenu,

@@ -92,22 +92,24 @@
 .custom-grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 160px 160px 160px 1fr;
+    grid-template-rows: 160px 160px 160px 1fr 1fr;
     grid-template-areas:
         'a'
         'b'
         'c'
-        'd';
+        'd'
+        'e';
 }
 
 @media screen and (min-width: 768px) {
     .custom-grid {
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 160px 160px 1fr;
+        grid-template-rows: 160px 160px 1fr 1fr;
         grid-template-areas:
             'a b'
-            'c e'
-            'd d';
+            'c f'
+            'd d'
+            'e e';
     }
 }
 
@@ -136,4 +138,8 @@
 
 .grid-area-d {
     grid-area: d;
+}
+
+.grid-area-e {
+    grid-area: e;
 }
