@@ -20,11 +20,17 @@ export const getStats = async (req: AuthenticatedRequest, res: Response) => {
         result.map(async (project) => {
             const projectTickets = await db.select().from(tickets).where(eq(tickets.project_id, project.projects.project_id));
             const projectUsers = await db
-                .select()
+                .selectDistinct({ user: users })
                 .from(users)
                 .leftJoin(projects_users, eq(users.user_id, projects_users.user_id))
                 .where(eq(projects_users.project_id, project.projects.project_id));
-            return { ...project.projects, tickets: projectTickets, users: projectUsers };
+            const projectUsersNoPassword = projectUsers.map((user) => {
+                const { password, ...rest } = user.user;
+                return rest;
+            });
+            const projectManager = await db.select().from(users).where(eq(users.user_id, project.projects.manager_id));
+            const { password, ...manager } = projectManager[0];
+            return { ...project.projects, tickets: projectTickets, users: projectUsersNoPassword, manager: manager };
         })
     );
 
