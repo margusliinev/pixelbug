@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { SpinnerPage } from '@/components';
+import { DashboardChart, SpinnerPage } from '@/components';
 import { useGetStatsQuery } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
 import { User } from '@/utils/types';
@@ -32,6 +32,15 @@ const DashboardPage = () => {
                 }
             }, []).length || 0;
 
+    const chartData = data?.projects
+        .map((project) => {
+            return {
+                name: project.title.length < 16 ? project.title : project.title.substring(0, 16) + '...',
+                Tickets: project.tickets.length,
+            };
+        })
+        .sort((a, b) => b.Tickets - a.Tickets);
+
     if (isLoading) {
         return (
             <main className='w-full min-h-screen-minus-nav grid place-items-center bg-emerald-50'>
@@ -52,8 +61,8 @@ const DashboardPage = () => {
                     <h2 className='text-base text-neutral-600'>Here&apos;s a short overview of what&apos;s happening today.</h2>
                 </div>
             </header>
-            <section className='grid sm:grid-cols-2 2xl:grid-cols-3 gap-6 my-4'>
-                <article className='bg-white p-5 rounded-md shadow-project-card flex items-center justify-between'>
+            <section className='custom-grid gap-6 my-4'>
+                <article className='bg-white grid-area-a p-5 rounded-md shadow-project-card flex items-center justify-between'>
                     <div className='grid gap-3'>
                         <p className='uppercase text-base text-neutral-600 font-medium'>active projects</p>
                         <p className='text-2xl font-bold text-neutral-700'>{totalProjects}</p>
@@ -86,7 +95,7 @@ const DashboardPage = () => {
                         />
                     </svg>
                 </article>
-                <article className='bg-white p-5 rounded-md shadow-project-card flex items-center justify-between'>
+                <article className='bg-white grid-area-b p-5 rounded-md shadow-project-card flex items-center justify-between'>
                     <div className='grid gap-3'>
                         <p className='uppercase text-base text-neutral-600 font-medium'>your tickets</p>
                         <p className='text-2xl font-bold text-neutral-700'>{yourTickets}</p>
@@ -119,7 +128,7 @@ const DashboardPage = () => {
                         />
                     </svg>
                 </article>
-                <article className='bg-white p-5 rounded-md shadow-project-card flex items-center justify-between'>
+                <article className='bg-white grid-area-c p-5 rounded-md shadow-project-card flex items-center justify-between'>
                     <div className='grid gap-3'>
                         <p className='uppercase text-base text-neutral-600 font-medium'>total developers</p>
                         <p className='text-2xl font-bold text-neutral-70<svg>0'>{totalDevelopers}</p>
@@ -152,6 +161,7 @@ const DashboardPage = () => {
                         />
                     </svg>
                 </article>
+                <article className='grid-area-d'>{chartData && <DashboardChart chartData={chartData} />}</article>
             </section>
         </main>
     );
