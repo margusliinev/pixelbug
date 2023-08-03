@@ -8,9 +8,9 @@ import { logoutUser, setUser } from '@/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 
-import { SpinnerButton } from '../../components';
+import { SpinnerButton } from '..';
 
-const ProfileAvatar = () => {
+const AccountAvatar = () => {
     const [updateUserPicture, { isLoading }] = useUpdateUserPictureMutation();
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const dispatch = useAppDispatch();
@@ -76,4 +76,4 @@ const ProfileAvatar = () => {
     );
 };
 
-export default ProfileAvatar;
+export default AccountAvatar;

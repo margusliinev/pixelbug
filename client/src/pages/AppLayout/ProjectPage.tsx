@@ -9,11 +9,11 @@ import { useAppSelector } from '@/utils/hooks';
 import { columnsDesktop, columnsMobile } from '../../components/Project/ProjectTicketColumns';
 
 const ProjectPage = () => {
+    const navigate = useNavigate();
     const { project_id } = useParams();
     const { data, isLoading } = useGetSingleProjectQuery(project_id || '', { refetchOnMountOrArgChange: true });
     const { user } = useAppSelector((store) => store.user);
-    const navigate = useNavigate();
-    const isMobile = window.innerWidth < 640;
+    const isMobile = window.innerWidth < 768;
 
     if (isLoading) {
         return (
@@ -33,8 +33,6 @@ const ProjectPage = () => {
             </main>
         );
     }
-
-    console.log(data.project);
 
     return (
         <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-emerald-50'>

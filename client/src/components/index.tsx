@@ -1,3 +1,7 @@
+import AccountAvatar from './Account/AccountAvatar';
+import AccountInfo from './Account/AccountInfo';
+import AccountPassword from './Account/AccountPassword';
+import AccountProfile from './Account/AccountProfile';
 import DashboardBarChart from './Dashboard/DashboardBarChart';
 import DashboardDonutChart from './Dashboard/DashboardDonutChart';
 import MemberCheck from './MemberCheck';
@@ -5,10 +9,6 @@ import Navbar from './Navbar/Navbar';
 import NavbarMobileMenu from './Navbar/NavbarMobileMenu';
 import NavbarSearch from './Navbar/NavbarSearch';
 import NavbarUserButton from './Navbar/NavbarUserButton';
-import ProfileAccount from './Profile/ProfileAccount';
-import ProfileAvatar from './Profile/ProfileAvatar';
-import ProfileInfo from './Profile/ProfileInfo';
-import ProfilePassword from './Profile/ProfilePassword';
 import ProjectCard from './Project/ProjectCard';
 import ProjectDeleteButton from './Project/ProjectDeleteButton';
 import ProjectLeaveButton from './Project/ProjectLeaveButton';
@@ -33,6 +33,10 @@ import TicketStatus from './Ticket/TicketStatus';
 import TicketUpdateButton from './Ticket/TicketUpdateButton';
 
 export {
+    AccountAvatar,
+    AccountInfo,
+    AccountPassword,
+    AccountProfile,
     DashboardBarChart,
     DashboardDonutChart,
     MemberCheck,
@@ -40,10 +44,6 @@ export {
     NavbarMobileMenu,
     NavbarSearch,
     NavbarUserButton,
-    ProfileAccount,
-    ProfileAvatar,
-    ProfileInfo,
-    ProfilePassword,
     ProjectCard,
     ProjectDeleteButton,
     ProjectLeaveButton,

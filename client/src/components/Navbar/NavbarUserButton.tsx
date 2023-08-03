@@ -67,8 +67,8 @@ const NavbarUserButton = () => {
                         : 'absolute right-0 top-12 w-32 rounded-md border bg-background shadow-sm transition-opacity opacity-0 invisible'
                 }
             >
-                <Link to={'/app/profile'} className='px-3 pt-3 pb-1 text-sm hover:bg-accent w-full hover:rounded-tl-md hover:rounded-tr-md'>
-                    Your Profile
+                <Link to={'/app/account'} className='px-3 pt-3 pb-1 text-sm hover:bg-accent w-full hover:rounded-tl-md hover:rounded-tr-md'>
+                    Your Account
                 </Link>
                 <button
                     className='px-3 pb-3 pt-1 text-sm hover:bg-accent w-full text-left hover:rounded-bl-md hover:rounded-br-md'

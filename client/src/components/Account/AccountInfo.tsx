@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
 
-import { ProfileAvatar, SpinnerButton } from '@/components';
+import { AccountAvatar, SpinnerButton } from '@/components';
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
 import { useUpdateUserProfileMutation } from '@/features/api/apiSlice';
@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 import { profileFormSchema } from '@/utils/zodSchemas';
 
-const ProfileInfo = () => {
+const AccountInfo = () => {
     const { toast } = useToast();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -81,7 +81,7 @@ const ProfileInfo = () => {
                 </h1>
                 <p className='text-sm text-gray-600 mb-4'>Use a permanent address where you can receive mail.</p>
             </div>
-            <ProfileAvatar />
+            <AccountAvatar />
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(submitForm)} className='grid max-w-xl space-y-4 w-full mt-2' noValidate>
                     <div className='grid grid-cols-2 gap-4'>
@@ -155,4 +155,4 @@ const ProfileInfo = () => {
     );
 };
 
-export default ProfileInfo;
+export default AccountInfo;

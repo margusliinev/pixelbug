@@ -160,13 +160,6 @@ export interface ProjectUsersAPIResponse {
     otherUsers: User[];
 }
 
-// STATS TYPES
-
-export interface StatsAPIResponse {
-    success: boolean;
-    projects: Project[];
-}
-
 // ENUMS
 
 export enum PriorityEnum {

@@ -1,7 +1,7 @@
-import AdminPage from './AppLayout/AdminPage';
+import AccountPage from './AppLayout/AccountPage';
 import AppLayout from './AppLayout/AppLayout';
 import DashboardPage from './AppLayout/DashboardPage';
-import ProfilePage from './AppLayout/ProfilePage';
+import DevelopersPage from './AppLayout/DevelopersPage';
 import ProjectPage from './AppLayout/ProjectPage';
 import ProjectsPage from './AppLayout/ProjectsPage';
 import TicketPage from './AppLayout/TicketPage';
@@ -13,14 +13,14 @@ import LoginPage from './HomeLayout/LoginPage';
 import RegisterPage from './HomeLayout/RegisterPage';
 
 export {
-    AdminPage,
+    AccountPage,
     AppLayout,
     DashboardPage,
+    DevelopersPage,
     ErrorPage,
     HomeLayout,
     HomePage,
     LoginPage,
-    ProfilePage,
     ProjectPage,
     ProjectsPage,
     RegisterPage,

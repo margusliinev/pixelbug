@@ -17,6 +17,7 @@ const DashboardDonutChart = ({ chartData }: { chartData: ChartData[] }) => (
             colors={['emerald', 'yellow', 'rose', 'red']}
             valueFormatter={valueFormatter}
             showTooltip={true}
+            showAnimation={false}
         />
     </Card>
 );

@@ -13,7 +13,7 @@ export const columnsDesktop: ColumnDef<Ticket>[] = [
         cell: (ticket) => (ticket.row.original.title.length > 20 ? ticket.row.original.title.substring(0, 20) + '...' : ticket.row.original.title),
         header: ({ column }) => {
             return (
-                <Button variant='ghost' className='px-2' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                <Button variant='ghost' className='px-2 hover:bg-neutral-200' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
                     Title
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>
@@ -24,7 +24,7 @@ export const columnsDesktop: ColumnDef<Ticket>[] = [
         accessorKey: 'project_title',
         header: ({ column }) => {
             return (
-                <Button variant='ghost' className='px-2' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                <Button variant='ghost' className='px-2 hover:bg-neutral-200' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
                     Project
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>
@@ -35,7 +35,7 @@ export const columnsDesktop: ColumnDef<Ticket>[] = [
         accessorKey: 'start_date',
         header: ({ column }) => {
             return (
-                <Button variant='ghost' className='px-2' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                <Button variant='ghost' className='px-2 hover:bg-neutral-200' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
                     Reported Date
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>
@@ -47,7 +47,7 @@ export const columnsDesktop: ColumnDef<Ticket>[] = [
         accessorKey: 'reporter_user',
         header: ({ column }) => {
             return (
-                <Button variant='ghost' className='px-2' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                <Button variant='ghost' className='px-2 hover:bg-neutral-200' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
                     Reported By
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>
@@ -58,7 +58,7 @@ export const columnsDesktop: ColumnDef<Ticket>[] = [
         accessorKey: 'status',
         header: ({ column }) => {
             return (
-                <Button variant='ghost' className='px-2' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                <Button variant='ghost' className='px-2 hover:bg-neutral-200' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
                     Status
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>
@@ -70,7 +70,7 @@ export const columnsDesktop: ColumnDef<Ticket>[] = [
         accessorKey: 'priority',
         header: ({ column }) => {
             return (
-                <Button variant='ghost' className='px-2' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                <Button variant='ghost' className='px-2 hover:bg-neutral-200' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
                     Priority
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>
@@ -104,19 +104,19 @@ export const columnsMobile: ColumnDef<Ticket>[] = [
         accessorKey: 'title',
         header: ({ column }) => {
             return (
-                <Button variant='ghost' className='px-2' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                <Button variant='ghost' className='px-2 hover:bg-neutral-200' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
                     Title
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>
             );
         },
-        cell: (ticket) => (ticket.row.original.title.length > 20 ? ticket.row.original.title.substring(0, 20) + '...' : ticket.row.original.title),
+        cell: (ticket) => (ticket.row.original.title.length > 12 ? ticket.row.original.title.substring(0, 12) + '...' : ticket.row.original.title),
     },
     {
         accessorKey: 'status',
         header: ({ column }) => {
             return (
-                <Button variant='ghost' className='px-2' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                <Button variant='ghost' className='px-2 hover:bg-neutral-200' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
                     Status
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>
@@ -128,7 +128,7 @@ export const columnsMobile: ColumnDef<Ticket>[] = [
         accessorKey: 'priority',
         header: ({ column }) => {
             return (
-                <Button variant='ghost' className='px-2' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+                <Button variant='ghost' className='px-2 hover:bg-neutral-200' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
                     Priority
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>

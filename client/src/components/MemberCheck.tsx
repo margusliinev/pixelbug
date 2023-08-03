@@ -4,7 +4,7 @@ const MemberCheck = ({ to, question, text }: { to: string; question: string; tex
     return (
         <div className='mt-4 flex justify-center gap-2'>
             <p>{question}</p>
-            <Link to={to} className='transition-color hover:text-primary-hover-dark text-base font-semibold text-primary'>
+            <Link to={to} className='transition-color hover:text-primary-hover-dark text-base font-medium text-primary'>
                 {text}
             </Link>
         </div>

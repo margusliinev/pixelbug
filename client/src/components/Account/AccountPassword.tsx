@@ -12,7 +12,7 @@ import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
 import { updatePasswordFormSchema } from '@/utils/zodSchemas';
 
-const ProfilePassword = () => {
+const AccountPassword = () => {
     const [updateUserPassword, { isLoading }] = useUpdateUserPasswordMutation();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -110,4 +110,4 @@ const ProfilePassword = () => {
     );
 };
 
-export default ProfilePassword;
+export default AccountPassword;

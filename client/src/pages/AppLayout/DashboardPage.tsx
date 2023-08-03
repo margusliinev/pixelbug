@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
 
 import { DashboardBarChart, DashboardDonutChart, SpinnerPage } from '@/components';
-import { useGetStatsQuery } from '@/features/api/apiSlice';
+import { useGetAllProjectsQuery } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
 import { User } from '@/utils/types';
+
 const DashboardPage = () => {
-    const { data, isLoading } = useGetStatsQuery(undefined);
+    const { data, isLoading } = useGetAllProjectsQuery(undefined);
     const { user } = useAppSelector((store) => store.user);
 
     const totalProjects = data?.projects.length;
+
     const yourTickets = data?.projects
         .map((project) => {
             return project.tickets.filter((ticket) => ticket.assigned_user_id === user?.user_id).length;
@@ -17,6 +19,7 @@ const DashboardPage = () => {
             acc += curr;
             return acc;
         }, 0);
+
     const totalDevelopers: number =
         data?.projects
             .map((project) => {
@@ -47,6 +50,7 @@ const DashboardPage = () => {
         })
         .flat()
         .filter((ticket) => ticket.assigned_user_id === user?.user_id);
+
     const lowPriorityTickets = donutChartTickets?.filter((ticket) => ticket.priority === 'low').length;
     const mediumPriorityTickets = donutChartTickets?.filter((ticket) => ticket.priority === 'medium').length;
     const highPriorityTickets = donutChartTickets?.filter((ticket) => ticket.priority === 'high').length;
@@ -79,15 +83,11 @@ const DashboardPage = () => {
         );
     }
 
-    if (!user) {
-        return;
-    }
-
     return (
         <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-emerald-50'>
             <header className='flex items-end justify-between gap-8'>
                 <div>
-                    <h1 className='font-medium text-lg'>Welcome Back, {user.first_name}!</h1>
+                    <h1 className='font-medium text-lg'>Welcome Back, {user?.first_name}!</h1>
                     <h2 className='text-base text-neutral-600'>Here&apos;s a short overview of what&apos;s happening today.</h2>
                 </div>
             </header>

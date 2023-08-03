@@ -12,7 +12,6 @@ import {
     ProjectAPIResponse,
     ProjectUsersAPIResponse,
     Register,
-    StatsAPIResponse,
     TicketAPIResponse,
     UpdateProject,
     UpdateProjectUsers,
@@ -70,24 +69,14 @@ export const apiSlice = createApi({
             query: () => ({
                 url: '/projects',
                 method: 'GET',
-                cache: 'no-cache',
-                headers: {
-                    'Cache-Control': 'no-cache',
-                },
             }),
-            keepUnusedDataFor: 0,
             providesTags: ['Projects'],
         }),
         getSingleProject: builder.query<ProjectAPIResponse, string>({
             query: (project_id) => ({
                 url: `/projects/${project_id}`,
                 method: 'GET',
-                cache: 'no-cache',
-                headers: {
-                    'Cache-Control': 'no-cache',
-                },
             }),
-            keepUnusedDataFor: 0,
             providesTags: ['Project', 'Ticket'],
         }),
         getProjectUsers: builder.query<ProjectUsersAPIResponse, string>({
@@ -175,13 +164,6 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['Project'],
         }),
-        // Stats
-        getStats: builder.query<StatsAPIResponse, undefined>({
-            query: () => ({
-                url: '/stats',
-                method: 'GET',
-            }),
-        }),
     }),
 });
 
@@ -204,5 +186,4 @@ export const {
     useGetTicketQuery,
     useUpdateTicketMutation,
     useDeleteTicketMutation,
-    useGetStatsQuery,
 } = apiSlice;

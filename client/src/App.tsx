@@ -1,14 +1,14 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 
 import {
-    AdminPage,
+    AccountPage,
     AppLayout,
     DashboardPage,
+    DevelopersPage,
     ErrorPage,
     HomeLayout,
     HomePage,
     LoginPage,
-    ProfilePage,
     ProjectPage,
     ProjectsPage,
     RegisterPage,
@@ -71,12 +71,12 @@ function App() {
                             errorElement: <Navigate to='/app/projects/:project_id' />,
                         },
                         {
-                            path: 'profile',
-                            element: <ProfilePage />,
+                            path: 'account',
+                            element: <AccountPage />,
                         },
                         {
-                            path: 'admin',
-                            element: <AdminPage />,
+                            path: 'developers',
+                            element: <DevelopersPage />,
                         },
                     ],
                 },

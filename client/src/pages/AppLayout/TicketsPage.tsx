@@ -6,7 +6,7 @@ import { columnsDesktop, columnsMobile } from '../../components/Ticket/TicketCol
 
 const TicketsPage = () => {
     const { data, isLoading } = useGetAllTicketsQuery(undefined);
-    const isMobile = window.innerWidth < 640;
+    const isMobile = window.innerWidth < 768;
 
     if (isLoading) {
         return (

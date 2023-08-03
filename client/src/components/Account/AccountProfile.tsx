@@ -16,7 +16,7 @@ import { deleteUser, logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
 
-const ProfileAccount = () => {
+const AccountProfile = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { toast } = useToast();
@@ -69,4 +69,4 @@ const ProfileAccount = () => {
     );
 };
 
-export default ProfileAccount;
+export default AccountProfile;
