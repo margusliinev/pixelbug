@@ -102,7 +102,7 @@ const TicketSetStatusButton = ({ ticket, type }: { ticket: Ticket; type: string 
                 className={
                     type === 'link'
                         ? 'bg-white text-primary transition-colors px-2 py-2 text-sm hover:bg-secondary w-full text-left rounded-md outline-none focus:outline-none'
-                        : 'bg-primary text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark outline-none focus:outline-none'
+                        : 'bg-neutral-600 text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-neutral-700 outline-none focus:outline-none'
                 }
             >
                 Set Status

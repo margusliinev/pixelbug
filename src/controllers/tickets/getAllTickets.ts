@@ -1,5 +1,4 @@
- 
-import { eq } from 'drizzle-orm';
+import { and, eq, ne } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db';
@@ -14,7 +13,7 @@ export const getAllTickets = async (req: AuthenticatedRequest, res: Response) =>
         .from(tickets)
         .leftJoin(users, eq(users.user_id, tickets.reporter_user_id))
         .leftJoin(projects, eq(projects.project_id, tickets.project_id))
-        .where(eq(tickets.assigned_user_id, req.user.user_id));
+        .where(and(eq(tickets.assigned_user_id, req.user.user_id), ne(tickets.status, 'resolved')));
 
     const userTickets = result.map((ticket) => {
         const { ...ticketData } = ticket.tickets;

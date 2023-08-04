@@ -90,7 +90,11 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TV
                                             return;
                                         }
                                     }}
-                                    className='cursor-pointer capitalize hover:bg-neutral-100'
+                                    className={
+                                        row.original.status === 'resolved'
+                                            ? 'opacity-50 cursor-pointer capitalize hover:bg-neutral-100'
+                                            : 'cursor-pointer capitalize hover:bg-neutral-100'
+                                    }
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell className={columns.length < 4 ? 'px-4' : 'px-4 last-of-type:px-0'} key={cell.id}>

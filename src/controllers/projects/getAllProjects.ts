@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { eq } from 'drizzle-orm';
+import { and, eq, ne } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db';
@@ -17,7 +17,10 @@ export const getAllProjects = async (req: AuthenticatedRequest, res: Response) =
 
     const userProjects = await Promise.all(
         result.map(async (project) => {
-            const projectTickets = await db.select().from(tickets).where(eq(tickets.project_id, project.projects.project_id));
+            const projectTickets = await db
+                .select()
+                .from(tickets)
+                .where(and(eq(tickets.project_id, project.projects.project_id), ne(tickets.status, 'resolved')));
             const projectUsers = await db
                 .selectDistinct({ user: users })
                 .from(users)

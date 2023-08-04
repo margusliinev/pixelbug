@@ -164,7 +164,7 @@ const DashboardPage = () => {
                     <div className='grid gap-3'>
                         <p className='uppercase text-base text-neutral-600 font-medium'>total developers</p>
                         <p className='text-2xl font-bold text-neutral-70<svg>0'>{totalDevelopers}</p>
-                        <Link className='text-base tracking-tight flex items-center gap-1 group' to={'/app/users'}>
+                        <Link className='text-base tracking-tight flex items-center gap-1 group' to={'/app/developers'}>
                             find developers
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
