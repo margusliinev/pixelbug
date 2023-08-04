@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { and, eq, ne } from 'drizzle-orm';
-import { alias } from 'drizzle-orm/pg-core';
+import { eq } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db';
-import { projects, projects_users, tickets, User, users } from '../../db/schema';
+import { projects, projects_users, tickets, users } from '../../db/schema';
 import { AuthenticatedRequest, NotFoundError, UnauthenticatedError, UnauthorizedError } from '../../utils';
 
 export const getAllProjects = async (req: AuthenticatedRequest, res: Response) => {

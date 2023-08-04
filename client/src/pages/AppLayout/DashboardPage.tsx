@@ -27,7 +27,9 @@ const DashboardPage = () => {
             })
             .flat()
             .reduce((acc: User[], curr) => {
-                if (acc.find((user: User) => user.user_id === curr.user_id)) {
+                if (curr.user_id === user?.user_id) {
+                    return acc;
+                } else if (acc.find((user: User) => user.user_id === curr.user_id)) {
                     return acc;
                 } else {
                     acc.push(curr);

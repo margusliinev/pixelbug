@@ -158,6 +158,7 @@ export interface ProjectUsersAPIResponse {
     success: boolean;
     projectUsers: User[];
     otherUsers: User[];
+    manager_id: number;
 }
 
 // ENUMS

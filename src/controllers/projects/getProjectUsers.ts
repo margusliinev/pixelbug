@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { and, eq, ne } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db';
@@ -23,7 +23,7 @@ export const getProjectUsers = async (req: AuthenticatedRequest, res: Response) 
         .from(projects)
         .leftJoin(projects_users, eq(projects.project_id, projects_users.project_id))
         .leftJoin(users, eq(projects_users.user_id, users.user_id))
-        .where(and(eq(projects.project_id, Number(project_id)), ne(projects_users.user_id, manager_id)));
+        .where(and(eq(projects.project_id, Number(project_id))));
 
     const allUsers = await db.select().from(users);
 
@@ -42,5 +42,5 @@ export const getProjectUsers = async (req: AuthenticatedRequest, res: Response) 
             return userNoPassword;
         });
 
-    res.status(200).json({ success: true, projectUsers, otherUsers });
+    res.status(200).json({ success: true, projectUsers, otherUsers, manager_id });
 };

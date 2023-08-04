@@ -54,10 +54,7 @@ const TicketUpdateButton = ({ ticket }: { ticket: Ticket }) => {
         description: z.string().trim().min(1, { message: 'Please enter ticket description' }),
         priority: z.enum(PriorityEnum).refine((value) => PriorityEnum.includes(value), { message: 'Please select ticket priority' }),
         status: z.enum(StatusEnum).refine((value) => StatusEnum.includes(value), { message: 'Please select ticket status' }),
-        assigned_user_id: z
-            .enum(AssignedUserEnum)
-            .optional()
-            .refine((value) => value, { message: 'Please select a developer' }),
+        assigned_user_id: z.enum(AssignedUserEnum).optional(),
         completed_date: z.date().optional(),
     });
 
