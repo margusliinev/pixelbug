@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 const HomeNavbar = ({ text, link }: { text: string; link: string }) => {
     return (
         <header className='absolute inset-x-0 top-0 z-50'>
-            <nav className='flex items-center justify-between p-6 lg:px-8 max-w-8xl w-screen-90 mx-auto' aria-label='Global'>
-                <div className='flex lg:flex-1'>
+            <nav className='flex items-center justify-center lg:justify-between p-6 lg:px-8 max-w-8xl w-screen-90 mx-auto' aria-label='Global'>
+                <div>
                     <Link to={'/'} className='-m-1.5 p-1.5 text-4xl font-bold text-emerald-700'>
                         PixelBug
                     </Link>

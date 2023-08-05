@@ -32,6 +32,7 @@ import { Calendar } from './calendar';
 import { Textarea } from './textarea';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from './dialog';
 import { Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectLabel, SelectItem, SelectSeparator } from './select';
+import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from './card';
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -49,6 +50,7 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuRadioGroup,
 } from './dropdown-menu';
+
 export {
     AlertDialog,
     AlertDialogTrigger,
@@ -117,4 +119,10 @@ export {
     DropdownMenuSubContent,
     DropdownMenuSubTrigger,
     DropdownMenuRadioGroup,
+    Card,
+    CardHeader,
+    CardFooter,
+    CardTitle,
+    CardDescription,
+    CardContent,
 };
