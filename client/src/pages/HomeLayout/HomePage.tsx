@@ -8,7 +8,7 @@ const HomePage = () => {
     return (
         <>
             <HomeNavbar text='Not a Pixelbug user?' link='/auth/register' />
-            <div className='relative isolate px-6 pt-14 lg:px-8'>
+            <div className='fixed isolate px-6 pt-14 lg:px-8 w-screen h-screen'>
                 <div className='absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl md:-top-80' aria-hidden='true'>
                     <div className='relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#059669] to-[#d4d4d4] opacity-30 md:left-[calc(50%-30rem)] md:w-[72.1875rem]'></div>
                 </div>
