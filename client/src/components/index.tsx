@@ -5,6 +5,7 @@ import AccountProfile from './Account/AccountProfile';
 import DashboardBarChart from './Dashboard/DashboardBarChart';
 import DashboardDonutChart from './Dashboard/DashboardDonutChart';
 import MemberCheck from './MemberCheck';
+import HomeNavbar from './Navbar/HomeNavbar';
 import Navbar from './Navbar/Navbar';
 import NavbarMobileMenu from './Navbar/NavbarMobileMenu';
 import NavbarSearch from './Navbar/NavbarSearch';
@@ -39,6 +40,7 @@ export {
     AccountProfile,
     DashboardBarChart,
     DashboardDonutChart,
+    HomeNavbar,
     MemberCheck,
     Navbar,
     NavbarMobileMenu,
