@@ -13,7 +13,7 @@ import { globalErrorHandler, notFoundHandler } from './middleware/errorHandlerMi
 import authRoutes from './routes/auth';
 import projectsRoutes from './routes/projects';
 import ticketsRoutes from './routes/tickets';
-import userRoutes from './routes/user';
+import usersRoutes from './routes/users';
 import { limiter } from './utils/limiter';
 
 dotenv.config();
@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/users/me', userRoutes);
+app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/projects', projectsRoutes);
 app.use('/api/v1/tickets', ticketsRoutes);
 

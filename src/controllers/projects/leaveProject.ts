@@ -26,7 +26,7 @@ export const leaveProject = async (req: AuthenticatedRequest, res: Response) => 
     await db
         .update(tickets)
         .set({ assigned_user_id: null, status: 'unassigned' })
-        .where(and(eq(tickets.assigned_user_id, req.user.user_id), ne(tickets.status, 'resolved')))
+        .where(eq(tickets.assigned_user_id, req.user.user_id))
         .returning()
         .catch((error) => {
             console.log(error);

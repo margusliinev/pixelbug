@@ -2,6 +2,6 @@ import { deleteUser } from './deleteUser';
 import { getUser } from './getUser';
 import { updateUserPassword } from './updateUserPassword';
 import { updateUserProfile } from './updateUserProfile';
-import { uploadPicture } from './uploadPicture';
+import { uploadUserPicture } from './uploadUserPicture';
 
-export { deleteUser, getUser, updateUserPassword, updateUserProfile, uploadPicture };
+export { deleteUser, getUser, updateUserPassword, updateUserProfile, uploadUserPicture };

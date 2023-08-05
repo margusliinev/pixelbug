@@ -14,7 +14,7 @@ export const deleteUser = async (req: AuthenticatedRequest, res: Response) => {
 
     await db
         .update(tickets)
-        .set({ assigned_user_id: null })
+        .set({ assigned_user_id: null, status: 'unassigned' })
         .where(eq(tickets.assigned_user_id, req.user.user_id))
         .returning()
         .catch((error) => {

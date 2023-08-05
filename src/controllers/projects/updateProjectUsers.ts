@@ -31,7 +31,7 @@ export const updateProjectUsers = async (req: AuthenticatedRequest, res: Respons
         await db
             .update(tickets)
             .set({ assigned_user_id: null, status: 'unassigned' })
-            .where(and(eq(tickets.project_id, Number(project_id)), inArray(tickets.assigned_user_id, removed_users), ne(tickets.status, 'resolved')))
+            .where(and(eq(tickets.project_id, Number(project_id)), inArray(tickets.assigned_user_id, removed_users)))
             .catch(() => {
                 throw new Error('Failed to reset tickets');
             });
