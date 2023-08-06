@@ -26,5 +26,5 @@ export const deleteUser = async (req: AuthenticatedRequest, res: Response) => {
         expires: new Date(Date.now()),
     });
 
-    res.status(204).json({ success: true, msg: 'User has been deleted' });
+    res.setHeader('cache-control', 'no-store').status(204).json({ success: true, msg: 'User has been deleted' });
 };

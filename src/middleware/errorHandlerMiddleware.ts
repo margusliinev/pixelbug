@@ -20,11 +20,9 @@ export const globalErrorHandler = (err: CustomError, req: Request, res: Response
 
     if (status === 400) {
         res.status(status).json({ success: false, msg: message, type: errorType });
-    }
-
-    if (status === 401) {
+    } else if (status === 401) {
         res.status(status).json({ success: false, isAuth: false, msg: message });
+    } else {
+        res.status(status).json({ success: false, msg: message });
     }
-
-    res.status(status).json({ success: false, msg: message });
 };
