@@ -13,7 +13,7 @@ const NavbarUserButton = () => {
 
     const handleLogout = async () => {
         await dispatch(logoutUser());
-        navigate('/');
+        navigate('/auth/login');
     };
 
     return (

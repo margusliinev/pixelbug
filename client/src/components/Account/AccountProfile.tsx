@@ -36,11 +36,11 @@ const AccountProfile = () => {
                     await dispatch(logoutUser());
                 }
             });
-        navigate('/');
+        navigate('/auth/login');
     };
 
     return (
-        <form className='shadow-project-card p-4 grid gap-4 my-4 rounded-md bg-white'>
+        <form className='shadow-project-card px-6 pt-4 pb-6 grid gap-4 my-4 rounded-md bg-white'>
             <h1 className='mb-1 text-2xl font-semibold'>Delete account</h1>
             <p className='text-sm text-gray-600 mb-4 max-w-sm'>
                 No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this
@@ -48,7 +48,7 @@ const AccountProfile = () => {
             </p>
             <AlertDialog>
                 <AlertDialogTrigger className='bg-destructive hover:bg-destructive/90 text-white max-w-fit text-sm py-3 px-4 rounded-md'>
-                    Yes, delete my account
+                    Yes, Delete my account
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogHeader>

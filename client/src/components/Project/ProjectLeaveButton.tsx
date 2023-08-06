@@ -36,7 +36,7 @@ const ProjectLeaveButton = () => {
             .catch(async (error: DefaultAPIError) => {
                 if (error.status === 401) {
                     await dispatch(logoutUser());
-                    navigate('/');
+                    navigate('/auth/login');
                 } else if (error.status === 403) {
                     toast({
                         title: 'Manager cannot leave the project',

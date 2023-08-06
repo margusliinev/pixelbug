@@ -52,6 +52,9 @@ module.exports = {
                 'screen-minus-nav': 'calc(100vh - 5rem)',
             },
             screens: {
+                '4xl': '1800px',
+                '3xl': '1600px',
+                'xs-600': '600px',
                 'xs-550': '550px',
                 'xs-500': '500px',
                 'xs-450': '450px',
@@ -59,7 +62,7 @@ module.exports = {
             },
             boxShadow: {
                 'project-card': '0 0 5px 1px rgb(0 0 0 / 0.15)',
-                'user-card': '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+                'user-card': '0 0 3px 0 rgb(0 0 0 / 0.15), 0 0 2px -1px rgb(0 0 0 / 0.15)',
                 // light
                 'tremor-input': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
                 'tremor-card': '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',

@@ -42,7 +42,7 @@ const AccountPassword = () => {
                 .catch(async (error: DefaultAPIError) => {
                     if (error.status === 401) {
                         await dispatch(logoutUser());
-                        navigate('/');
+                        navigate('/auth/login');
                     }
                     if (error.data.type === 'password') {
                         form.setError('password', { message: error.data.msg });
@@ -58,7 +58,7 @@ const AccountPassword = () => {
         }
     };
     return (
-        <div className='shadow-project-card p-4 grid gap-4 my-4 rounded-md bg-white'>
+        <div className='shadow-project-card px-6 pt-4 pb-6 grid gap-4 my-4 rounded-md bg-white'>
             <Form {...form}>
                 <div>
                     <h1 className='mb-1 text-2xl font-semibold'>Change password</h1>

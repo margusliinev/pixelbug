@@ -25,7 +25,7 @@ import {
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
-    tagTypes: ['Projects', 'Project', 'Tickets', 'Ticket'],
+    tagTypes: ['Projects', 'Project', 'Tickets', 'Ticket', 'Users'],
     endpoints: (builder) => ({
         // Auth
         register: builder.mutation<DefaultAPIResponse, Register>({
@@ -70,6 +70,7 @@ export const apiSlice = createApi({
                 url: '/users',
                 method: 'GET',
             }),
+            providesTags: ['Users'],
         }),
         // Projects
         getAllProjects: builder.query<AllProjectsAPIResponse, undefined>({
@@ -115,14 +116,14 @@ export const apiSlice = createApi({
                 method: 'PUT',
                 body: updated_users,
             }),
-            invalidatesTags: ['Project'],
+            invalidatesTags: ['Project', 'Users'],
         }),
         leaveProject: builder.mutation<DefaultAPIResponse, string>({
             query: (project_id) => ({
                 url: `/projects/${project_id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: ['Projects'],
+            invalidatesTags: ['Projects', 'Tickets', 'Users'],
         }),
         deleteProject: builder.mutation<DefaultAPIResponse, DeleteProject>({
             query: (project_id) => ({
@@ -130,7 +131,7 @@ export const apiSlice = createApi({
                 method: 'DELETE',
                 body: project_id,
             }),
-            invalidatesTags: ['Projects'],
+            invalidatesTags: ['Projects', 'Tickets', 'Users'],
         }),
         // Tickets
         getAllTickets: builder.query<AllTicketsAPIResponse, undefined>({

@@ -1,4 +1,4 @@
-import { and, eq, inArray, ne } from 'drizzle-orm';
+import { and, eq, inArray, ne, or } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db/index';
@@ -30,8 +30,14 @@ export const updateProjectUsers = async (req: AuthenticatedRequest, res: Respons
     if (removed_users.length >= 1) {
         await db
             .update(tickets)
-            .set({ assigned_user_id: null, status: 'unassigned' })
-            .where(and(eq(tickets.project_id, Number(project_id)), inArray(tickets.assigned_user_id, removed_users)))
+            .set({ assigned_user_id: null, status: 'unassigned', reporter_user_id: null })
+            .where(
+                and(
+                    eq(tickets.project_id, Number(project_id)),
+                    or(inArray(tickets.assigned_user_id, removed_users)),
+                    inArray(tickets.reporter_user_id, removed_users)
+                )
+            )
             .catch(() => {
                 throw new Error('Failed to reset tickets');
             });

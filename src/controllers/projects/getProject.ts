@@ -63,7 +63,11 @@ export const getProject = async (req: AuthenticatedRequest, res: Response) => {
                     ? `${assignee.first_name} ${assignee.last_name}`
                     : assignee.username
                 : 'Unassigned',
-            reporter_user: reporter.first_name && reporter.last_name ? `${reporter.first_name} ${reporter.last_name}` : reporter.username,
+            reporter_user: reporter
+                ? reporter.first_name && reporter.last_name
+                    ? `${reporter.first_name} ${reporter.last_name}`
+                    : reporter.username
+                : 'Not specified',
         };
     });
 

@@ -71,7 +71,7 @@ const ProjectUpdateButton = ({ data }: { data: ProjectAPIResponse }) => {
                 .catch(async (error: DefaultAPIError) => {
                     if (error.status === 401) {
                         await dispatch(logoutUser());
-                        navigate('/');
+                        navigate('/auth/login');
                     }
                     toast({
                         title: 'Failed to updated the project',

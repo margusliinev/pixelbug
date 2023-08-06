@@ -79,14 +79,14 @@ const DashboardPage = () => {
 
     if (isLoading) {
         return (
-            <main className='w-full min-h-screen-minus-nav grid place-items-center bg-neutral-100'>
+            <main className='w-full min-h-screen-minus-nav grid place-items-center bg-gray-100'>
                 <SpinnerPage />
             </main>
         );
     }
 
     return (
-        <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-neutral-100'>
+        <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-gray-100'>
             <header className='flex items-end justify-between gap-8'>
                 <div>
                     <h1 className='font-medium text-lg'>Welcome Back, {user?.first_name}!</h1>
@@ -118,7 +118,7 @@ const DashboardPage = () => {
                         viewBox='0 0 24 24'
                         strokeWidth='1.5'
                         stroke='currentColor'
-                        className='w-14 h-14 p-3 rounded-sm text-white bg-blue-400'
+                        className='w-14 h-14 p-3 rounded-md text-white bg-blue-400'
                     >
                         <path
                             strokeLinecap='round'
@@ -151,7 +151,7 @@ const DashboardPage = () => {
                         viewBox='0 0 24 24'
                         strokeWidth='1.5'
                         stroke='currentColor'
-                        className='w-14 h-14 p-3 rounded-sm text-white bg-red-400'
+                        className='w-14 h-14 p-3 rounded-md text-white bg-red-400'
                     >
                         <path
                             strokeLinecap='round'
@@ -184,7 +184,7 @@ const DashboardPage = () => {
                         viewBox='0 0 24 24'
                         strokeWidth='1.5'
                         stroke='currentColor'
-                        className='w-14 h-14 p-3 rounded-sm text-white bg-neutral-500'
+                        className='w-14 h-14 p-3 rounded-md text-white bg-gray-400'
                     >
                         <path
                             strokeLinecap='round'
