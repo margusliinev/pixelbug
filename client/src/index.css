@@ -115,8 +115,8 @@
 
 @media screen and (min-width: 1280px) {
     .custom-grid {
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 160px 1fr 1fr;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: 160px minmax(0, 1fr);
         grid-template-areas:
             'a b c'
             'd d e'

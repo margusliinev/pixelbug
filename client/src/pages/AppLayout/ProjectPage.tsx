@@ -15,8 +15,6 @@ const ProjectPage = () => {
     const { user } = useAppSelector((store) => store.user);
     const isMobile = window.innerWidth < 768;
 
-    console.log(data);
-
     if (isLoading) {
         return (
             <main className='w-full min-h-screen-minus-nav grid place-items-center bg-neutral-100'>

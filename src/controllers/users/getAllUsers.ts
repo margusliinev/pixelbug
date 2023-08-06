@@ -21,8 +21,6 @@ export const getAllUsers = async (req: AuthenticatedRequest, res: Response) => {
 
     const userProjects = result.map((project) => project.projects.project_id);
 
-    console.log(userProjects);
-
     const allUsersQuery = await db
         .select()
         .from(users)

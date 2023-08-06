@@ -7,10 +7,10 @@ interface ChartData {
 const valueFormatter = (number: number) => (number === 1 ? `${number} Ticket` : `${number} Tickets`);
 
 const DashboardDonutChart = ({ chartData }: { chartData: ChartData[] }) => (
-    <Card className='h-full grid place-items-center'>
+    <Card className='h-full relative grid'>
         <Title className='absolute left-8 top-8'>Tickets by priority</Title>
         <DonutChart
-            className='h-4/6'
+            className='h-[250px] w-full absolute self-center'
             data={chartData}
             category='Tickets'
             index='name'

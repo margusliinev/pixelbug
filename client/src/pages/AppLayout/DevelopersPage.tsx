@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../../components/ui';
 const DevelopersPage = () => {
     const { data } = useGetAllUsersQuery(undefined);
 
-    if (!data) {
+    if (!data || data.users.length < 1) {
         return (
             <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-gray-100 grid place-items-center'>
                 <div className='flex flex-col items-center'>
