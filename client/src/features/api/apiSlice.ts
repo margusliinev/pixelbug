@@ -19,6 +19,7 @@ import {
     UpdateUserPassword,
     UpdateUserProfile,
     UserAPIResponse,
+    UsersAPIResponse,
 } from '../../utils/types';
 
 export const apiSlice = createApi({
@@ -41,7 +42,7 @@ export const apiSlice = createApi({
                 body: user,
             }),
         }),
-        // User
+        // Users
         updateUserPicture: builder.mutation<UserAPIResponse, FormData>({
             query: (profile) => ({
                 url: '/users/me/picture',
@@ -62,6 +63,12 @@ export const apiSlice = createApi({
                 url: '/users/me',
                 method: 'PUT',
                 body: passwords,
+            }),
+        }),
+        getAllUsers: builder.query<UsersAPIResponse, undefined>({
+            query: () => ({
+                url: '/users',
+                method: 'GET',
             }),
         }),
         // Projects
@@ -186,4 +193,5 @@ export const {
     useGetTicketQuery,
     useUpdateTicketMutation,
     useDeleteTicketMutation,
+    useGetAllUsersQuery,
 } = apiSlice;

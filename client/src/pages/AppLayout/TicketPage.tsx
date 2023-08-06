@@ -11,7 +11,7 @@ const TicketPage = () => {
 
     if (isLoading) {
         return (
-            <main className='w-full min-h-screen-minus-nav grid place-items-center bg-emerald-50'>
+            <main className='w-full min-h-screen-minus-nav grid place-items-center bg-neutral-100'>
                 <SpinnerPage />
             </main>
         );
@@ -22,14 +22,14 @@ const TicketPage = () => {
             navigate('/app/tickets');
         }, 500);
         return (
-            <main className='w-full min-h-screen-minus-nav grid place-items-center bg-emerald-50'>
+            <main className='w-full min-h-screen-minus-nav grid place-items-center bg-neutral-100'>
                 <SpinnerPage />
             </main>
         );
     }
 
     return (
-        <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-emerald-50'>
+        <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-neutral-100'>
             <div className='grid gap-4 sm:flex items-end justify-between'>
                 <Link
                     to={project_id ? `/app/projects/${project_id}` : `/app/tickets`}

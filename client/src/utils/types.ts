@@ -49,6 +49,11 @@ export interface UserAPIResponse {
     msg: string;
 }
 
+export interface UsersAPIResponse {
+    success: boolean;
+    users: User[];
+}
+
 // TICKET TYPES
 
 export interface Ticket {
