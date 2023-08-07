@@ -22,10 +22,6 @@ import {
     UsersAPIResponse,
 } from '../../utils/types';
 
-interface SearchTerm {
-    searchTerm: string;
-}
-
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
