@@ -1,4 +1,4 @@
-import { and, eq, or } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db/index';
@@ -25,8 +25,8 @@ export const leaveProject = async (req: AuthenticatedRequest, res: Response) => 
 
     await db
         .update(tickets)
-        .set({ assigned_user_id: null, status: 'unassigned', reporter_user_id: null })
-        .where(or(eq(tickets.assigned_user_id, req.user.user_id), eq(tickets.reporter_user_id, req.user.user_id)))
+        .set({ assigned_user_id: null, status: 'unassigned' })
+        .where(and(eq(tickets.project_id, Number(project_id)), eq(tickets.assigned_user_id, req.user.user_id)))
         .returning()
         .catch((error) => {
             console.log(error);
