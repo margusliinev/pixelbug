@@ -17,7 +17,7 @@ const DashboardBarChart = ({ chartData }: { chartData: ChartData[] }) => {
                 index='name'
                 categories={['Tickets']}
                 colors={['emerald']}
-                yAxisWidth={16}
+                yAxisWidth={32}
             />
         </Card>
     );
