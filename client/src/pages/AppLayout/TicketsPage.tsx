@@ -5,7 +5,7 @@ import { useGetAllTicketsQuery } from '@/features/api/apiSlice';
 import { columnsDesktop, columnsMobile } from '../../components/Ticket/TicketColumns';
 
 const TicketsPage = () => {
-    const { data, isLoading } = useGetAllTicketsQuery(undefined);
+    const { data, isLoading } = useGetAllTicketsQuery('');
     const isMobile = window.innerWidth < 768;
 
     if (isLoading) {

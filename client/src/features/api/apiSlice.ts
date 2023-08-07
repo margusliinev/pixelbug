@@ -22,6 +22,10 @@ import {
     UsersAPIResponse,
 } from '../../utils/types';
 
+interface SearchTerm {
+    searchTerm: string;
+}
+
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
@@ -134,10 +138,11 @@ export const apiSlice = createApi({
             invalidatesTags: ['Projects', 'Tickets', 'Users'],
         }),
         // Tickets
-        getAllTickets: builder.query<AllTicketsAPIResponse, undefined>({
-            query: () => ({
+        getAllTickets: builder.query<AllTicketsAPIResponse, string>({
+            query: (searchTerm) => ({
                 url: '/tickets',
                 method: 'GET',
+                params: { searchTerm },
             }),
             providesTags: ['Tickets'],
         }),

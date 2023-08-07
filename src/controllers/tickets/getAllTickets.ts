@@ -1,4 +1,4 @@
-import { and, eq, ne } from 'drizzle-orm';
+import { and, eq, ilike, ne } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db';
@@ -8,12 +8,14 @@ import { AuthenticatedRequest, UnauthenticatedError } from '../../utils';
 export const getAllTickets = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) throw new UnauthenticatedError('Authentication Invalid');
 
+    const searchTerm = req.query.searchTerm ? String(req.query.searchTerm) : '';
+
     const result = await db
         .select()
         .from(tickets)
         .leftJoin(users, eq(users.user_id, tickets.reporter_user_id))
         .leftJoin(projects, eq(projects.project_id, tickets.project_id))
-        .where(and(eq(tickets.assigned_user_id, req.user.user_id), ne(tickets.status, 'resolved')));
+        .where(and(eq(tickets.assigned_user_id, req.user.user_id), ne(tickets.status, 'resolved'), ilike(tickets.title, `%${searchTerm}%`)));
 
     const userTickets = result.map((ticket) => {
         const { ...ticketData } = ticket.tickets;
