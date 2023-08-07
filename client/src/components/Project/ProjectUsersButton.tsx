@@ -128,10 +128,6 @@ const ProjectUsersButton = () => {
             });
     };
 
-    if (!data) {
-        return <main>No data</main>;
-    }
-
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger className='bg-neutral-700 text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-neutral-800'>
