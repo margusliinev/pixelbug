@@ -6,7 +6,7 @@ import { useAppSelector } from '@/utils/hooks';
 import { User } from '@/utils/types';
 
 const DashboardPage = () => {
-    const { data, isLoading } = useGetAllProjectsQuery(undefined, { refetchOnMountOrArgChange: true });
+    const { data, isLoading } = useGetAllProjectsQuery(undefined);
     const { user } = useAppSelector((store) => store.user);
 
     const totalProjects = data?.projects.length;

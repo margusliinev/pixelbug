@@ -8,9 +8,9 @@ const valueFormatter = (number: number) => (number === 1 ? `${number} Ticket` : 
 
 const DashboardDonutChart = ({ chartData }: { chartData: ChartData[] }) => (
     <Card className='h-full relative grid'>
-        <Title className='absolute left-8 top-8'>Tickets by priority</Title>
+        <Title className='absolute left-8 top-8'>Tickets by Priority</Title>
         <DonutChart
-            className='h-[250px] w-full absolute self-center'
+            className='h-[250px] w-full absolute self-center font-medium'
             data={chartData}
             category='Tickets'
             index='name'

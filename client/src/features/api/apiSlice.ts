@@ -171,7 +171,7 @@ export const apiSlice = createApi({
                 method: 'DELETE',
                 body: ticket_id,
             }),
-            invalidatesTags: ['Project'],
+            invalidatesTags: ['Projects', 'Project'],
         }),
     }),
 });

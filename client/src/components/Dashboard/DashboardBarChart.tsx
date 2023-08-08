@@ -12,12 +12,12 @@ const DashboardBarChart = ({ chartData }: { chartData: ChartData[] }) => {
             <Title>Number of tickets per project</Title>
             <Subtitle>Tickets can be either bug reports or feature requests</Subtitle>
             <BarChart
-                className='mt-6'
+                className='mt-6 min-h-[350px]'
                 data={isMobile ? chartData.slice(0, 3) : chartData}
                 index='name'
                 categories={['Tickets']}
                 colors={['emerald']}
-                yAxisWidth={32}
+                yAxisWidth={24}
             />
         </Card>
     );
