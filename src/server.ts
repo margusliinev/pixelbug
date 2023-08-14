@@ -11,6 +11,7 @@ import path from 'path';
 
 import { globalErrorHandler, notFoundHandler } from './middleware/errorHandlerMiddleware';
 import authRoutes from './routes/auth';
+import commentsRoutes from './routes/comments';
 import projectsRoutes from './routes/projects';
 import ticketsRoutes from './routes/tickets';
 import usersRoutes from './routes/users';
@@ -42,6 +43,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/projects', projectsRoutes);
 app.use('/api/v1/tickets', ticketsRoutes);
+app.use('/api/v1/comments', commentsRoutes);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, '../client/dist')));

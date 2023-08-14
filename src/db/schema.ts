@@ -61,3 +61,14 @@ export const tickets = pgTable('tickets', {
 
 export type Ticket = InferModel<typeof tickets, 'select'>;
 export type NewTicket = InferModel<typeof tickets, 'insert'>;
+
+export const comments = pgTable('comments', {
+    comment_id: serial('comment_id').primaryKey(),
+    ticket_id: integer('ticket_id').references(() => tickets.ticket_id),
+    user_id: integer('user_id').references(() => users.user_id),
+    content: text('content').notNull(),
+    comment_date: timestamp('comment_date').notNull(),
+});
+
+export type Comment = InferModel<typeof comments, 'select'>;
+export type NewComment = InferModel<typeof comments, 'insert'>;
