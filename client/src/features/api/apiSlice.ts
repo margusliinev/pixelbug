@@ -9,6 +9,7 @@ import {
     DeleteProject,
     DeleteTicket,
     Login,
+    NewComment,
     ProjectAPIResponse,
     ProjectUsersAPIResponse,
     Register,
@@ -173,6 +174,14 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['Projects', 'Project'],
         }),
+        // Comments
+        createComment: builder.mutation<DefaultAPIResponse, NewComment>({
+            query: ({ values, ticket_id }) => ({
+                url: `/tickets/${ticket_id}/comments`,
+                method: 'POST',
+                body: values,
+            }),
+        }),
     }),
 });
 
@@ -196,4 +205,5 @@ export const {
     useUpdateTicketMutation,
     useDeleteTicketMutation,
     useGetAllUsersQuery,
+    useCreateCommentMutation,
 } = apiSlice;

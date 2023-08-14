@@ -166,6 +166,15 @@ export interface ProjectUsersAPIResponse {
     manager_id: number;
 }
 
+// COMMENTS
+
+export interface NewComment {
+    values: {
+        content: string;
+    };
+    ticket_id: string;
+}
+
 // ENUMS
 
 export enum PriorityEnum {

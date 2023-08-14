@@ -1,11 +1,24 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
 import { z } from 'zod';
 
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Textarea } from '@/components/ui';
+import { useCreateCommentMutation } from '@/features/api/apiSlice';
+import { logoutUser } from '@/features/user/userSlice';
+import { useAppDispatch } from '@/utils/hooks';
+import { DefaultAPIError } from '@/utils/types';
 import { createCommentFormSchema } from '@/utils/zodSchemas';
 
+import { useToast } from '../ui/use-toast';
+
 const TicketComments = () => {
+    const { ticket_id } = useParams();
+    const [createComment] = useCreateCommentMutation();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const { toast } = useToast();
+
     const form = useForm<z.infer<typeof createCommentFormSchema>>({
         resolver: zodResolver(createCommentFormSchema),
         defaultValues: {
@@ -13,9 +26,29 @@ const TicketComments = () => {
         },
     });
 
-    const submitForm = (values: z.infer<typeof createCommentFormSchema>) => {
+    const submitForm = async (values: z.infer<typeof createCommentFormSchema>) => {
         if (createCommentFormSchema.safeParse(values).success) {
-            console.log(values);
+            await createComment({ values, ticket_id: ticket_id || '' })
+                .unwrap()
+                .then((res) => {
+                    if (res.success) {
+                        form.reset();
+                        toast({
+                            title: 'You commented on a ticket',
+                        });
+                    }
+                })
+                .catch(async (error: DefaultAPIError) => {
+                    if (error.status === 401) {
+                        await dispatch(logoutUser());
+                        navigate('/auth/login');
+                    }
+                    toast({
+                        title: 'Failed to comment on a ticket',
+                        description: 'Please try again later',
+                        variant: 'destructive',
+                    });
+                });
         }
     };
 
