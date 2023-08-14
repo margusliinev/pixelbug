@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { TicketManagementButtons } from '@/components';
-import { SpinnerPage, TicketDetails } from '@/components';
+import { SpinnerPage, TicketComments, TicketDetails } from '@/components';
 import { useGetTicketQuery } from '@/features/api/apiSlice';
 
 const TicketPage = () => {
@@ -52,6 +52,7 @@ const TicketPage = () => {
             <div className='rounded-md p-6 bg-white shadow-project-card my-4'>
                 <TicketDetails ticket={data.ticket} />
             </div>
+            <TicketComments />
         </main>
     );
 };

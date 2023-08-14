@@ -120,3 +120,7 @@ export const createTicketFormSchema = z.object({
         .optional()
         .refine((value) => value !== undefined, { message: 'Please select ticket priority' }),
 });
+
+export const createCommentFormSchema = z.object({
+    content: z.string().trim().min(1, { message: 'Please enter comment' }),
+});
