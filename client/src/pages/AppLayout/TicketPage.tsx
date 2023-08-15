@@ -52,7 +52,7 @@ const TicketPage = () => {
             <div className='rounded-md p-6 bg-white shadow-project-card my-4'>
                 <TicketDetails ticket={data.ticket} />
             </div>
-            <TicketComments />
+            <TicketComments comments={data.ticket.comments} />
         </main>
     );
 };

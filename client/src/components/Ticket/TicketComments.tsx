@@ -7,12 +7,13 @@ import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage,
 import { useCreateCommentMutation } from '@/features/api/apiSlice';
 import { logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
-import { DefaultAPIError } from '@/utils/types';
+import { Comment, DefaultAPIError } from '@/utils/types';
 import { createCommentFormSchema } from '@/utils/zodSchemas';
 
+import { TicketCommentsList } from '..';
 import { useToast } from '../ui/use-toast';
 
-const TicketComments = () => {
+const TicketComments = ({ comments }: { comments: Comment[] }) => {
     const { ticket_id } = useParams();
     const [createComment] = useCreateCommentMutation();
     const dispatch = useAppDispatch();
@@ -55,7 +56,7 @@ const TicketComments = () => {
     return (
         <div className='rounded-md p-6 bg-white shadow-project-card my-4'>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(submitForm)} className='grid gap-4 mb-4' noValidate>
+                <form onSubmit={form.handleSubmit(submitForm)} className='grid gap-4 mb-4 max-w-lg' noValidate>
                     <FormField
                         control={form.control}
                         name='content'
@@ -74,8 +75,11 @@ const TicketComments = () => {
                     </Button>
                 </form>
             </Form>
-            <h1 className='text-lg font-semibold leading-7 mb-2'>Comments (1)</h1>
+            <h1 className='text-lg font-semibold leading-7 mb-2'>
+                Comments <span>{`(${comments.length})`}</span>
+            </h1>
             <hr className='border-neutral-200 mb-4' />
+            <TicketCommentsList comments={comments} />
         </div>
     );
 };

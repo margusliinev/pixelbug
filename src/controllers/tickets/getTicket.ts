@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { Response } from 'express';
 
 import { db } from '../../db';
-import { projects, tickets, users } from '../../db/schema';
+import { comments, projects, tickets, users } from '../../db/schema';
 import { AuthenticatedRequest, NotFoundError, UnauthenticatedError, UnauthorizedError } from '../../utils';
 
 export const getTicket = async (req: AuthenticatedRequest, res: Response) => {
@@ -38,12 +38,18 @@ export const getTicket = async (req: AuthenticatedRequest, res: Response) => {
     const manager_id = ticketProject ? ticketProject[0].manager_id : 1;
     const ticketProject_title = ticketProject ? ticketProject[0].title : 'Deleted Project';
 
+    const ticketComments = await db
+        .select()
+        .from(comments)
+        .where(eq(comments.ticket_id, Number(ticket_id)));
+
     const ticket = {
         ...result[0],
         project_manager_id: manager_id,
         assigned_user: assigned_user_name,
         reporter_user: reporter_user_name,
         project_title: ticketProject_title,
+        comments: ticketComments,
     };
 
     res.status(200).json({ success: true, ticket: ticket });

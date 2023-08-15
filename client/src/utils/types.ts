@@ -72,6 +72,7 @@ export interface Ticket {
     project_title?: string;
     assigned_user?: string;
     reporter_user?: string;
+    comments: Comment[];
 }
 
 export interface CreateTicket {
@@ -167,6 +168,14 @@ export interface ProjectUsersAPIResponse {
 }
 
 // COMMENTS
+
+export interface Comment {
+    comment_id: number;
+    ticket_id: number;
+    user_id: number;
+    content: string;
+    comment_date: Date;
+}
 
 export interface NewComment {
     values: {

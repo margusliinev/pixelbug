@@ -43,7 +43,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/projects', projectsRoutes);
 app.use('/api/v1/tickets', ticketsRoutes);
-app.use('/api/v1/comments', commentsRoutes);
+app.use('/api/v1', commentsRoutes);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, '../client/dist')));
