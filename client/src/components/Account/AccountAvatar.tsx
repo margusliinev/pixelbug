@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Avatar, AvatarFallback, AvatarImage, Button, Input } from '@/components/ui';
@@ -18,6 +18,7 @@ const AccountAvatar = () => {
     const { toast } = useToast();
     const { user } = useAppSelector((store) => store.user);
     const { profile_picture, username, first_name, last_name } = user as User;
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0] || null;
@@ -33,8 +34,10 @@ const AccountAvatar = () => {
                 .unwrap()
                 .then((res) => {
                     if (res.success) {
-                        setSelectedFile(null);
                         dispatch(setUser(res.user));
+                        if (fileInputRef.current) {
+                            fileInputRef.current.value = '';
+                        }
                         toast({
                             title: 'Profile picture successfully updated',
                         });
@@ -66,7 +69,15 @@ const AccountAvatar = () => {
             <div>
                 <p className='tracking-tight text-sm mb-2 text-neutral-600'>JPG or PNG. 0.5 MB max.</p>
                 <div className='flex items-center gap-2'>
-                    <Input type='file' name='profile_picture' id='profile_picture' accept='image/*' className='w-56' onChange={handleFileChange} />
+                    <Input
+                        type='file'
+                        name='profile_picture'
+                        id='profile_picture'
+                        accept='image/*'
+                        className='w-56'
+                        onChange={handleFileChange}
+                        ref={fileInputRef}
+                    />
                     <Button type='submit' size={'sm'} className='w-16 p-5'>
                         {isLoading ? <SpinnerButton /> : 'Save'}
                     </Button>

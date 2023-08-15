@@ -175,6 +175,7 @@ export interface Comment {
     user_id: number;
     content: string;
     comment_date: Date;
+    user: User;
 }
 
 export interface NewComment {
