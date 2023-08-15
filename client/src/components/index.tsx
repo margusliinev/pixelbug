@@ -26,6 +26,7 @@ import SpinnerButton from './SpinnerButton';
 import SpinnerPage from './SpinnerPage';
 import SpinnerSearch from './SpinnerSearch';
 import TicketComment from './Ticket/TicketComment';
+import TicketCommentButtons from './Ticket/TicketCommentButtons';
 import TicketComments from './Ticket/TicketComments';
 import TicketCommentsList from './Ticket/TicketCommentsList';
 import TicketDeleteButton from './Ticket/TicketDeleteButton';
@@ -66,6 +67,7 @@ export {
     SpinnerPage,
     SpinnerSearch,
     TicketComment,
+    TicketCommentButtons,
     TicketComments,
     TicketCommentsList,
     TicketDeleteButton,

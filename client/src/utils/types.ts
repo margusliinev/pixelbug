@@ -185,6 +185,11 @@ export interface NewComment {
     ticket_id: string;
 }
 
+export interface DeleteComment {
+    comment_id: number;
+    ticket_id: string;
+}
+
 // ENUMS
 
 export enum PriorityEnum {

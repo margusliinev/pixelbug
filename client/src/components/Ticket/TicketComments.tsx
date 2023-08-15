@@ -56,7 +56,7 @@ const TicketComments = ({ comments }: { comments: Comment[] }) => {
     return (
         <div className='rounded-md p-6 bg-white shadow-project-card my-4'>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(submitForm)} className='grid gap-4 mb-4 max-w-lg' noValidate>
+                <form onSubmit={form.handleSubmit(submitForm)} className='grid gap-4 mb-4 max-w-2xl' noValidate>
                     <FormField
                         control={form.control}
                         name='content'
@@ -78,7 +78,6 @@ const TicketComments = ({ comments }: { comments: Comment[] }) => {
             <h1 className='text-lg font-semibold leading-7 mb-2'>
                 Comments <span>{`(${comments.length})`}</span>
             </h1>
-            <hr className='border-neutral-200 mb-4' />
             <TicketCommentsList comments={comments} />
         </div>
     );
