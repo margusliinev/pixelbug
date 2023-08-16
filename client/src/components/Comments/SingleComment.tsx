@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui';
-import { Form, FormControl, FormField, FormItem, Input } from '@/components/ui';
+import { Form, FormControl, FormField, FormItem, Textarea } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
 import { useDeleteCommentMutation, useUpdateCommentMutation } from '@/features/api/apiSlice';
 import { logoutUser } from '@/features/user/userSlice';
@@ -80,7 +80,7 @@ const SingleComment = ({ comment }: { comment: Comment }) => {
     };
 
     return (
-        <li key={comment.comment_id} className='border-b border-neutral-200 block justify-between items-center first-of-type:border-t 2xl:flex'>
+        <li key={comment.comment_id} className='border-b border-neutral-200 block justify-between items-center first-of-type:border-t 2xl:flex gap-2'>
             <div className='grid 2xl:flex items-center gap-2 mb-4 my-4'>
                 <div className='flex items-center gap-2 justify-between'>
                     <div className='flex items-center justify-between gap-2'>
@@ -110,25 +110,28 @@ const SingleComment = ({ comment }: { comment: Comment }) => {
                     </div>
                 </div>
             </div>
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(() => handleEditComment(comment.comment_id))} className='w-full max-w-none' noValidate>
-                    <FormField
-                        name='content'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <Input
-                                        type='text'
-                                        className='w-full disabled:opacity-100 disabled:cursor-default disabled:ring-0 text-sm sm:text-base'
-                                        {...field}
-                                        disabled={!enableEditing}
-                                    />
-                                </FormControl>
-                            </FormItem>
-                        )}
-                    ></FormField>
-                </form>
-            </Form>
+            {enableEditing ? (
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(() => handleEditComment(comment.comment_id))} className='w-full max-w-none' noValidate>
+                        <FormField
+                            name='content'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <Textarea
+                                            {...field}
+                                            className='w-full disabled:opacity-100 disabled:cursor-default disabled:ring-0 text-sm sm:text-base appearance-none my-2'
+                                            disabled={!enableEditing}
+                                        ></Textarea>
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        ></FormField>
+                    </form>
+                </Form>
+            ) : (
+                <p className='text-sm sm:text-base w-full px-3 pb-4 2xl:px-3 2xl:py-3'>{comment.content}</p>
+            )}
             <div className='hidden 2xl:block'>
                 <CommentButtons
                     comment={comment}

@@ -12,7 +12,7 @@ interface Props {
 const CommentButtons = ({ comment, handleEditComment, handleDeleteComment, enableEditing, setEnableEditing }: Props) => {
     const { user } = useAppSelector((store) => store.user);
     return (
-        <div className='ml-2'>
+        <>
             {user?.user_id === comment.user.user_id && !enableEditing && (
                 <div className='flex gap-2 self-start 2xl:self-center'>
                     <button
@@ -114,7 +114,7 @@ const CommentButtons = ({ comment, handleEditComment, handleDeleteComment, enabl
                     </button>
                 </div>
             )}
-        </div>
+        </>
     );
 };
 
