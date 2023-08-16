@@ -7,9 +7,9 @@ import { logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
 import { Comment, DefaultAPIError } from '@/utils/types';
 
-import { TicketCommentButtons } from '..';
+import { CommentButtons } from '..';
 
-const TicketComment = ({ comment }: { comment: Comment }) => {
+const SingleComment = ({ comment }: { comment: Comment }) => {
     const [deleteComment] = useDeleteCommentMutation();
     const dispatch = useAppDispatch();
     const { toast } = useToast();
@@ -66,16 +66,16 @@ const TicketComment = ({ comment }: { comment: Comment }) => {
                         </p>
                     </div>
                     <div className='2xl:hidden'>
-                        <TicketCommentButtons comment={comment} handleEditComment={handleEditComment} handleDeleteComment={handleDeleteComment} />
+                        <CommentButtons comment={comment} handleEditComment={handleEditComment} handleDeleteComment={handleDeleteComment} />
                     </div>
                 </div>
                 <p className='text-sm sm:text-base'>{comment.content}</p>
             </div>
             <div className='hidden 2xl:block'>
-                <TicketCommentButtons comment={comment} handleEditComment={handleEditComment} handleDeleteComment={handleDeleteComment} />
+                <CommentButtons comment={comment} handleEditComment={handleEditComment} handleDeleteComment={handleDeleteComment} />
             </div>
         </li>
     );
 };
 
-export default TicketComment;
+export default SingleComment;

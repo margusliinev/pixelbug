@@ -42,7 +42,8 @@ export const getTicket = async (req: AuthenticatedRequest, res: Response) => {
         .select()
         .from(comments)
         .leftJoin(users, eq(comments.user_id, users.user_id))
-        .where(eq(comments.ticket_id, Number(ticket_id)));
+        .where(eq(comments.ticket_id, Number(ticket_id)))
+        .orderBy(comments.comment_date);
 
     const ticketCommentsWithUsers = ticketComments.map((comment) => {
         const { users, comments } = comment;

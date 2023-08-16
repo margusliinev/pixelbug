@@ -7,7 +7,7 @@ interface Props {
     handleDeleteComment: (commentId: number) => void;
 }
 
-const TicketCommentButtons = ({ comment, handleEditComment, handleDeleteComment }: Props) => {
+const CommentButtons = ({ comment, handleEditComment, handleDeleteComment }: Props) => {
     const { user } = useAppSelector((store) => store.user);
     return (
         <>
@@ -57,4 +57,4 @@ const TicketCommentButtons = ({ comment, handleEditComment, handleDeleteComment 
     );
 };
 
-export default TicketCommentButtons;
+export default CommentButtons;

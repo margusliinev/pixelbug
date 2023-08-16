@@ -10,7 +10,7 @@ const TicketDetails = ({ ticket }: { ticket: Ticket }) => {
             <div className='px-4 sm:px-0'>
                 <h1 className='text-lg font-semibold leading-7'>Ticket Details</h1>
             </div>
-            <div className='mt-6 border-t border-neutral-100'>
+            <div className='mt-6 border-t border-neutral-200'>
                 <dl className='divide-y divide-neutral-200'>
                     <div className='px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0'>
                         <dt className='text-sm sm:text-base font-medium leading-6'>Ticket Title</dt>

@@ -10,10 +10,10 @@ import { useAppDispatch } from '@/utils/hooks';
 import { Comment, DefaultAPIError } from '@/utils/types';
 import { createCommentFormSchema } from '@/utils/zodSchemas';
 
-import { TicketCommentsList } from '..';
+import { CommentsList } from '..';
 import { useToast } from '../ui/use-toast';
 
-const TicketComments = ({ comments }: { comments: Comment[] }) => {
+const Comments = ({ comments }: { comments: Comment[] }) => {
     const { ticket_id } = useParams();
     const [createComment] = useCreateCommentMutation();
     const dispatch = useAppDispatch();
@@ -78,9 +78,9 @@ const TicketComments = ({ comments }: { comments: Comment[] }) => {
             <h1 className='text-lg font-semibold leading-7 mb-2'>
                 Comments <span>{`(${comments.length})`}</span>
             </h1>
-            <TicketCommentsList comments={comments} />
+            <CommentsList comments={comments} />
         </div>
     );
 };
 
-export default TicketComments;
+export default Comments;

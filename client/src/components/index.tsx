@@ -2,6 +2,10 @@ import AccountAvatar from './Account/AccountAvatar';
 import AccountInfo from './Account/AccountInfo';
 import AccountPassword from './Account/AccountPassword';
 import AccountProfile from './Account/AccountProfile';
+import CommentButtons from './Comments/CommentButtons';
+import Comments from './Comments/Comments';
+import CommentsList from './Comments/CommentsList';
+import SingleComment from './Comments/SingleComment';
 import DashboardBarChart from './Dashboard/DashboardBarChart';
 import DashboardDonutChart from './Dashboard/DashboardDonutChart';
 import MemberCheck from './MemberCheck';
@@ -25,10 +29,6 @@ import SidebarMobile from './Sidebar/SidebarMobile';
 import SpinnerButton from './SpinnerButton';
 import SpinnerPage from './SpinnerPage';
 import SpinnerSearch from './SpinnerSearch';
-import TicketComment from './Ticket/TicketComment';
-import TicketCommentButtons from './Ticket/TicketCommentButtons';
-import TicketComments from './Ticket/TicketComments';
-import TicketCommentsList from './Ticket/TicketCommentsList';
 import TicketDeleteButton from './Ticket/TicketDeleteButton';
 import TicketDetails from './Ticket/TicketDetails';
 import TicketManagementButtons from './Ticket/TicketManagementButtons';
@@ -43,6 +43,9 @@ export {
     AccountInfo,
     AccountPassword,
     AccountProfile,
+    CommentButtons,
+    Comments,
+    CommentsList,
     DashboardBarChart,
     DashboardDonutChart,
     HomeNavbar,
@@ -63,13 +66,10 @@ export {
     SidebarDesktop,
     SidebarLinks,
     SidebarMobile,
+    SingleComment,
     SpinnerButton,
     SpinnerPage,
     SpinnerSearch,
-    TicketComment,
-    TicketCommentButtons,
-    TicketComments,
-    TicketCommentsList,
     TicketDeleteButton,
     TicketDetails,
     TicketManagementButtons,
