@@ -30,11 +30,17 @@ const ProjectDeleteButton = () => {
             .then(() => {
                 navigate('/app/projects');
                 toast({
-                    title: 'Project was successfully deleted',
+                    title: 'Project deleted',
                 });
             })
             .catch(async (error: DefaultAPIError) => {
-                if (error.status === 401) {
+                if (error.status === 400 && error.data.type === 'demo') {
+                    toast({
+                        title: `${error.data.msg}`,
+                        description: 'Please create an account',
+                        variant: 'destructive',
+                    });
+                } else if (error.status === 401) {
                     await dispatch(logoutUser());
                     navigate('/auth/login');
                 } else if (error.status === 403) {

@@ -35,16 +35,19 @@ const AccountAvatar = () => {
                 .then((res) => {
                     if (res.success) {
                         dispatch(setUser(res.user));
-                        if (fileInputRef.current) {
-                            fileInputRef.current.value = '';
-                        }
                         toast({
                             title: 'Profile picture successfully updated',
                         });
                     }
                 })
                 .catch(async (error: DefaultAPIError) => {
-                    if (error.status === 401) {
+                    if (error.status === 400 && error.data.type === 'demo') {
+                        toast({
+                            title: `${error.data.msg}`,
+                            description: 'Please create an account',
+                            variant: 'destructive',
+                        });
+                    } else if (error.status === 401) {
                         await dispatch(logoutUser());
                         navigate('/auth/login');
                     } else {
@@ -53,6 +56,11 @@ const AccountAvatar = () => {
                             description: `${error.data.msg}`,
                             variant: 'destructive',
                         });
+                    }
+                })
+                .finally(() => {
+                    if (fileInputRef.current) {
+                        fileInputRef.current.value = '';
                     }
                 });
         }

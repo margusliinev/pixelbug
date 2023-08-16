@@ -31,7 +31,7 @@ const SingleComment = ({ comment }: { comment: Comment }) => {
             .unwrap()
             .then(() => {
                 toast({
-                    title: 'Comment was successfully deleted',
+                    title: 'Comment deleted',
                 });
             })
             .catch(async (error: DefaultAPIError) => {
@@ -58,7 +58,7 @@ const SingleComment = ({ comment }: { comment: Comment }) => {
             .then(() => {
                 setEnableEditing(false);
                 toast({
-                    title: 'Comment was successfully updated',
+                    title: 'Comment updated',
                 });
             })
             .catch(async (error: DefaultAPIError) => {

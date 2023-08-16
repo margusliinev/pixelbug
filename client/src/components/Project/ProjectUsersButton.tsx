@@ -116,15 +116,22 @@ const ProjectUsersButton = () => {
                 }
             })
             .catch(async (error: DefaultAPIError) => {
-                if (error.status === 401) {
+                if (error.status === 400 && error.data.type === 'demo') {
+                    toast({
+                        title: `${error.data.msg}`,
+                        description: 'Please create an account',
+                        variant: 'destructive',
+                    });
+                } else if (error.status === 401) {
                     await dispatch(logoutUser());
                     navigate('/auth/login');
+                } else {
+                    toast({
+                        title: 'Failed to update the users',
+                        description: 'Please try again later',
+                        variant: 'destructive',
+                    });
                 }
-                toast({
-                    title: 'Failed to update the users',
-                    description: 'Please try again later',
-                    variant: 'destructive',
-                });
             });
     };
 

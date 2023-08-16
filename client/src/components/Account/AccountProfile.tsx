@@ -29,14 +29,33 @@ const AccountProfile = () => {
                     toast({
                         title: 'Your account was successfully deleted',
                     });
+                    navigate('/auth/login');
+                } else if (res.msg.startsWith('Demo')) {
+                    toast({
+                        title: `${res.msg}`,
+                        description: 'Please create an account',
+                        variant: 'destructive',
+                    });
                 }
             })
             .catch(async (error: DefaultAPIError) => {
-                if (error.status === 401) {
+                if (error.status === 400 && error.data.type === 'demo') {
+                    toast({
+                        title: `${error.data.msg}`,
+                        description: 'Please create an account',
+                        variant: 'destructive',
+                    });
+                } else if (error.status === 401) {
                     await dispatch(logoutUser());
+                    navigate('/auth/login');
+                } else {
+                    toast({
+                        title: `Something went wrong`,
+                        description: 'Please try again later',
+                        variant: 'destructive',
+                    });
                 }
             });
-        navigate('/auth/login');
     };
 
     return (

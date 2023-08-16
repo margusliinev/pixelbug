@@ -10,12 +10,12 @@ import { useAppDispatch } from '@/utils/hooks';
 import { Comment, DefaultAPIError } from '@/utils/types';
 import { commentFormSchema } from '@/utils/zodSchemas';
 
-import { CommentsList } from '..';
+import { CommentsList, SpinnerButton } from '..';
 import { useToast } from '../ui/use-toast';
 
 const Comments = ({ comments }: { comments: Comment[] }) => {
     const { ticket_id } = useParams();
-    const [createComment] = useCreateCommentMutation();
+    const [createComment, { isLoading }] = useCreateCommentMutation();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { toast } = useToast();
@@ -35,7 +35,7 @@ const Comments = ({ comments }: { comments: Comment[] }) => {
                     if (res.success) {
                         form.reset();
                         toast({
-                            title: 'You commented on a ticket',
+                            title: 'Comment sent',
                         });
                     }
                 })
@@ -71,7 +71,7 @@ const Comments = ({ comments }: { comments: Comment[] }) => {
                         )}
                     />
                     <Button type='submit' className='xs-550:w-20 self-end '>
-                        Submit
+                        {isLoading ? <SpinnerButton /> : 'Submit'}
                     </Button>
                 </form>
             </Form>
