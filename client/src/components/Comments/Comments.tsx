@@ -8,7 +8,7 @@ import { useCreateCommentMutation } from '@/features/api/apiSlice';
 import { logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
 import { Comment, DefaultAPIError } from '@/utils/types';
-import { createCommentFormSchema } from '@/utils/zodSchemas';
+import { commentFormSchema } from '@/utils/zodSchemas';
 
 import { CommentsList } from '..';
 import { useToast } from '../ui/use-toast';
@@ -20,15 +20,15 @@ const Comments = ({ comments }: { comments: Comment[] }) => {
     const navigate = useNavigate();
     const { toast } = useToast();
 
-    const form = useForm<z.infer<typeof createCommentFormSchema>>({
-        resolver: zodResolver(createCommentFormSchema),
+    const form = useForm<z.infer<typeof commentFormSchema>>({
+        resolver: zodResolver(commentFormSchema),
         defaultValues: {
             content: '',
         },
     });
 
-    const submitForm = async (values: z.infer<typeof createCommentFormSchema>) => {
-        if (createCommentFormSchema.safeParse(values).success) {
+    const submitForm = async (values: z.infer<typeof commentFormSchema>) => {
+        if (commentFormSchema.safeParse(values).success) {
             await createComment({ values, ticket_id: ticket_id || '' })
                 .unwrap()
                 .then((res) => {

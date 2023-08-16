@@ -68,6 +68,7 @@ const AccountInfo = () => {
                 });
         }
     };
+
     return (
         <div className='shadow-project-card px-6 pt-4 pb-6 grid gap-4 my-4 rounded-md bg-white'>
             <div>

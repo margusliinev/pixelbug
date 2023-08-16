@@ -15,6 +15,7 @@ import {
     ProjectUsersAPIResponse,
     Register,
     TicketAPIResponse,
+    UpdateComment,
     UpdateProject,
     UpdateProjectUsers,
     UpdateTicket,
@@ -192,6 +193,14 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['Ticket'],
         }),
+        updateComment: builder.mutation<DefaultAPIResponse, UpdateComment>({
+            query: ({ comment_id, ticket_id, content }) => ({
+                url: `/tickets/${ticket_id}/comments`,
+                method: 'PATCH',
+                body: { comment_id, content },
+            }),
+            invalidatesTags: ['Ticket'],
+        }),
     }),
 });
 
@@ -217,4 +226,5 @@ export const {
     useGetAllUsersQuery,
     useCreateCommentMutation,
     useDeleteCommentMutation,
+    useUpdateCommentMutation,
 } = apiSlice;

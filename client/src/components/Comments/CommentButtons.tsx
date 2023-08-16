@@ -5,17 +5,19 @@ interface Props {
     comment: Comment;
     handleEditComment: (commentId: number) => void;
     handleDeleteComment: (commentId: number) => void;
+    setEnableEditing: React.Dispatch<React.SetStateAction<boolean>>;
+    enableEditing: boolean;
 }
 
-const CommentButtons = ({ comment, handleEditComment, handleDeleteComment }: Props) => {
+const CommentButtons = ({ comment, handleEditComment, handleDeleteComment, enableEditing, setEnableEditing }: Props) => {
     const { user } = useAppSelector((store) => store.user);
     return (
-        <>
-            {user?.user_id === comment.user.user_id && (
+        <div className='ml-2'>
+            {user?.user_id === comment.user.user_id && !enableEditing && (
                 <div className='flex gap-2 self-start 2xl:self-center'>
                     <button
                         className='text-primary transition-colors rounded-md hover:text-primary-hover-dark'
-                        onClick={() => handleEditComment(comment.comment_id)}
+                        onClick={() => setEnableEditing(!enableEditing)}
                     >
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
@@ -53,7 +55,66 @@ const CommentButtons = ({ comment, handleEditComment, handleDeleteComment }: Pro
                     </button>
                 </div>
             )}
-        </>
+            {user?.user_id === comment.user.user_id && enableEditing && (
+                <div className='flex gap-2 self-start 2xl:self-center'>
+                    <button
+                        className='text-primary transition-colors rounded-md hover:text-primary-dark'
+                        onClick={() => handleEditComment(comment.comment_id)}
+                    >
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth='2'
+                            stroke='currentColor'
+                            className='w-5 h-5'
+                        >
+                            <path strokeLinecap='round' strokeLinejoin='round' d='M4.5 12.75l6 6 9-13.5' />
+                        </svg>
+                    </button>
+                    <button className='text-red-500 transition-colors rounded-md hover:text-red-600' onClick={() => setEnableEditing(false)}>
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth='2'
+                            stroke='currentColor'
+                            className='w-5 h-5'
+                        >
+                            <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+                        </svg>
+                    </button>
+                </div>
+            )}
+            {user?.user_id !== comment.user.user_id && (
+                <div className='flex gap-2 self-start 2xl:self-center'>
+                    <button className='invisible' disabled={true}>
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth='2'
+                            stroke='currentColor'
+                            className='w-5 h-5'
+                        >
+                            <path strokeLinecap='round' strokeLinejoin='round' d='M4.5 12.75l6 6 9-13.5' />
+                        </svg>
+                    </button>
+                    <button className='invisible' disabled={true}>
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            strokeWidth='2'
+                            stroke='currentColor'
+                            className='w-5 h-5'
+                        >
+                            <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+                        </svg>
+                    </button>
+                </div>
+            )}
+        </div>
     );
 };
 
