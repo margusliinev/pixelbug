@@ -60,7 +60,7 @@ const HomePage = () => {
                 <section className='place-items-center hidden 2xl:grid'>
                     <div className='grid pb-20 grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl'>
                         <Dialog>
-                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-105 transition-all'>
+                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-102 transition-all'>
                                 <img src={Dashboard} alt='dashboard picture' className='rounded-md' />
                             </DialogTrigger>
                             <DialogContent className='max-w-none p-0'>
@@ -68,7 +68,7 @@ const HomePage = () => {
                             </DialogContent>
                         </Dialog>
                         <Dialog>
-                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-105 transition-all'>
+                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-102 transition-all'>
                                 <img src={Projects} alt='projects picture' className='rounded-md' />
                             </DialogTrigger>
                             <DialogContent className='max-w-none p-0'>
@@ -76,7 +76,7 @@ const HomePage = () => {
                             </DialogContent>
                         </Dialog>
                         <Dialog>
-                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-105 transition-all'>
+                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-102 transition-all'>
                                 <img src={Tickets} alt='tickets picture' className='rounded-md' />
                             </DialogTrigger>
                             <DialogContent className='max-w-none p-0'>
@@ -84,7 +84,7 @@ const HomePage = () => {
                             </DialogContent>
                         </Dialog>
                         <Dialog>
-                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-105 transition-all'>
+                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-102 transition-all'>
                                 <img src={Account} alt='account picture' className='rounded-md' />
                             </DialogTrigger>
                             <DialogContent className='max-w-none p-0'>
