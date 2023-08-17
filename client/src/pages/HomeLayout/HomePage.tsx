@@ -1,14 +1,19 @@
 import { Link } from 'react-router-dom';
 
 import { HomeNavbar } from '@/components';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui';
 
+import Account from '../../assets/account.png';
+import Dashboard from '../../assets/dashboard.png';
 import Logo from '../../assets/logo.svg';
+import Projects from '../../assets/projects.png';
+import Tickets from '../../assets/tickets.png';
 
 const HomePage = () => {
     return (
         <>
             <HomeNavbar text='Not a Pixelbug user?' link='/auth/register' />
-            <div className='fixed isolate px-6 pt-14 lg:px-8 w-screen h-screen'>
+            <div className='isolate px-6 pt-14 lg:px-8 h-screen'>
                 <div className='absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl md:-top-80' aria-hidden='true'>
                     <div className='relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#059669] to-[#d4d4d4] opacity-30 md:left-[calc(50%-30rem)] md:w-[72.1875rem]'></div>
                 </div>
@@ -38,7 +43,7 @@ const HomePage = () => {
                                 Get started
                             </Link>
                             <Link to={'/auth/login'} className='text-sm font-semibold leading-6 text-gray-900 group'>
-                                Go to Login{' '}
+                                Want to demo?{' '}
                                 <span aria-hidden='true' className='group-hover:text-primary transition-colors'>
                                     →
                                 </span>
@@ -47,11 +52,47 @@ const HomePage = () => {
                     </div>
                 </div>
                 <div
-                    className='absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl md:top-[calc(100%-30rem)]'
+                    className='fixed inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl md:top-[calc(100%-30rem)]'
                     aria-hidden='true'
                 >
                     <div className='relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#059669] to-[#d4d4d4] opacity-30 md:left-[calc(50%+36rem)] md:w-[72.1875rem]'></div>
                 </div>
+                <section className='place-items-center hidden 2xl:grid'>
+                    <div className='grid pb-20 grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl'>
+                        <Dialog>
+                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-105 transition-all'>
+                                <img src={Dashboard} alt='dashboard picture' className='rounded-md' />
+                            </DialogTrigger>
+                            <DialogContent className='max-w-none p-0'>
+                                <img src={Dashboard} alt='dashboard picture' className='rounded-md' />
+                            </DialogContent>
+                        </Dialog>
+                        <Dialog>
+                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-105 transition-all'>
+                                <img src={Projects} alt='projects picture' className='rounded-md' />
+                            </DialogTrigger>
+                            <DialogContent className='max-w-none p-0'>
+                                <img src={Projects} alt='projects picture' className='rounded-md' />
+                            </DialogContent>
+                        </Dialog>
+                        <Dialog>
+                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-105 transition-all'>
+                                <img src={Tickets} alt='tickets picture' className='rounded-md' />
+                            </DialogTrigger>
+                            <DialogContent className='max-w-none p-0'>
+                                <img src={Tickets} alt='tickets picture' className='rounded-md' />
+                            </DialogContent>
+                        </Dialog>
+                        <Dialog>
+                            <DialogTrigger className='border-neutral-500 border-1 w-fit bg-white z-50 rounded-md shadow-project-card cursor-pointer hover:scale-105 transition-all'>
+                                <img src={Account} alt='account picture' className='rounded-md' />
+                            </DialogTrigger>
+                            <DialogContent className='max-w-none p-0'>
+                                <img src={Account} alt='account picture' className='rounded-md' />
+                            </DialogContent>
+                        </Dialog>
+                    </div>
+                </section>
             </div>
         </>
     );

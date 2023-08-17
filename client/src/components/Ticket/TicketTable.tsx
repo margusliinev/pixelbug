@@ -97,7 +97,7 @@ export function TicketTable<TValue>({ columns, data }: DataTableProps<Ticket, TV
                                     }
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell className={columns.length < 4 ? 'px-3' : 'px-4 last-of-type:px-0'} key={cell.id}>
+                                        <TableCell className={columns.length < 4 ? 'px-3 py-4' : 'px-4 py-4 last-of-type:px-0'} key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
