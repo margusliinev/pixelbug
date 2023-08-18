@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { and, eq, inArray, ne } from 'drizzle-orm';
 import { Response } from 'express';
 

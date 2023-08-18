@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import z from 'zod';
@@ -14,6 +15,7 @@ import logo from '../../assets/logo.svg';
 import HomeNavbar from '../../components/Navbar/HomeNavbar';
 
 const LoginPage = () => {
+    const [isTestUser, setIsTestUser] = useState(false);
     const [login, { isLoading }] = useLoginMutation();
     const navigate = useNavigate();
     const { toast } = useToast();
@@ -45,6 +47,7 @@ const LoginPage = () => {
 
     const handleTestUserLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsTestUser(true);
         await login({ email: 'johndoe@gmail.com', password: 'johndoe123' })
             .unwrap()
             .then((res) => {
@@ -60,6 +63,7 @@ const LoginPage = () => {
                     variant: 'destructive',
                 });
             });
+        setIsTestUser(false);
     };
 
     return (
@@ -122,7 +126,7 @@ const LoginPage = () => {
                                     )}
                                 ></FormField>
                                 <Button type='submit' size={'sm'} disabled={isLoading}>
-                                    {isLoading ? <SpinnerButton /> : 'Sign In'}
+                                    {isLoading && !isTestUser ? <SpinnerButton /> : 'Sign In'}
                                 </Button>
                                 <MemberCheck to={'/auth/register'} question={"Don't have an account?"} text={'Register'} />
                             </form>
@@ -135,7 +139,7 @@ const LoginPage = () => {
                             </div>
                             <div className='grid place-items-center mt-4'>
                                 <Button type='submit' size={'sm'} className='bg-neutral-500 w-32 hover:bg-neutral-600'>
-                                    {isLoading ? <SpinnerButton /> : 'Demo app'}
+                                    {isLoading && isTestUser ? <SpinnerButton /> : 'Demo app'}
                                 </Button>
                             </div>
                         </form>
