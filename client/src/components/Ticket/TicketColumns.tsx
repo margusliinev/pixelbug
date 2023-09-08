@@ -5,7 +5,7 @@ import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui';
 import { Ticket } from '@/utils/types';
 
-import { TicketSetStatusButton } from '..';
+import { TicketSetStatusModal } from '..';
 
 export const columnsDesktop: ColumnDef<Ticket>[] = [
     {
@@ -91,7 +91,7 @@ export const columnsDesktop: ColumnDef<Ticket>[] = [
                     <DropdownMenuContent align='end'>
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <TicketSetStatusButton ticket={ticket.row.original} type={'link'} />
+                        <TicketSetStatusModal ticket={ticket.row.original} type={'link'} />
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

@@ -1,4 +1,4 @@
-import { SpinnerPage, TicketNewButton } from '@/components';
+import { SpinnerPage, TicketNewModal } from '@/components';
 import { TicketTable } from '@/components/Ticket/TicketTable';
 import { useGetAllTicketsQuery } from '@/features/api/apiSlice';
 
@@ -36,7 +36,7 @@ const TicketsPage = () => {
                     </svg>
                     <h1 className='font-semibold text-sm mb-1'>No tickets</h1>
                     <h2 className='text-neutral-500 mb-5 text-sm'>Get started by creating a new ticket</h2>
-                    <TicketNewButton size='lg' />
+                    <TicketNewModal size='lg' />
                 </div>
             </main>
         );
@@ -44,7 +44,7 @@ const TicketsPage = () => {
 
     return (
         <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-neutral-100'>
-            <TicketNewButton size='md' />
+            <TicketNewModal size='md' />
             <div className='rounded-md p-4 bg-white shadow-project-card my-4'>
                 {isMobile ? (
                     <TicketTable columns={columnsMobile} data={data.tickets} />

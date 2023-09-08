@@ -12,25 +12,25 @@ import {
     AlertDialogTrigger,
 } from '@/components/ui';
 import { useToast } from '@/components/ui/use-toast';
-import { useDeleteProjectMutation } from '@/features/api/apiSlice';
+import { useLeaveProjectMutation } from '@/features/api/apiSlice';
 import { logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError } from '@/utils/types';
 
-const ProjectDeleteButton = () => {
+const ProjectLeaveModal = () => {
     const { project_id } = useParams();
     const { toast } = useToast();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [deleteProject] = useDeleteProjectMutation();
+    const [leaveProject] = useLeaveProjectMutation();
 
-    const handleDeleteProject = async () => {
-        await deleteProject({ project_id: Number(project_id) })
+    const handleLeaveProject = async () => {
+        await leaveProject(project_id || '')
             .unwrap()
             .then(() => {
                 navigate('/app/projects');
                 toast({
-                    title: 'Project deleted',
+                    title: 'You have left the project',
                 });
             })
             .catch(async (error: DefaultAPIError) => {
@@ -45,13 +45,13 @@ const ProjectDeleteButton = () => {
                     navigate('/auth/login');
                 } else if (error.status === 403) {
                     toast({
-                        title: 'You are not authorized to delete this project',
+                        title: 'Manager cannot leave the project',
                         variant: 'destructive',
                     });
                     navigate('/app/projects');
                 } else {
                     toast({
-                        title: 'Failed to delete the project',
+                        title: 'Failed to leave the project',
                         description: 'Please try again later',
                         variant: 'destructive',
                     });
@@ -62,19 +62,19 @@ const ProjectDeleteButton = () => {
     return (
         <AlertDialog>
             <AlertDialogTrigger className='bg-destructive text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-red-600'>
-                Delete Project
+                Leave Project
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription className='text-neutral-600'>
-                        This action cannot be undone. This will permanently delete the project and all the tickets associated with it.
+                        All the tickets assigned to you will be unassigned and you lose access to project page.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction className='bg-destructive hover:bg-destructive/90' onClick={handleDeleteProject}>
-                        Delete
+                    <AlertDialogAction className='bg-destructive hover:bg-destructive/90' onClick={handleLeaveProject}>
+                        Leave
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
@@ -82,4 +82,4 @@ const ProjectDeleteButton = () => {
     );
 };
 
-export default ProjectDeleteButton;
+export default ProjectLeaveModal;

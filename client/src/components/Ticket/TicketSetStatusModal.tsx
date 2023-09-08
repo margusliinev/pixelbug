@@ -27,32 +27,27 @@ import { useUpdateTicketMutation } from '@/features/api/apiSlice';
 import { logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError, StatusEnum, Ticket } from '@/utils/types';
+import { updateStatusFormSchema } from '@/utils/zodSchemas';
 
 import { SpinnerButton } from '..';
 import { useToast } from '../ui/use-toast';
 
-const TicketSetStatusButton = ({ ticket, type }: { ticket: Ticket; type: string }) => {
+const TicketSetStatusModal = ({ ticket, type }: { ticket: Ticket; type: string }) => {
     const [updateTicket, { isLoading }] = useUpdateTicketMutation();
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { toast } = useToast();
 
-    const StatusEnum = ['unassigned', 'assigned', 'in_development', 'on_hold', 'resolved'] as const;
-
-    const updateTicketFormSchema = z.object({
-        status: z.enum(StatusEnum).refine((value) => StatusEnum.includes(value), { message: 'Please select ticket status' }),
-    });
-
-    const form = useForm<z.infer<typeof updateTicketFormSchema>>({
-        resolver: zodResolver(updateTicketFormSchema),
+    const form = useForm<z.infer<typeof updateStatusFormSchema>>({
+        resolver: zodResolver(updateStatusFormSchema),
         defaultValues: {
             status: ticket.status,
         },
     });
 
-    const submitForm = async (ticketData: z.infer<typeof updateTicketFormSchema>) => {
-        if (updateTicketFormSchema.safeParse(ticketData).success) {
+    const submitForm = async (ticketData: z.infer<typeof updateStatusFormSchema>) => {
+        if (updateStatusFormSchema.safeParse(ticketData).success) {
             const values = {
                 title: ticket.title,
                 description: ticket.description,
@@ -149,4 +144,4 @@ const TicketSetStatusButton = ({ ticket, type }: { ticket: Ticket; type: string 
     );
 };
 
-export default TicketSetStatusButton;
+export default TicketSetStatusModal;

@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import z from 'zod';
 
 import {
@@ -28,46 +28,42 @@ import {
     PopoverTrigger,
     Textarea,
 } from '@/components/ui';
-import { useCreateProjectMutation } from '@/features/api/apiSlice';
+import { useUpdateProjectMutation } from '@/features/api/apiSlice';
 import { logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
-import { DefaultAPIError } from '@/utils/types';
-import { createProjectFormSchema } from '@/utils/zodSchemas';
+import { DefaultAPIError, ProjectAPIResponse } from '@/utils/types';
+import { updateProjectFormSchema } from '@/utils/zodSchemas';
 
-import { SpinnerButton } from '../../components';
+import { SpinnerButton } from '..';
 import { useToast } from '../ui/use-toast';
 
-const ProjectNewButton = ({ size }: { size: string }) => {
-    const [createProject, { isLoading }] = useCreateProjectMutation();
+const ProjectUpdateModal = ({ data }: { data: ProjectAPIResponse }) => {
+    const [updateProject, { isLoading }] = useUpdateProjectMutation();
     const [open, setOpen] = useState(false);
+    const { project_id } = useParams();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { toast } = useToast();
 
-    const form = useForm<z.infer<typeof createProjectFormSchema>>({
-        resolver: zodResolver(createProjectFormSchema),
+    const form = useForm<z.infer<typeof updateProjectFormSchema>>({
+        resolver: zodResolver(updateProjectFormSchema),
         defaultValues: {
-            title: '',
-            description: '',
-            start_date: null,
-            end_date: null,
+            title: data.project.title,
+            description: data.project.description,
+            start_date: new Date(data.project.start_date).setHours(0, 0, 0, 0),
+            end_date: new Date(data.project.end_date).setHours(0, 0, 0, 0),
         },
     });
 
-    const submitForm = async (values: z.infer<typeof createProjectFormSchema>) => {
-        if (createProjectFormSchema.safeParse(values).success) {
-            await createProject({
-                title: values.title,
-                description: values.description,
-                start_date: values.start_date,
-                end_date: values.end_date,
-            })
+    const submitForm = async (values: z.infer<typeof updateProjectFormSchema>) => {
+        if (updateProjectFormSchema.safeParse(values).success) {
+            await updateProject({ values, project_id: project_id || '' })
                 .unwrap()
                 .then((res) => {
                     if (res.success) {
                         form.reset();
                         toast({
-                            title: 'Project created successfully',
+                            title: 'Successfully updated the project',
                         });
                         setOpen(false);
                     }
@@ -78,7 +74,7 @@ const ProjectNewButton = ({ size }: { size: string }) => {
                         navigate('/auth/login');
                     }
                     toast({
-                        title: 'Failed to create the project',
+                        title: 'Failed to updated the project',
                         description: 'Please try again later',
                         variant: 'destructive',
                     });
@@ -86,47 +82,34 @@ const ProjectNewButton = ({ size }: { size: string }) => {
         }
     };
 
+    // This useEffect is necessary to update the data in the update project modal after we have first updated the project
+
+    useEffect(() => {
+        if (data.project) {
+            form.reset({
+                title: data.project.title,
+                description: data.project.description,
+                start_date: new Date(data.project.start_date).setHours(0, 0, 0, 0),
+                end_date: new Date(data.project.end_date).setHours(0, 0, 0, 0),
+            });
+        }
+    }, [data, form]);
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger
-                className={
-                    size === 'sm'
-                        ? 'bg-primary text-white transition-colors w-fit h-9 px-3 py-2 rounded-sm text-sm font-medium hover:bg-primary-hover-dark whitespace-nowrap'
-                        : size === 'md'
-                        ? 'bg-primary text-white transition-colors w-fit h-10 px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark whitespace-nowrap'
-                        : 'bg-primary text-white transition-colors w-fit h-10 px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark whitespace-nowrap flex items-center gap-1'
-                }
-            >
-                {size === 'sm' ? (
-                    'New Project'
-                ) : size === 'md' ? (
-                    'New Project'
-                ) : (
-                    <>
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            fill='none'
-                            viewBox='0 0 24 24'
-                            strokeWidth='2'
-                            stroke='currentColor'
-                            className='w-5 h-5'
-                        >
-                            <path strokeLinecap='round' strokeLinejoin='round' d='M12 4.5v15m7.5-7.5h-15' />
-                        </svg>
-                        <span className='font-medium text-sm'>New Project</span>
-                    </>
-                )}
+            <DialogTrigger className='bg-primary text-white transition-colors w-fit px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-hover-dark'>
+                Update Project
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>New Project</DialogTitle>
+                    <DialogTitle>Update Project</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(submitForm)} className='grid space-y-6' noValidate>
                         <FormField
                             name='title'
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className='px-1'>
                                     <FormLabel>Project Name</FormLabel>
                                     <FormControl>
                                         <Input type='text' {...field} />
@@ -139,10 +122,10 @@ const ProjectNewButton = ({ size }: { size: string }) => {
                             control={form.control}
                             name='description'
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className='px-1'>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea className='h-32' {...field} />
+                                        <Textarea className='h-64' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -154,7 +137,7 @@ const ProjectNewButton = ({ size }: { size: string }) => {
                                     control={form.control}
                                     name='start_date'
                                     render={({ field }) => (
-                                        <FormItem className='flex flex-col w-fit'>
+                                        <FormItem className='flex flex-col px-1 w-fit'>
                                             <FormLabel>Start Date</FormLabel>
                                             <Popover>
                                                 <PopoverTrigger asChild>
@@ -172,8 +155,7 @@ const ProjectNewButton = ({ size }: { size: string }) => {
                                                         onSelect={field.onChange}
                                                         initialFocus
                                                         disabled={(date) =>
-                                                            date < new Date(Date.now() - 86400000) ||
-                                                            (date > form.getValues('end_date') && form.getValues('end_date') !== null)
+                                                            date < new Date(Date.now() - 86400000) || date > form.getValues('end_date')
                                                         }
                                                     />
                                                 </PopoverContent>
@@ -214,8 +196,8 @@ const ProjectNewButton = ({ size }: { size: string }) => {
                                     )}
                                 />
                             </div>
-                            <Button type='submit' className='mt-4 w-full xs-550:w-32'>
-                                {isLoading ? <SpinnerButton /> : 'Create Project'}
+                            <Button type='submit' className='mt-4 w-full xs-550:w-36'>
+                                {isLoading ? <SpinnerButton /> : 'Update Project'}
                             </Button>
                         </div>
                     </form>
@@ -225,4 +207,4 @@ const ProjectNewButton = ({ size }: { size: string }) => {
     );
 };
 
-export default ProjectNewButton;
+export default ProjectUpdateModal;

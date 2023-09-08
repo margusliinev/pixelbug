@@ -15,14 +15,14 @@ import NavbarMobileMenu from './Navbar/NavbarMobileMenu';
 import NavbarSearch from './Navbar/NavbarSearch';
 import NavbarUserButton from './Navbar/NavbarUserButton';
 import ProjectCard from './Project/ProjectCard';
-import ProjectDeleteButton from './Project/ProjectDeleteButton';
-import ProjectLeaveButton from './Project/ProjectLeaveButton';
+import ProjectDeleteModal from './Project/ProjectDeleteModal';
+import ProjectLeaveModal from './Project/ProjectLeaveModal';
 import ProjectList from './Project/ProjectList';
 import ProjectManagementButtons from './Project/ProjectManagementButtons';
-import ProjectNewButton from './Project/ProjectNewButton';
+import ProjectNewModal from './Project/ProjectNewModal';
 import ProjectTeam from './Project/ProjectTeam';
-import ProjectUpdateButton from './Project/ProjectUpdateButton';
-import ProjectUsersButton from './Project/ProjectUsersButton';
+import ProjectUpdateModal from './Project/ProjectUpdateModal';
+import ProjectUsersModal from './Project/ProjectUsersModal';
 import SidebarDesktop from './Sidebar/SidebarDesktop';
 import SidebarLinks from './Sidebar/SidebarLinks';
 import SidebarMobile from './Sidebar/SidebarMobile';
@@ -32,11 +32,11 @@ import SpinnerSearch from './SpinnerSearch';
 import TicketDeleteButton from './Ticket/TicketDeleteButton';
 import TicketDetails from './Ticket/TicketDetails';
 import TicketManagementButtons from './Ticket/TicketManagementButtons';
-import TicketNewButton from './Ticket/TicketNewButton';
+import TicketNewModal from './Ticket/TicketNewModal';
 import TicketPriority from './Ticket/TicketPriority';
-import TicketSetStatusButton from './Ticket/TicketSetStatusButton';
+import TicketSetStatusModal from './Ticket/TicketSetStatusModal';
 import TicketStatus from './Ticket/TicketStatus';
-import TicketUpdateButton from './Ticket/TicketUpdateButton';
+import TicketUpdateModal from './Ticket/TicketUpdateModal';
 
 export {
     AccountAvatar,
@@ -55,14 +55,14 @@ export {
     NavbarSearch,
     NavbarUserButton,
     ProjectCard,
-    ProjectDeleteButton,
-    ProjectLeaveButton,
+    ProjectDeleteModal,
+    ProjectLeaveModal,
     ProjectList,
     ProjectManagementButtons,
-    ProjectNewButton,
+    ProjectNewModal,
     ProjectTeam,
-    ProjectUpdateButton,
-    ProjectUsersButton,
+    ProjectUpdateModal,
+    ProjectUsersModal,
     SidebarDesktop,
     SidebarLinks,
     SidebarMobile,
@@ -73,9 +73,9 @@ export {
     TicketDeleteButton,
     TicketDetails,
     TicketManagementButtons,
-    TicketNewButton,
+    TicketNewModal,
     TicketPriority,
-    TicketSetStatusButton,
+    TicketSetStatusModal,
     TicketStatus,
-    TicketUpdateButton,
+    TicketUpdateModal,
 };

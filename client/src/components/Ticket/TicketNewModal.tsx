@@ -31,10 +31,10 @@ import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError, PriorityEnum } from '@/utils/types';
 import { createTicketFormSchema } from '@/utils/zodSchemas';
 
-import { SpinnerButton } from '../../components';
+import { SpinnerButton } from '..';
 import { useToast } from '../ui/use-toast';
 
-const TicketNewButton = ({ size }: { size: string }) => {
+const TicketNewModal = ({ size }: { size: string }) => {
     const [createTicket, { isLoading }] = useCreateTicketMutation();
     const { data } = useGetAllProjectsQuery(undefined);
     const [open, setOpen] = useState(false);
@@ -212,4 +212,4 @@ const TicketNewButton = ({ size }: { size: string }) => {
     );
 };
 
-export default TicketNewButton;
+export default TicketNewModal;

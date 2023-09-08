@@ -29,34 +29,18 @@ import { useGetProjectUsersQuery, useUpdateTicketMutation } from '@/features/api
 import { logoutUser } from '@/features/user/userSlice';
 import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError, PriorityEnum, StatusEnum, Ticket } from '@/utils/types';
+import { updateTicketFormSchema } from '@/utils/zodSchemas';
 
 import { SpinnerButton } from '..';
 import { useToast } from '../ui/use-toast';
 
-const TicketUpdateButton = ({ ticket }: { ticket: Ticket }) => {
+const TicketUpdateModal = ({ ticket }: { ticket: Ticket }) => {
     const { data } = useGetProjectUsersQuery(ticket.project_id.toString());
     const [updateTicket, { isLoading }] = useUpdateTicketMutation();
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { toast } = useToast();
-
-    const projectUsers = data?.projectUsers.map((user) => {
-        return user.user_id.toString();
-    });
-
-    const PriorityEnum = ['low', 'medium', 'high', 'critical'] as const;
-    const StatusEnum = ['unassigned', 'assigned', 'in_development', 'on_hold', 'resolved'] as const;
-    const AssignedUserEnum = [ticket.assigned_user_id ? ticket.assigned_user_id.toString() : '', ...(projectUsers ?? '')] as const;
-
-    const updateTicketFormSchema = z.object({
-        title: z.string().trim().min(1, { message: 'Please enter ticket title' }),
-        description: z.string().trim().min(1, { message: 'Please enter ticket description' }),
-        priority: z.enum(PriorityEnum).refine((value) => PriorityEnum.includes(value), { message: 'Please select ticket priority' }),
-        status: z.enum(StatusEnum).refine((value) => StatusEnum.includes(value), { message: 'Please select ticket status' }),
-        assigned_user_id: z.enum(AssignedUserEnum).optional(),
-        completed_date: z.date().optional(),
-    });
 
     const form = useForm<z.infer<typeof updateTicketFormSchema>>({
         resolver: zodResolver(updateTicketFormSchema),
@@ -251,4 +235,4 @@ const TicketUpdateButton = ({ ticket }: { ticket: Ticket }) => {
     );
 };
 
-export default TicketUpdateButton;
+export default TicketUpdateModal;

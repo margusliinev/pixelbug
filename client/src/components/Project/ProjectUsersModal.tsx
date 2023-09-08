@@ -28,7 +28,7 @@ import { useAppDispatch } from '@/utils/hooks';
 import { DefaultAPIError, User } from '@/utils/types';
 import { manageProjectUsersFormSchema } from '@/utils/zodSchemas';
 
-import { SpinnerButton } from '../../components';
+import { SpinnerButton } from '..';
 import { useToast } from '../ui/use-toast';
 
 interface Users {
@@ -45,7 +45,7 @@ const searchState = {
     searchTerm: '',
 };
 
-const ProjectUsersButton = () => {
+const ProjectUsersModal = () => {
     const { project_id } = useParams();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -303,4 +303,4 @@ const ProjectUsersButton = () => {
     );
 };
 
-export default ProjectUsersButton;
+export default ProjectUsersModal;

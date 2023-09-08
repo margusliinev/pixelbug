@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { ProjectLeaveButton, ProjectManagementButtons, ProjectTeam, SpinnerPage } from '@/components';
+import { ProjectLeaveModal, ProjectManagementButtons, ProjectTeam, SpinnerPage } from '@/components';
 import { TicketTable } from '@/components/Project/ProjectTicketTable';
 import { useGetSingleProjectQuery } from '@/features/api/apiSlice';
 import { useAppSelector } from '@/utils/hooks';
@@ -54,7 +54,7 @@ const ProjectPage = () => {
                     <span>All Projects</span>
                 </Link>
                 {user?.user_id === data.project.manager.user_id && <ProjectManagementButtons data={data} />}
-                {user?.user_id !== data.project.manager.user_id && <ProjectLeaveButton />}
+                {user?.user_id !== data.project.manager.user_id && <ProjectLeaveModal />}
             </div>
             <div className='rounded-md p-4 shadow-project-card bg-white my-4'>
                 <header>

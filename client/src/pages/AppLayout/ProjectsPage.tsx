@@ -1,4 +1,4 @@
-import { ProjectList, ProjectNewButton, SpinnerPage } from '@/components';
+import { ProjectList, ProjectNewModal, SpinnerPage } from '@/components';
 import { useGetAllProjectsQuery } from '@/features/api/apiSlice';
 
 const ProjectsPage = () => {
@@ -32,7 +32,7 @@ const ProjectsPage = () => {
                     </svg>
                     <h1 className='font-semibold text-sm mb-1'>No projects</h1>
                     <h2 className='text-neutral-500 mb-5 text-sm'>Get started by creating a new project</h2>
-                    <ProjectNewButton size='lg' />
+                    <ProjectNewModal size='lg' />
                 </div>
             </main>
         );
@@ -40,7 +40,7 @@ const ProjectsPage = () => {
 
     return (
         <main className='px-6 py-10 xs:px-8 lg:px-12 xl:px-16 min-h-screen-minus-nav bg-neutral-100'>
-            <ProjectNewButton size='md' />
+            <ProjectNewModal size='md' />
             <ProjectList data={data} />
         </main>
     );
