@@ -16,38 +16,50 @@ const initialState: UserState = {
 
 // Get user info and set it to state
 
-const getUser = createAsyncThunk<UserAPIResponse>('user/getUser', async () => {
-    const response = await fetch('/api/v1/users/me', {
-        method: 'GET',
-    });
-    const data = response.json();
-    return data;
+const getUser = createAsyncThunk<UserAPIResponse>('user/getUser', async (_, thunkAPI) => {
+    try {
+        const response = await fetch('/api/v1/users/me', {
+            method: 'GET',
+        });
+        const data = response.json();
+        return data;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error);
+    }
 });
 
 // Remove user from state, delete user from database and reset token
 
-const deleteUser = createAsyncThunk<DefaultAPIResponse>('user/deleteUser', async () => {
-    const response = await fetch('/api/v1/users/me', {
-        method: 'DELETE',
-        headers: {
-            'Clear-Site-Data': '"cache", "cookies", "storage", "executionContexts"',
-        },
-    });
-    const data = response.json();
-    return data;
+const deleteUser = createAsyncThunk<DefaultAPIResponse>('user/deleteUser', async (_, thunkAPI) => {
+    try {
+        const response = await fetch('/api/v1/users/me', {
+            method: 'DELETE',
+            headers: {
+                'Clear-Site-Data': '"cache", "cookies", "storage", "executionContexts"',
+            },
+        });
+        const data = response.json();
+        return data;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error);
+    }
 });
 
 // Remove user from state and reset token
 
-const logoutUser = createAsyncThunk<DefaultAPIResponse>('user/logoutUser', async () => {
-    const response = await fetch('/api/v1/auth/logout', {
-        method: 'POST',
-        headers: {
-            'Clear-Site-Data': '"cache", "cookies", "storage", "executionContexts"',
-        },
-    });
-    const data = response.json();
-    return data;
+const logoutUser = createAsyncThunk<DefaultAPIResponse>('user/logoutUser', async (_, thunkAPI) => {
+    try {
+        const response = await fetch('/api/v1/auth/logout', {
+            method: 'POST',
+            headers: {
+                'Clear-Site-Data': '"cache", "cookies", "storage", "executionContexts"',
+            },
+        });
+        const data = response.json();
+        return data;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error);
+    }
 });
 
 const userSlice = createSlice({

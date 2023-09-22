@@ -63,7 +63,7 @@ const NavbarSearch = () => {
                     onBlur={() => {
                         setTimeout(() => {
                             setIsSearchboxOpen(false);
-                        }, 100);
+                        }, 150);
                     }}
                 />
                 <div

@@ -29,7 +29,6 @@ const AccountProfile = () => {
                     toast({
                         title: 'Your account was successfully deleted',
                     });
-                    navigate('/auth/login');
                 } else if (res.msg.startsWith('Demo')) {
                     toast({
                         title: `${res.msg}`,
@@ -38,16 +37,13 @@ const AccountProfile = () => {
                     });
                 }
             })
-            .catch(async (error: DefaultAPIError) => {
+            .catch((error: DefaultAPIError) => {
                 if (error.status === 400 && error.data.type === 'demo') {
                     toast({
                         title: `${error.data.msg}`,
                         description: 'Please create an account',
                         variant: 'destructive',
                     });
-                } else if (error.status === 401) {
-                    await dispatch(logoutUser());
-                    navigate('/auth/login');
                 } else {
                     toast({
                         title: `Something went wrong`,
@@ -56,6 +52,8 @@ const AccountProfile = () => {
                     });
                 }
             });
+        await dispatch(logoutUser());
+        navigate('/auth/login');
     };
 
     return (
